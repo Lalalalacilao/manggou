@@ -192,4 +192,10 @@
   transition: all 0.3s;
   margin-left: -96rpx;
 }
+.tips {
+  height: 100rpx;
+  width: 100%;
+  text-align: center;
+  line-height: 100rpx;
+}
 

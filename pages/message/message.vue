@@ -3,7 +3,7 @@
 		<view class="top">
 			<view class="status_bar"></view>
 			<view class="top_title clear">
-				<view class="title float">消息</view>
+				<view class="title float">分销</view>
 				<view class="clear_mess float" @click="toClear">
 					<image src="../../static/message/清除@2x.png" mode=""></image>
 				</view>
@@ -59,18 +59,10 @@
 					<image src="../../static/message/删除@2x.png" mode="aspectFit"></image>
 				</view>
 			</view>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		</view>
-		
+		<view class="tips">
+			暂未开放~
+		</view>
 		
 		
 		
@@ -83,36 +75,36 @@
 		data() {
 			return {
 				messageList: [
-					{
-						id: "001",
-						head: "../../static/forum/161686722521_.pic@2x.png",
-						nikename: "亚历山大亚",
-						lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
-						date: "06-03",
-						goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
-						news: "3",
-						isDelete: false,
-					},
-					{
-						id: "002",
-						head: "../../static/forum/161686722521_.pic@2x.png",
-						nikename: "亚历山大亚",
-						lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
-						date: "06-03",
-						goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
-						news: "3",
-						isDelete: false,
-					},
-					{
-						id: "003",
-						head: "../../static/forum/161686722521_.pic@2x.png",
-						nikename: "亚历山大亚",
-						lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
-						date: "06-03",
-						goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
-						news: "3",
-						isDelete: false,
-					},
+					// {
+					// 	id: "001",
+					// 	head: "../../static/forum/161686722521_.pic@2x.png",
+					// 	nikename: "亚历山大亚",
+					// 	lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
+					// 	date: "06-03",
+					// 	goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
+					// 	news: "3",
+					// 	isDelete: false,
+					// },
+					// {
+					// 	id: "002",
+					// 	head: "../../static/forum/161686722521_.pic@2x.png",
+					// 	nikename: "亚历山大亚",
+					// 	lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
+					// 	date: "06-03",
+					// 	goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
+					// 	news: "3",
+					// 	isDelete: false,
+					// },
+					// {
+					// 	id: "003",
+					// 	head: "../../static/forum/161686722521_.pic@2x.png",
+					// 	nikename: "亚历山大亚",
+					// 	lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
+					// 	date: "06-03",
+					// 	goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
+					// 	news: "3",
+					// 	isDelete: false,
+					// },
 				],
 				isDelete: false,
 				
@@ -351,6 +343,15 @@
 	transition: all 0.3s;
 	margin-left: -96rpx;
 }
+
+.tips {
+	height: 100rpx;
+	width: 100%;
+	text-align: center;
+	line-height: 100rpx;
+}
+
+
 
 
 

@@ -1,0 +1,125 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index"
+		}
+	    ,{
+            "path" : "pages/message/message"
+        }
+        ,{
+            "path" : "pages/forum/forum"
+        }
+        ,{
+            "path" : "pages/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            } 
+        },
+		{
+		    "path" : "pages/productDetalis/productDetalis",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/searcchResult/searcchResult",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/release/release",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/address/address",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},		
+		{
+		    "path" : "pages/problemFeedback/problemFeedback",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+
+
+
+
+        ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/addAddress/addAddress",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+
+    ],
+	"globalStyle": {
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		// "custom": true,
+		"backgroundColor": "#ffffff",
+		"height": "196rpx",
+		// "midButton": {
+		// 	"width": "144rpx",
+		// 	"height": "144rpx",			
+		// 	"iconPath": "static/组件 20 – 7@2x.png",
+		// 	"iconWidth": "116rpx"
+		// },
+		"list": [
+			{	//首页
+				"pagePath": "pages/index/index"
+				// "iconPath": "static/1@2x.png",
+				// "selectedIconPath": "static/1=3@3x.png"
+			},
+			{	// 论坛
+				"pagePath": "pages/forum/forum"
+				// "iconPath": "static/2@2x.png",
+				// "selectedIconPath": "static/论坛@2x.png"
+			},
+			{	// 消息列表
+				"pagePath": "pages/message/message"
+				// "iconPath": "static/3@2x.png",
+				// "selectedIconPath": "static/消息@2x.png"
+			},
+			{	// 个人中心
+				"pagePath": "pages/personal/personal"
+				// "iconPath": "static/4@2x.png",
+				// "selectedIconPath": "static/4-2@2x.png"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}

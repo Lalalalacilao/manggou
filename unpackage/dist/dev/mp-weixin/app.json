@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/message/message",
+    "pages/forum/forum",
+    "pages/personal/personal",
+    "pages/productDetalis/productDetalis",
+    "pages/searcchResult/searcchResult",
+    "pages/release/release",
+    "pages/address/address",
+    "pages/problemFeedback/problemFeedback",
+    "pages/login/login",
+    "pages/addAddress/addAddress"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "height": "196rpx",
+    "list": [
+      {
+        "pagePath": "pages/index/index"
+      },
+      {
+        "pagePath": "pages/forum/forum"
+      },
+      {
+        "pagePath": "pages/message/message"
+      },
+      {
+        "pagePath": "pages/personal/personal"
+      }
+    ]
+  },
+  "usingComponents": {
+    "tab-bar": "/components/tabBar"
+  }
+}

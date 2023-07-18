@@ -1,0 +1,138 @@
+.mt-EditInformation{
+	width: 750rpx;
+	// 头
+	.mt-EditInformation-head{
+		width: 100%;
+		height: 460rpx;
+		background-size: 100%;
+		display: flex;
+		// justify-content: center;
+		// align-items: center;
+		flex-direction: column;
+		// 文字
+		.mt-EditInformation-head-text{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 35rpx;
+			font-weight: 600;
+			letter-spacing: 2rpx;
+			padding-top: 120rpx;
+			image{
+				width: 50rpx;
+				height: 50rpx;
+				margin: 0 20rpx 0rpx 20rpx; 
+			}
+		}
+		// 头像
+		.mt-EditInformation-head-img{
+			z-index: 1;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			padding-top:95rpx ;
+			image{
+				background-color: #fff;
+				background-size: 100%;
+				max-width: 100%;
+				max-height: 100%;
+				width: 180rpx;
+				height: 180rpx;
+				border-radius: 50%;
+				border: #fff solid 6rpx;
+				box-shadow: 5rpx 5rpx 5rpx 5rpx rgba(0,0,0,0.02);
+			}
+		}
+		// 添加头像
+		.mt-EditInformation-head-addimg{
+			z-index: 1;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			// padding-top:200rpx ;
+			align-items: center;
+			view{
+				// margin-top: -60rpx;
+				position: relative;
+				bottom: 60rpx;
+				margin-left: 120rpx;
+				width: 70rpx;
+				height: 70rpx;
+				background-color: #fff;
+				border-radius: 50%;
+				border: rgba(0,0,0,0.02) solid 6rpx;
+				box-shadow: 5rpx 5rpx 5rpx 5rpx rgba(0,0,0,0.02);
+				text-align: center;
+				line-height: 65rpx;
+				image{
+					width: 40rpx;
+					height: 30rpx;
+				}
+			}
+			
+		}
+	}
+	// 内容
+	.mt-EditInformation-body{
+		position: relative;
+		bottom: 100rpx;
+		background-color: #fff;
+		border-radius: 40rpx 40rpx 0rpx 0rpx;
+		min-height:1000rpx;
+		.mt-EditInformation-con{
+			padding-top:150rpx ;
+			margin: 10rpx;
+			padding-left:35rpx ;
+			padding-right: 35rpx;
+			// 个人信息
+			.mt-EditInformation-title{
+				font-size: 40rpx;
+				letter-spacing: 3rpx;
+				font-weight: 600;
+				margin-bottom: 60rpx;
+			}
+			// 昵称,电话
+			.mt-EditInformation-input{
+				margin-bottom: 20rpx;
+				font-weight: 500;
+				view{
+					font-size: 35rpx;
+					margin-bottom: 30rpx;
+				}
+				input{
+					height: 46rpx;
+					border-radius: 36rpx;
+					border: #E0E0E0 solid 2rpx;
+					padding: 20rpx;
+					margin-bottom: 40rpx;
+					color: #666666;
+				}
+			}
+			// button
+			.mt-EditInformation-button{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 80rpx;
+				button:nth-child(1){
+					background-color: #fff;
+					border: 2rpx solid #E0E0E0;
+					margin-right: 24rpx;
+					font-size: 35rpx;
+					border-radius: 46rpx;
+					width: 286rpx;
+					height: 95rpx;
+				}
+				button:nth-child(2){
+					background-color: #f2d86d;
+					box-shadow: 0rpx 16rpx 55rpx -20rpx #f2d86d;
+					font-size: 35rpx;
+					border-radius: 46rpx;
+					width: 286rpx;
+					height: 95rpx;
+				}
+			}
+		}
+		
+	}
+}

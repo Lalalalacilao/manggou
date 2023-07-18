@@ -19,7 +19,7 @@
     "condition": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.32.3",
+  "libVersion": "3.0.0",
   "appid": "wx506c4c96db8852f6",
   "projectname": "manggou-wachat",
   "condition": {},

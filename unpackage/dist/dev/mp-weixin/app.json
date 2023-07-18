@@ -10,7 +10,11 @@
     "pages/address/address",
     "pages/problemFeedback/problemFeedback",
     "pages/login/login",
-    "pages/addAddress/addAddress"
+    "pages/addAddress/addAddress",
+    "pages/allOrder/allOrder",
+    "pages/Customer/Customer",
+    "pages/EditInformation/EditInformation",
+    "pages/AfterSales/AfterSales"
   ],
   "subPackages": [],
   "window": {

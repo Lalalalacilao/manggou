@@ -49,5 +49,17 @@ export default {
 	// 根据id查询商品信息
 	selectOneGoods(params) {
 		return request("/goods/selectOneGoods","GET",params);
+	},
+	// 根据订单状态查询订单信息
+	selectOrderByStatus(params) {
+		return request("/order/selectOrderByStatus","GET",params);
+	},
+	// 删除订单信息
+	deleteOrder(params) {
+		return request("/order/deleteOrder","GET",params);
+	},
+	//根据用户id查询订单数据
+	selectAllOrder(params) {
+		return request("/order/selectAllOrder","GET",params);
 	}
 }

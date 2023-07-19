@@ -9617,6 +9617,18 @@ var _default = {
   // 根据id查询商品信息
   selectOneGoods: function selectOneGoods(params) {
     return (0, _request.default)("/goods/selectOneGoods", "GET", params);
+  },
+  // 根据订单状态查询订单信息
+  selectOrderByStatus: function selectOrderByStatus(params) {
+    return (0, _request.default)("/order/selectOrderByStatus", "GET", params);
+  },
+  // 删除订单信息
+  deleteOrder: function deleteOrder(params) {
+    return (0, _request.default)("/order/deleteOrder", "GET", params);
+  },
+  //根据用户id查询订单数据
+  selectAllOrder: function selectAllOrder(params) {
+    return (0, _request.default)("/order/selectAllOrder", "GET", params);
   }
 };
 exports.default = _default;

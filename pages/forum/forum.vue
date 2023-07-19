@@ -57,7 +57,8 @@
 					</view>
 					<view class="operate clear">
 						<view class="like float">
-							<image src="../../static/forum/组件 53 – 1.png" mode=""></image>
+							<image src="../../static/forum/组件 53 – 1.png" mode="" v-if="flag == false " @click="like(flag)"></image>
+							<image src="../../static/allOrder/点赞-2.png" mode="" v-else @click="like(flag)"></image>
 							<text class="operate_num">42</text>
 						</view>
 						<view class="comment float">
@@ -110,9 +111,15 @@
 				isIphoneX: false,
 				pageNum_: 1,
 				loading: "",
+				flag:false,
 			};
 		},
 		methods: {
+			// 点赞
+			like(flag){
+				this.flag = !this.flag
+				console.log(this.flag,'0000');
+			},
 			topRelease() {
 				console.log("顶部发布按钮");
 				uni.navigateTo({

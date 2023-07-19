@@ -260,6 +260,17 @@
 								border-bottom:2rpx solid rgba(234, 238, 242, 1);
 							}
 						}
+						.mg-goodsCard-box-none{
+							padding-top: 200rpx;
+							display: flex;
+							justify-content: center;
+							flex-direction: column;
+							align-items: center;
+							image{
+								width: 200rpx;
+								height: 200rpx;
+							}
+						}
 					}
 				}
 			}

@@ -259,6 +259,7 @@ exports.default = void 0;
 //
 //
 //
+//
 
 var app = getApp();
 var _default = {
@@ -268,10 +269,16 @@ var _default = {
       // 图片展开按钮适配
       isIphoneX: false,
       pageNum_: 1,
-      loading: ""
+      loading: "",
+      flag: false
     };
   },
   methods: {
+    // 点赞
+    like: function like(flag) {
+      this.flag = !this.flag;
+      console.log(this.flag, '0000');
+    },
     topRelease: function topRelease() {
       console.log("顶部发布按钮");
       uni.navigateTo({

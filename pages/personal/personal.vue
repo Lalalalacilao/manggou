@@ -117,6 +117,7 @@
 					userName: "请先登录",
 					userAvatar: "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg",
 				},
+				userId:null
 			};
 		},
 		methods: {
@@ -135,35 +136,35 @@
 			allOrder(id) {
 				console.log("全部订单");
 				uni.navigateTo({
-					url:'/pages/allOrder/allOrder'
+					url:'/pages/allOrder/allOrder?userId=' + this.userId + '&curr=' + 0
 				})
 			},
 			// 待付款
 			obligation(id) {
 				console.log("待付款");
 				uni.navigateTo({
-					url:'/pages/allOrder/allOrder?curr=' + 1
+					url:'/pages/allOrder/allOrder?curr=' + 1 + '&userId=' + this.userId
 				})
 			},
 			// 待收货
 			goodsToBeRecceived(id) {
 				console.log("待收货");
 				uni.navigateTo({
-					url:'/pages/allOrder/allOrder?curr=' + 2
+					url:'/pages/allOrder/allOrder?curr=' + 2 + '&userId=' + this.userId
 				})
 			},
 			// 待评价
 			toBeEvaluated(id) {
 				console.log("待评价");
 				uni.navigateTo({
-					url:'/pages/allOrder/allOrder?curr=' + 3
+					url:'/pages/allOrder/allOrder?curr=' + 3 + '&userId=' + this.userId
 				})
 			},
 			// 已完成
 			complete(id) {
 				console.log("已完成");
 				uni.navigateTo({
-					url:'/pages/allOrder/allOrder?curr=' + 4
+					url:'/pages/allOrder/allOrder?curr=' + 4 + '&userId=' + this.userId
 				})
 			},
 			// 我的地址
@@ -211,6 +212,8 @@
 			const userInfoThis = uni.getStorageSync("userInfo");
 			if(userInfoThis !== "") {
 				this.userInfo = userInfoThis;
+				this.userId = userInfoThis.id
+				console.log(this.userInfo,'信息',this.userId);
 			}
 		}
 	}

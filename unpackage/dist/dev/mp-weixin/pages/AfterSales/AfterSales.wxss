@@ -263,4 +263,15 @@
 .mg-AfterSales .mg-AfterSales-content swiper swiper-item scroll-view .mg-goodsCard-box .mg-goodsCard .mg-line {
   border-bottom: 2rpx solid #eaeef2;
 }
+.mg-AfterSales .mg-AfterSales-content swiper swiper-item scroll-view .mg-goodsCard-box .mg-goodsCard-box-none {
+  padding-top: 200rpx;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.mg-AfterSales .mg-AfterSales-content swiper swiper-item scroll-view .mg-goodsCard-box .mg-goodsCard-box-none image {
+  width: 200rpx;
+  height: 200rpx;
+}
 

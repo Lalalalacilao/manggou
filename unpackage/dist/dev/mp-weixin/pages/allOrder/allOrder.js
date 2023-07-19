@@ -137,10 +137,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
 //
 //
 //
@@ -377,32 +379,206 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var app = getApp();
 var _default = {
   data: function data() {
     return {
       curr: 0,
       active: 0,
       taber: ['全部', '待付款', '待收货', '待评价', '已完成'],
-      myDeal: []
+      myDeal: [],
+      userId: null,
+      selectOrdedel: null,
+      flag: null,
+      selectAllOrdedel: [],
+      currs: null,
+      total: null,
+      page: 0,
+      list: null,
+      button: ''
     };
   },
   onLoad: function onLoad(option) {
-    if (this.curr = '') {
-      this.curr = 0;
-    } else {
-      this.curr = option.curr;
-    }
-    console.log(this.curr, '000');
+    this.userId = option.userId;
+    // console.log(this.userId,'用户id');
+    this.curr = option.curr;
+    this.getSelectOrderr();
   },
   methods: {
+    // 全部订单触底加载
+    lowerBottomAll: function lowerBottomAll() {
+      var _this = this;
+      console.log("搜索触底加载", this.total);
+      if (this.total > this.page * 6) {
+        this.page = this.page + 1;
+        console.log(this.page, '页数');
+        app.globalData.selectAllOrder({
+          pageNum: this.page,
+          pageSize: 4,
+          userId: this.userId
+        }).then(function (res) {
+          if (res.data !== undefined) {
+            var _this$selectAllOrdede;
+            var list = res.data.records;
+            (_this$selectAllOrdede = _this.selectAllOrdedel).push.apply(_this$selectAllOrdede, (0, _toConsumableArray2.default)(list));
+            console.log('res----', _this.selectAllOrdedel);
+          } else {
+            console.log('没有数据');
+          }
+        }).catch(function (err) {
+          console.log(err, 'err----');
+        });
+      } else {
+        uni.hideLoading();
+        console.log('到底了~');
+        this.button = '到底了~';
+      }
+    },
+    // 查询全部订单信息
+    getAllOrder: function getAllOrder() {
+      var _this2 = this;
+      app.globalData.selectAllOrder({
+        pageNum: 0,
+        pageSize: 4,
+        userId: this.userId
+      }).then(function (res) {
+        if (res.data !== undefined) {
+          _this2.selectAllOrdedel = res.data.records;
+          _this2.total = res.data.total;
+          console.log('res----', _this2.selectAllOrdedel);
+        } else {
+          console.log('没有数据');
+        }
+      }).catch(function (err) {
+        console.log(err, 'err----');
+      });
+    },
+    // 点击更多
+    deletedeal: function deletedeal(e) {
+      if (this.flag == e) {
+        this.flag = null;
+        console.log(this.flag, '111');
+      } else {
+        this.flag = e;
+        console.log(this.flag, '222');
+      }
+    },
+    // 删除订单
+    deleteOrder: function deleteOrder(id) {
+      // console.log(e,'删除订单--------');
+      this.flag = null;
+      var that = this;
+      uni.showModal({
+        title: '删除订单',
+        content: '确定删除该订单吗？',
+        showCancel: true,
+        success: function success(res) {
+          if (res.confirm) {
+            that.flag = !that.flag;
+            console.log('删除成功');
+            // app.globalData.deleteOrder({
+            // 	id: id,
+            // 	userId:that.userId ,
+            // }).then(res => {
+            // 	if(res.data !== undefined) {
+            // 		console.log(res.data,'res----');
+            // 	} else {
+            // 		console.log('没有数据');
+            // 	}
+            // }).catch(err => {
+            // 	console.log(err,'err----');
+            // })
+          } else if (res.cancel) {
+            console.log('删除成功');
+          }
+        }
+      });
+    },
     //swiper-item
     setCurr: function setCurr(e) {
       this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
-      console.log("@@@", this.curr);
+      this.getSelectOrderr();
+      // console.log("@@@",this.curr);
     },
     // 返回
     toBack: function toBack() {
       uni.navigateBack();
+    },
+    //订单
+    getSelectOrderr: function getSelectOrderr() {
+      var _this3 = this;
+      if (this.curr == 0) {
+        this.getAllOrder();
+        // console.log("@@@00",this.curr);
+      } else {
+        this.currs = this.curr - 1;
+        // console.log("@@@11",this.currs,this.curr);
+        app.globalData.selectOrderByStatus({
+          userId: this.userId,
+          status: this.currs
+        }).then(function (res) {
+          if (res.data !== undefined) {
+            var selectOrdedel = res.data;
+            _this3.selectOrdedel = selectOrdedel;
+            // const selectOrdedel = res.data
+            // this.selectOrdedel.push(selectOrdedel);
+            console.log('res----', _this3.selectOrdedel);
+          } else {
+            console.log('没有数据');
+          }
+        }).catch(function (err) {
+          console.log(err, 'err----');
+        });
+      }
     }
   }
 };

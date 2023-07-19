@@ -74,8 +74,9 @@
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1342rpx;">
 						<view class="mg-goodsCard-box">
 							<!-- 卡片循环 -->
-							<view class="" style="text-align: center;">
-								暂无待处理的售后/退款订单
+							<view class="mg-goodsCard-box-none" style="text-align: center;">
+								<image src="../../static/allOrder/没有订单.png"></image>
+								<view>暂无待处理的售后/退款订单</view>
 							</view>
 							
 						</view>

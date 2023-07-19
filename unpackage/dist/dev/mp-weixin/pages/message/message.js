@@ -213,45 +213,41 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
-      messageList: [{
-        id: "001",
-        head: "../../static/forum/161686722521_.pic@2x.png",
-        nikename: "亚历山大亚",
-        lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
-        date: "06-03",
-        goodsPreview: "../../static/index/81686624219_.pic@3x.png",
-        news: "3",
-        isDelete: false
-      }, {
-        id: "002",
-        head: "../../static/forum/161686722521_.pic@2x.png",
-        nikename: "亚历山大亚",
-        lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
-        date: "06-03",
-        goodsPreview: "../../static/index/81686624219_.pic@3x.png",
-        news: "3",
-        isDelete: false
-      }, {
-        id: "003",
-        head: "../../static/forum/161686722521_.pic@2x.png",
-        nikename: "亚历山大亚",
-        lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
-        date: "06-03",
-        goodsPreview: "../../static/index/81686624219_.pic@3x.png",
-        news: "3",
-        isDelete: false
-      }],
+      messageList: [
+        // {
+        // 	id: "001",
+        // 	head: "../../static/forum/161686722521_.pic@2x.png",
+        // 	nikename: "亚历山大亚",
+        // 	lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
+        // 	date: "06-03",
+        // 	goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
+        // 	news: "3",
+        // 	isDelete: false,
+        // },
+        // {
+        // 	id: "002",
+        // 	head: "../../static/forum/161686722521_.pic@2x.png",
+        // 	nikename: "亚历山大亚",
+        // 	lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
+        // 	date: "06-03",
+        // 	goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
+        // 	news: "3",
+        // 	isDelete: false,
+        // },
+        // {
+        // 	id: "003",
+        // 	head: "../../static/forum/161686722521_.pic@2x.png",
+        // 	nikename: "亚历山大亚",
+        // 	lastMes: "你你你你你，你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你你",
+        // 	date: "06-03",
+        // 	goodsPreview: "../../static/index/81686624219_.pic@3x.png", 
+        // 	news: "3",
+        // 	isDelete: false,
+        // },
+      ],
       isDelete: false,
       // 右滑控制变量
       startData: {

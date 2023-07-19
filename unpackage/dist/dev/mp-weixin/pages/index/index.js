@@ -339,6 +339,7 @@ var _default = {
       }).then(function (res) {
         var nextLenght = _this.productList.length;
         _this.productList = _this.productList.concat(res.data.records);
+        console.log(_this.productList);
         var obtain = res.data.records.length;
         _this.pageNum_++;
         if (_this.productList.length === nextLenght) {
@@ -358,7 +359,9 @@ var _default = {
       for (var i = 0 + this.productList.length - obtain; i < this.productList.length; i++) {
         var releaseDate = this.productList[i].createTime.split(" ");
         this.$set(this.productList[i], "release", "".concat(releaseDate[0]));
+        // 价格处理
         this.productList[i].price = this.productList[i].price + ".00";
+        // 图片处理
         if (this.productList[i].imgUrl !== null) {
           this.productList[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
         }
@@ -379,9 +382,7 @@ var _default = {
       this.userInfo = userInfoThis;
       console.log(this.userInfo);
       this.dataHandle();
-    } else {
-      this.getUserInfo();
-    }
+    } else {}
   }
 };
 exports.default = _default;

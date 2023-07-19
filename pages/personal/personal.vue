@@ -3,7 +3,7 @@
 		<!-- userinfo -->
 		<view class="top" style="background-image: url('../../static/personal center/组件 22 – 1@2x.png');">
 			<view class="status_bar"></view>
-			<view class="personal_info clear">
+			<view class="personal_info clear" @click="login">
 				<view class="head float_left" @click="head(userInfo.userId)">
 					<image :src="userInfo.userAvatar === null ? '' : userInfo.userAvatar" mode=""></image>
 				</view>
@@ -16,7 +16,7 @@
 					</view>
 				</view>
 				<view class="edit float_left" @click="edit(userInfo.userId)">
-					编辑
+					{{userInfo.userName === "请先登录" ? "登录" : "编辑"}}
 				</view>
 			</view>
 		</view>
@@ -115,7 +115,7 @@
 			return {
 				userInfo: {
 					userName: "请先登录",
-					userAvatar: "../../static/personal center/southeast.jpg",
+					userAvatar: "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg",
 				},
 			};
 		},
@@ -195,48 +195,23 @@
 				})
 				
 			},
-			// 获取用户信息
-			getUserInfo() {
-				const token = uni.getStorageSync("token");
-				if(token != null) {
-					app.globalData.getUserInfo().then(res => {
-						uni.setStorageSync("userInfo",res.data);
-						this.userInfo = res.data;
-						this.dataHandle();
-					}).catch(err => {
-						uni.showToast({
-							title: err.message,
-							icon: "none"
-						})
-					})
-				} else {
-					uni.showToast({
-						title: "请先登录",
-						icon: "none"
+			// 点击登录
+			login() {
+				if(this.userInfo.userName === "请先登录") {
+					uni.navigateTo({
+						url: "/pages/login/login"
 					})
 				}
 			},
-			dataHandle() {
-				if(this.userInfo.userAvatar === null) {
-					this.userInfo.userAvatar = "../../static/personal center/southeast.jpg";
-				}
-				if(this.userInfo.userName === null) {
-					this.userInfo.userName = "暂无姓名";
-				}
-			}
 		},
 		onLoad() {
+			
+		},
+		onShow() {
 			const userInfoThis = uni.getStorageSync("userInfo");
 			if(userInfoThis !== "") {
 				this.userInfo = userInfoThis;
-				console.log(this.userInfo);
-				this.dataHandle();
-			} else {
-				this.getUserInfo();
 			}
-		},
-		onShow() {
-			
 		}
 	}
 </script>

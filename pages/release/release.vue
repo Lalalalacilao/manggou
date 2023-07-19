@@ -98,9 +98,6 @@
 				uploadPreviewImage: [],
 				intr: "",
 				title:"",
-				user: {
-					userid: "111",
-				},
 				price: "0.00"
 			};
 		},
@@ -112,10 +109,16 @@
 			},
 			// 添加请求
 			add() {
+				const userInfo = uni.getStorageSync("userInfo");
 				// 发布帖子添加请求
 				if(this.type === "user") {
-					app.globalData.addCommunity({introduction : this.intr,imgs: JSON.stringify(this.uploadPreviewImage),userId : this.user.userid,})
-					.then(res => {
+					app.globalData.addCommunity({
+						introduction : this.intr,
+						imgs: JSON.stringify(this.uploadPreviewImage),
+						userId : userInfo.id,
+						userName: userInfo.userName,
+						userAvatar: userInfo.userAvatar,
+					}).then(res => {
 						uni.switchTab({
 							url: "/pages/forum/forum"
 						})
@@ -132,7 +135,9 @@
 						introduction : this.intr,
 						imgUrl: JSON.stringify(this.uploadPreviewImage),
 						price: +this.price,
-						userId: this.user.userid,
+						userId: userInfo.id,
+						userAvatar : userInfo.userAvatar,
+						userName: userInfo.userName
 					}).then(res => {
 						uni.showToast({
 							title: "发布成功",
@@ -166,6 +171,7 @@
 								token: uni.getStorageSync("token"),
 							},
 							success: (res) => {
+								console.log(res);
 								this.uploadPreviewImage.push(JSON.parse(res.data).url);
 							},
 							fail: (err) => {

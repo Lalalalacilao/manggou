@@ -47,11 +47,11 @@
 			
 			<view class="releaseUser clear">
 				<view class="head float_left" @click="personalIntr(productDetali.userId)">
-					<image :src="productDetali.releaseUser.head" mode=""></image>
+					<image :src="productDetali.userAvatar" mode=""></image>
 				</view>
 				<view class="middle float_left">
-					<view class="nickname" @click="personalIntr(productDetali.releaseUser.id)">
-						{{productDetali.releaseUser.nickname}}
+					<view class="nickname" @click="personalIntr(productDetali.userId)">
+						{{productDetali.userName}}
 					</view>
 					<view class="releaseDate">
 						{{productDetali.release}}&nbsp;发布
@@ -64,7 +64,7 @@
 			
 			<view class="comment_box clear">
 				<view class="comment_box_head float_left">
-					<image :src="currentUser.head" mode=""></image>
+					<image :src="currentUser.userAvatar" mode=""></image>
 				</view>
 				<input class="float_left" type="text" placeholder="说点什么吧~">
 			</view>
@@ -183,6 +183,7 @@
 </template>
 
 <script>
+const app = getApp();
 export default {
 	data() {
 		return {
@@ -209,78 +210,78 @@ export default {
 			},
 			// 评论
 			comment: [
-				{
-					id: 1001,
-					parentId: "",
-					remark:"我想要，可以支持线下交易吗？",
-					sendTime: "昨天 11:12",
-					user: {
-						userId: 1005,
-						head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-						nickname: "香蕉于大菠萝",
-						position: "陕西"
-					},
-				},
-				{
-					id: 1002,
-					parentId: 1001,// 回复信息的父id
-					remark:"可以的，联系我就好。",
-					sendTime: "昨天 17:23",
-					user: {
-						userId: 1002,
-						nickname: "Light Breeze",
-						head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-						position: "陕西"
-					},
-				},
-				{
-					id: 1003,
-					parentId: "",
-					remark:"这个怎么看看是不是正品？",
-					sendTime: "2023-01-23 11:12",
-					user: {
-						userId: 1005,
-						head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-						nickname: "翠鸟先猪猪",
-						position: "陕西"
-					},
-				},
-				{
-					id: 1004,
-					parentId: 1001,
-					remark:"这个怎么看看是不是正品？",
-					sendTime: "2023-01-23 11:12",
-					user: {
-						userId: 1005,
-						head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-						nickname: "翠鸟先猪猪",
-						position: "陕西"
-					},
-				},
-				{
-					id: 1005,
-					parentId: 1001,
-					remark:"这个怎么看看是不是正品？",
-					sendTime: "2023-01-23 11:12",
-					user: {
-						userId: 1005,
-						head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-						nickname: "翠鸟先猪猪",
-						position: "陕西"
-					},
-				},
-				{
-					id: 1006,
-					parentId: 1001,
-					remark:"这个怎么看看是不是正品？",
-					sendTime: "2023-01-23 11:12",
-					user: {
-						userId: 1005,
-						head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-						nickname: "翠鸟先猪猪",
-						position: "陕西"
-					},
-				}
+				// {
+				// 	id: 1001,
+				// 	parentId: "",
+				// 	remark:"我想要，可以支持线下交易吗？",
+				// 	sendTime: "昨天 11:12",
+				// 	user: {
+				// 		userId: 1005,
+				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
+				// 		nickname: "香蕉于大菠萝",
+				// 		position: "陕西"
+				// 	},
+				// },
+				// {
+				// 	id: 1002,
+				// 	parentId: 1001,// 回复信息的父id
+				// 	remark:"可以的，联系我就好。",
+				// 	sendTime: "昨天 17:23",
+				// 	user: {
+				// 		userId: 1002,
+				// 		nickname: "Light Breeze",
+				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
+				// 		position: "陕西"
+				// 	},
+				// },
+				// {
+				// 	id: 1003,
+				// 	parentId: "",
+				// 	remark:"这个怎么看看是不是正品？",
+				// 	sendTime: "2023-01-23 11:12",
+				// 	user: {
+				// 		userId: 1005,
+				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
+				// 		nickname: "翠鸟先猪猪",
+				// 		position: "陕西"
+				// 	},
+				// },
+				// {
+				// 	id: 1004,
+				// 	parentId: 1001,
+				// 	remark:"这个怎么看看是不是正品？",
+				// 	sendTime: "2023-01-23 11:12",
+				// 	user: {
+				// 		userId: 1005,
+				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
+				// 		nickname: "翠鸟先猪猪",
+				// 		position: "陕西"
+				// 	},
+				// },
+				// {
+				// 	id: 1005,
+				// 	parentId: 1001,
+				// 	remark:"这个怎么看看是不是正品？",
+				// 	sendTime: "2023-01-23 11:12",
+				// 	user: {
+				// 		userId: 1005,
+				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
+				// 		nickname: "翠鸟先猪猪",
+				// 		position: "陕西"
+				// 	},
+				// },
+				// {
+				// 	id: 1006,
+				// 	parentId: 1001,
+				// 	remark:"这个怎么看看是不是正品？",
+				// 	sendTime: "2023-01-23 11:12",
+				// 	user: {
+				// 		userId: 1005,
+				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
+				// 		nickname: "翠鸟先猪猪",
+				// 		position: "陕西"
+				// 	},
+				// }
 			],
 			// 推荐商品
 			recommendPro: [],
@@ -350,24 +351,17 @@ export default {
 		},
 		// 请求数据
 		selectOneGoods(id) {
-			uni.request({
-				url: "http://192.168.18.78:8080/goods/selectOneGoods",
-				data: {
-					id
-				},
-				header: {
-					// "token" : "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4ZjdiZTRkYWFmNTk0YjkzYTliZDY4YTA2NTJkNzZlOCIsInN1YiI6IjIwIiwiaXNzIjoiYWRtaW4iLCJpYXQiOjE2ODkwNDM4ODgsImV4cCI6MTY4OTMwMzA4OH0.fTg5dGEbYNVF7BCqXTlW0c6j9gYQ3JLaGrAONFfJnCs",
-					"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-				},
-				success: (res) => {
-					this.productDetali = res.data.data;
-					this.dataHandle();
-					// console.log(res);
-				},
-				fail: (err) => {
-					
-				}
-			});
+			app.globalData.selectOneGoods({
+				id,
+			}).then(res => {
+				this.productDetali = res.data;
+				this.dataHandle();
+			}).catch(err => {
+				uni.showToast({
+					title: err.message,
+					icon: "error"
+				})
+			})
 		},
 		// 数据处理逻辑
 		dataHandle() {
@@ -395,32 +389,23 @@ export default {
 		// 请求商品
 		consult(pageNum = 1, pageSize = 10) {
 			this.loading = "正在加载中哦~";
-			uni.request({
-				url: "http://192.168.18.78:8080/goods",
-				data: {
-					pageNum,
-					pageSize
-				},
-				header: {
-					"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-				},
-				success: (res) => {
-					const nextLenght = this.recommendPro.length;
-					this.recommendPro = this.recommendPro.concat(res.data.data.records);
-					const obtain = res.data.data.records.length;
-					this.pageNum_++;
-					if(this.recommendPro.length === nextLenght) {
-						this.loading = "没有了~";
-					}
-					// 数据处理逻辑
-					if(obtain !== 0) {
-						this.dataHandleAboutRecommendPro(obtain);
-					}
-				},
-				fail: (err) => {
-					console.log(err);
-					this.loading = err;
+			app.globalData.goods({
+				pageNum,
+				pageSize
+			}).then(res => {
+				const nextLenght = this.recommendPro.length;
+				this.recommendPro = this.recommendPro.concat(res.data.records);
+				const obtain = res.data.records.length;
+				this.pageNum_++;
+				if(this.recommendPro.length === nextLenght) {
+					this.loading = "没有了~";
 				}
+				// 数据处理逻辑
+				if(obtain !== 0) {
+					this.dataHandleAboutRecommendPro(obtain);
+				}
+			}).catch(err => {
+				this.loading = err.message;
 			});
 		},
 		// 触底加载事件
@@ -433,18 +418,18 @@ export default {
 	onLoad(option) {
 		this.selectOneGoods(option.id);
 		this.consult();
-	},
-	mounted() {
+		this.currentUser = uni.getStorageSync("userInfo");
 		// 评论处理逻辑
-		this.comment = this.reply(this.comment);
-		for(let i = 0; i < this.comment.length; i++) {
-			if(this.comment[i].isFirst === false) {
-				this.comment.splice(i,1);
-				i = 0;
+		if(this.comment != null) {
+			this.comment = this.reply(this.comment);
+			for(let i = 0; i < this.comment.length; i++) {
+				if(this.comment[i].isFirst === false) {
+					this.comment.splice(i,1);
+					i = 0;
+				}
 			}
 		}
-		
-	}
+	},
 }
 </script>
 

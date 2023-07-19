@@ -11,6 +11,7 @@
     "minified": false,
     "newFeature": true,
     "bigPackageSizeSupport": true,
+    "packNpmRelationList": [],
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -19,8 +20,8 @@
     "condition": false
   },
   "compileType": "miniprogram",
-  "libVersion": "3.0.0",
-  "appid": "wx506c4c96db8852f6",
+  "libVersion": "2.33.0",
+  "appid": "wx381eee87df605b9b",
   "projectname": "manggou-wachat",
   "condition": {},
   "editorSetting": {

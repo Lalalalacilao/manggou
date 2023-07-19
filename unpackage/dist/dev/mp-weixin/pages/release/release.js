@@ -241,9 +241,6 @@ var _default = {
       uploadPreviewImage: [],
       intr: "",
       title: "",
-      user: {
-        userid: "111"
-      },
       price: "0.00"
     };
   },
@@ -255,12 +252,15 @@ var _default = {
     },
     // 添加请求
     add: function add() {
+      var userInfo = uni.getStorageSync("userInfo");
       // 发布帖子添加请求
       if (this.type === "user") {
         app.globalData.addCommunity({
           introduction: this.intr,
           imgs: JSON.stringify(this.uploadPreviewImage),
-          userId: this.user.userid
+          userId: userInfo.id,
+          userName: userInfo.userName,
+          userAvatar: userInfo.userAvatar
         }).then(function (res) {
           uni.switchTab({
             url: "/pages/forum/forum"
@@ -278,7 +278,9 @@ var _default = {
           introduction: this.intr,
           imgUrl: JSON.stringify(this.uploadPreviewImage),
           price: +this.price,
-          userId: this.user.userid
+          userId: userInfo.id,
+          userAvatar: userInfo.userAvatar,
+          userName: userInfo.userName
         }).then(function (res) {
           uni.showToast({
             title: "发布成功",
@@ -315,6 +317,7 @@ var _default = {
               token: uni.getStorageSync("token")
             },
             success: function success(res) {
+              console.log(res);
               _this.uploadPreviewImage.push(JSON.parse(res.data).url);
             },
             fail: function fail(err) {

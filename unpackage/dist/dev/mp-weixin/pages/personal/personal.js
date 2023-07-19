@@ -258,7 +258,7 @@ var _default = {
     return {
       userInfo: {
         userName: "请先登录",
-        userAvatar: "../../static/personal center/southeast.jpg"
+        userAvatar: "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg"
       }
     };
   },
@@ -335,48 +335,22 @@ var _default = {
         url: '/pages/AfterSales/AfterSales'
       });
     },
-    // 获取用户信息
-    getUserInfo: function getUserInfo() {
-      var _this = this;
-      var token = uni.getStorageSync("token");
-      if (token != null) {
-        app.globalData.getUserInfo().then(function (res) {
-          uni.setStorageSync("userInfo", res.data);
-          _this.userInfo = res.data;
-          _this.dataHandle();
-        }).catch(function (err) {
-          uni.showToast({
-            title: err.message,
-            icon: "none"
-          });
+    // 点击登录
+    login: function login() {
+      if (this.userInfo.userName === "请先登录") {
+        uni.navigateTo({
+          url: "/pages/login/login"
         });
-      } else {
-        uni.showToast({
-          title: "请先登录",
-          icon: "none"
-        });
-      }
-    },
-    dataHandle: function dataHandle() {
-      if (this.userInfo.userAvatar === null) {
-        this.userInfo.userAvatar = "../../static/personal center/southeast.jpg";
-      }
-      if (this.userInfo.userName === null) {
-        this.userInfo.userName = "暂无姓名";
       }
     }
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
     var userInfoThis = uni.getStorageSync("userInfo");
     if (userInfoThis !== "") {
       this.userInfo = userInfoThis;
-      console.log(this.userInfo);
-      this.dataHandle();
-    } else {
-      this.getUserInfo();
     }
-  },
-  onShow: function onShow() {}
+  }
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))

@@ -45,5 +45,9 @@ export default {
 	// 获取用户信息
 	getUserInfo(params) {
 		return request("/user/getUserInfo","GET",params);
+	},
+	// 根据id查询商品信息
+	selectOneGoods(params) {
+		return request("/goods/selectOneGoods","GET",params);
 	}
 }

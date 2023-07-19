@@ -58,10 +58,10 @@
 }
 .top .search .btn {
   border-radius: 0 16rpx 16rpx 0;
-  margin-top: 37rpx;
+  margin-top: 35rpx;
   background-color: #F5F5F5;
   width: 93rpx;
-  height: 88rpx;
+  height: 86rpx;
   text-align: center;
   line-height: 100rpx;
 }

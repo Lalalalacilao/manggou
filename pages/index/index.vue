@@ -45,8 +45,8 @@
 								<text class="price"><text>¥</text?>{{item.price}}</text>
 							</view>
 							<view class="user">
-								<image :src="item.user.head"></image>
-								<text class="nickname">{{item.user.nikename}}</text>
+								<image :src="item.userAvatar"></image>
+								<text class="nickname">{{item.userName}}</text>
 							</view>
 						</view>
 						
@@ -159,9 +159,13 @@
 			// 请求商品
 			consult(pageNum = 1, pageSize = 10) {
 				this.loading = "正在加载中哦~";
-				app.globalData.goods({pageNum,pageSize}).then(res => {
+				app.globalData.goods({
+					pageNum,
+					pageSize
+				}).then(res => {
 					const nextLenght = this.productList.length;
 					this.productList = this.productList.concat(res.data.records);
+					console.log(this.productList);
 					const obtain = res.data.records.length;
 					this.pageNum_++;
 					if(this.productList.length === nextLenght) {
@@ -181,7 +185,9 @@
 				for(let i = 0 + this.productList.length - obtain; i < this.productList.length; i++) {
 					const releaseDate = this.productList[i].createTime.split(" ");
 					this.$set(this.productList[i],"release",`${releaseDate[0]}`);
+					// 价格处理
 					this.productList[i].price = this.productList[i].price + ".00";
+					// 图片处理
 					if(this.productList[i].imgUrl !== null) {
 						this.productList[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
 					}
@@ -189,7 +195,7 @@
 			}
 		},
 		onShow() {
-		  // 隐藏掉自带的底部导航栏
+			// 隐藏掉自带的底部导航栏
 			uni.hideTabBar({});
 			// 刷新页面
 			this.productList = [];
@@ -203,7 +209,7 @@
 				console.log(this.userInfo);
 				this.dataHandle();
 			} else {
-				this.getUserInfo();
+				
 			}
 		}
 	}
@@ -253,10 +259,10 @@
 			}
 			.btn {
 				border-radius: 0 16rpx 16rpx 0;
-				margin-top: 37rpx;
+				margin-top: 35rpx;
 				background-color: #F5F5F5;;
 				width: 93rpx;
-				height: 88rpx;
+				height: 86rpx;
 				text-align: center;
 				line-height: 100rpx;
 				image {

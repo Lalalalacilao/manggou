@@ -37,7 +37,8 @@
 			return {
 				isCheck: false,
 				openidCode : "",
-				userToken: ""
+				userToken: "",
+				userInfo: {}
 			};
 		},
 		methods: {
@@ -91,9 +92,8 @@
 								title:"登录成功",
 								icon:'none'
 							});
-							uni.switchTab({
-								url:'/pages/index/index'
-							});
+							this.getUserInfo();
+							
 							uni.hideLoading();
 						}).catch(err => {
 							uni.showToast({
@@ -161,6 +161,40 @@
 			// 获取用户手机号的方法
 			wxGetUserPhoneNumber(data) {
 				return data.detail.code;
+			},
+			
+			// 获取用户信息
+			getUserInfo() {
+				const token = uni.getStorageSync("token");
+				if(token != null) {
+					app.globalData.getUserInfo().then(res => {
+						this.userInfo = res.data;
+						this.dataHandle();
+						uni.setStorageSync("userInfo",this.userInfo);
+						
+						uni.switchTab({
+							url:'/pages/index/index'
+						});
+					}).catch(err => {
+						uni.showToast({
+							title: err.message,
+							icon: "none"
+						})
+					})
+				} else {
+					uni.showToast({
+						title: "请先登录",
+						icon: "none"
+					})
+				}
+			},
+			dataHandle() {
+				if(this.userInfo.userAvatar === null) {
+					this.userInfo.userAvatar = "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg"; // 默认头像
+				}
+				if(this.userInfo.userName === null) {
+					this.userInfo.userName = "暂无姓名";
+				}
 			},
 			
 			check() {

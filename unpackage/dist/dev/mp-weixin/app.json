@@ -14,7 +14,8 @@
     "pages/allOrder/allOrder",
     "pages/Customer/Customer",
     "pages/EditInformation/EditInformation",
-    "pages/AfterSales/AfterSales"
+    "pages/AfterSales/AfterSales",
+    "pages/productDetalisMine/productDetalisMine"
   ],
   "subPackages": [],
   "window": {

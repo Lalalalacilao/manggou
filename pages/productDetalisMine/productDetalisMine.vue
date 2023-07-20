@@ -193,10 +193,19 @@
 			</view>
 			
 		</scroll-view>
+		
+		
 		<!-- 底部功能区 -->
-		<view class="bottom_funciton" @click="contactMe">
-			联系我
+		<view class="bottom_funciton">
+			<view class="bottom_left">
+				<image src="../../static/productDetails/组件 173 – 1.png" mode=""></image>
+			</view>
+			<view class="bottom_right">
+				点击购买
+			</view>
 		</view>
+		
+		
 		
 		
 		
@@ -861,14 +870,25 @@ export default {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: #F2D86D;
+	display: flex;
+	background-color: #fff;
 	height: 120rpx;
 	text-align: center;
 	line-height: 120rpx;
-	font-size: 32rpx;
-	color: #0D0D26;
-	font-family: PingFang SC-Bold, PingFang SC;
-	font-weight: bold;
-	
+	.bottom_left {
+		width: 320rpx;
+		image {
+			width: 38rpx;
+			height: 44rpx;
+		}
+	}
+	.bottom_right {	
+		font-size: 32rpx;
+		color: #0D0D26;
+		font-family: PingFang SC-Bold, PingFang SC;
+		font-weight: bold;
+		width: 430rpx;
+		background-color: #F2D86D;
+	}
 }
 </style>

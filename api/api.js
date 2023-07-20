@@ -60,6 +60,10 @@ export default {
 	},
 	// 用户商品添加回复
 	userGoodsAddSubComment(params) {
-		return request("/user_goods_comment/getCommentList","POST",params);
+		return request("/user_goods_comment/addSubComment","POST",params);
+	},
+	// 专栏商品请求分页
+	getSpecialColumnGoods(params) {
+		return request("/backendGoods/getBackendGoods","GET",params);
 	}
 }

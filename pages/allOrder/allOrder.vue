@@ -88,7 +88,7 @@
 				<!-- 待付款 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != undefined">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
 							<!-- 卡片循环 -->
 							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
 							<view class="mg-goodsCard">
@@ -98,7 +98,7 @@
 										<image :src="selectOrdedel.userAvatar" mode="aspectFill"></image>
 										<view class="mg-shop-img-view">{{selectOrdedel.userName}}</view>
 									</view>
-									<view class="mg-dealState-pay">待支付</view>
+									<view class="mg-dealState-pay">待支付{{selectOrdedel}}</view>
 								</view>
 								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
@@ -136,7 +136,7 @@
 				<!-- 待收货 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != undefined">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
 							<!-- 卡片循环 -->
 							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
 								<view class="mg-goodsCard">
@@ -184,7 +184,7 @@
 				<!-- 待评价 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != undefined">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
 							<!-- 卡片循环 -->
 							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
 								<view class="mg-goodsCard">
@@ -232,7 +232,7 @@
 				<!-- 已完成 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != undefined">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
 							<!-- 卡片循环 -->
 							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
 								<view class="mg-goodsCard">
@@ -375,20 +375,21 @@
 					showCancel: true,
 					success: function(res) {
 						if (res.confirm) {
-							that.flag=!that.flag
 							console.log('删除成功');
-							// app.globalData.deleteOrder({
-							// 	id: id,
-							// 	userId:that.userId ,
-							// }).then(res => {
-							// 	if(res.data !== undefined) {
-							// 		console.log(res.data,'res----');
-							// 	} else {
-							// 		console.log('没有数据');
-							// 	}
-							// }).catch(err => {
-							// 	console.log(err,'err----');
-							// })
+							app.globalData.deleteOrder({
+								id: id,
+								userId:that.userId ,
+							}).then(res => {
+								console.log(res,'res----');
+								// uni.redirectTo({
+								// 	url:'/pages/allOrder/allOrder?curr=' + this.curr
+								// })
+								uni.navigateTo({
+									url:'/pages/allOrder/allOrder?userId=' + this.userId + '&curr=' + 0
+								})
+							}).catch(err => {
+								console.log(err,'err----');
+							})
 						} else if (res.cancel) {
 							console.log('删除成功');
 						}
@@ -412,18 +413,20 @@
 					// console.log("@@@00",this.curr);
 				}else{
 					this.currs = this.curr - 1
-					// console.log("@@@11",this.currs,this.curr);
+					console.log("@@@11",this.currs,this.curr);
 					app.globalData.selectOrderByStatus({
 						userId: this.userId,
 						status:this.currs,
 					}).then(res => {
-						if(res.data !== undefined) {
+						if(res.data != undefined) {
 							const selectOrdedel = res.data
 							this.selectOrdedel = selectOrdedel
 							// const selectOrdedel = res.data
 							// this.selectOrdedel.push(selectOrdedel);
 							console.log('res----',this.selectOrdedel);
 						} else {
+							this.selectOrdedel = '没有数据'
+							console.log('res----',this.selectOrdedel);
 							console.log('没有数据');
 						}
 					}).catch(err => {

@@ -363,14 +363,14 @@
 				margin-bottom: 12rpx;
 				.intr {
 					width: 298rpx;
-					// height: 80rpx;  
+					height: 80rpx;  
 					overflow:hidden;
 					text-overflow: ellipsis;
 					-webkit-line-clamp: 2;
 					display: -webkit-box;
 					-webkit-box-orient: vertical;
 					color: #666666;
-					font-size: 24rpx;
+					font-size: 28rpx;
 					font-weight: 500;
 				}
 				.price {

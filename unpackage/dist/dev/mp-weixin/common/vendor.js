@@ -9633,6 +9633,22 @@ var _default = {
   //判断是否点赞
   exist: function exist(params) {
     return (0, _request.default)("/userLike/exist", "GET", params);
+  },
+  // 商品添加评论
+  userGoodsAddParentComment: function userGoodsAddParentComment(params) {
+    return (0, _request.default)("/user_goods_comment/addParentComment", "POST", params);
+  },
+  // 获取商品评论列表
+  getCommentList: function getCommentList(params) {
+    return (0, _request.default)("/user_goods_comment/getCommentList", "POST", params);
+  },
+  // 用户商品添加回复
+  userGoodsAddSubComment: function userGoodsAddSubComment(params) {
+    return (0, _request.default)("/user_goods_comment/getCommentList", "POST", params);
+  },
+  // 退出登录
+  logout: function logout(params) {
+    return (0, _request.default)("/user/logout", "POST", params);
   }
 };
 exports.default = _default;

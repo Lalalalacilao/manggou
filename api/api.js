@@ -65,5 +65,21 @@ export default {
 	//判断是否点赞
 	exist(params) {
 		return request("/userLike/exist","GET",params);
+	},
+	// 商品添加评论
+	userGoodsAddParentComment(params) {
+		return request("/user_goods_comment/addParentComment","POST",params);
+	},
+	// 获取商品评论列表
+	getCommentList(params) {
+		return request("/user_goods_comment/getCommentList","POST",params);
+	},
+	// 用户商品添加回复
+	userGoodsAddSubComment(params) {
+		return request("/user_goods_comment/getCommentList","POST",params);
+	},
+	// 退出登录
+	logout(params) {
+		return request("/user/logout","POST",params);
 	}
 }

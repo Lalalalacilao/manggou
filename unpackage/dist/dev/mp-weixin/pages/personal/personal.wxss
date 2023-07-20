@@ -151,4 +151,18 @@
 .menu .bottom .bottom_item .right_icon {
   margin-top: 8rpx;
 }
+.mg-button {
+  width: 690rpx;
+  height: 100rpx;
+  margin-top: 20rpx;
+}
+.mg-button button {
+  background: linear-gradient(90deg, #F5DF9C 0%, #F2D86D 100%);
+  border-radius: 64rpx;
+  margin-top: 20rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+}
 

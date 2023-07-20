@@ -66,73 +66,95 @@
 				<view class="comment_box_head float_left">
 					<image :src="currentUser.userAvatar" mode=""></image>
 				</view>
-				<input class="float_left" type="text" placeholder="说点什么吧~">
+				<input 
+					class="float_left" 
+					type="text" 
+					v-model="inputComment" 
+					@confirm="releaseComment" 
+					placeholder-class="comment_input" 
+					placeholder="说点什么吧~"
+				>
 			</view>
 			
 			<!-- 评论 -->
 			<view class="comment">
-				<view class="comment_item" v-for="(item,index) in comment" :key="item.id" v-if="item.isFirst">
+				<view 
+					class="comment_item" 
+					v-for="(item,index) in comment" 
+					:key="item.id"
+					@click.stop="replyComment('firestReply' + item.id)"
+					:id="'firestReply' + item.id"
+				>
 					<!-- 首条评论 -->
 					<view class="first clear">
-						<view class="head float_left" @click="personalIntr(item.user.userId)">
-							<image :src="item.user.head" mode=""></image>
+						<view class="head float_left" @click.stop="personalIntr(item.userId)">
+							<image :src="item.userAvatar" mode=""></image>
 						</view>
 						<view class="relate float_left">
-							<view class="nickname clear" @click="personalIntr(item.user.userId)">
+							<view class="nickname clear" @click.stop="personalIntr(item.userId)">
 								<view class="first_text float_left">
-									{{item.user.nickname}}
+									{{item.userName}}
 								</view>
-								<view class="mark float_left" v-if="item.user.userId === productDetali.releaseUser.id">
+								<view class="mark float_left" v-if="item.userId === productDetali.userId">
 									作者
 								</view>
 							</view>
 							<view class="remark">
-								{{item.remark}}
+								{{item.detail}}
 							</view>
 							<view class="record clear">
 								<view class="date float_left">
-									{{item.sendTime}}
-								</view>
-								<view class="position float_left">
-									{{item.user.position}}
+									{{item.createTime}}
 								</view>
 							</view>
 						</view>
 					</view>
 					<!-- 回复信息 -->
 					<view class="reply">
-						<view class="reply_item clear" v-for="(replyItem,index) in item.reply" :key="replyItem.id">
-							<view class="head float_left" @click="personalIntr(replyItem.user.userId)">
-								<image :src="replyItem.user.head" mode=""></image>
+						<view 
+							class="reply_item clear" 
+							v-for="(replyItem,index) in item.subComment" 
+							:key="replyItem.id"
+							@click.stop="replyComment('secondary' + replyItem.id)"
+							:id="'secondary' + replyItem.id"
+						>
+							<view class="head float_left" @click.stop="personalIntr(replyItem.userId)">
+								<image :src="replyItem.userAvatar" mode=""></image>
 							</view>
 							<view class="relate float_left">
-								<view class="nickname clear" @click="personalIntr(replyItem.user.userId)">
+								<view class="nickname clear" @click.stop="personalIntr(replyItem.userId)">
 									<view class="first_text float_left">
-										{{replyItem.user.nickname}}
+										{{replyItem.replyUserName}}
 									</view>
-									<view class="mark float_left" v-if="replyItem.user.userId == productDetali.releaseUser.id">
+									<view class="mark float_left" v-if="replyItem.userId == productDetali.userId">
 										作者
 									</view>
 								</view>
 								<view class="remark">
-									{{replyItem.remark}}
+									{{replyItem.detail}}
 								</view>
 								<view class="record clear">
 									<view class="date float_left">
-										{{replyItem.sendTime}}
-									</view>
-									<view class="position float_left">
-										{{replyItem.user.position}}
+										{{replyItem.createTime}}
 									</view>
 								</view>
 							</view>
 						</view>
 					</view>
-					
-					
-					
 				</view>
 			</view>
+			<!-- 评论回复文本框 -->
+			<view class="reply_input" v-if="isFocus">
+				<input 
+					type="text" 
+					:focus="isFocus" 
+					v-model="inputReplyComment" 
+					placeholder="想说点什么?" 
+					@confirm="releaseReply"
+				>
+			</view>
+			
+			
 			
 			<!-- 推荐 -->
 			<view class="recommend">
@@ -188,103 +210,15 @@ export default {
 	data() {
 		return {
 			// 产品信息
-			productDetali:{
-				// id: 1001,
-				// image: ["../../static/productDetails/341003d19f8862a8adb8bbd0b709df3@2x.png","../../static/productDetails/341003d19f8862a8adb8bbd0b709df3@2x.png"],
-				// title: "欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊",
-				// price: 1200,
-				// way: "自提",
-				// intr: "古典欧式餐桌基本功能超过大值就是地位的象征。奢华欧式餐桌的靡靡之味，可让人深刻感受到古典主义家饰中实用与美观的完美结合，绝妙的家饰搭配，超越动能之外的视觉盛宴，同样让享受不断升级。每一个细节都无时不强调着尊贵。色彩绚丽图案精美，材料认真挑选，工序精心打磨，而且这份尊贵是无可复制的，现在细节处理的手法是经过历史锤炼的经典，所以有一种浓郁的气息。",
-				// date: "3小时前",
-				// releaseUser: {
-				// 	id: 1002,
-				// 	head: "../../static/productDetails/3bfdaebea5552b22dec7377488f3941@2x(1).png",
-				// 	nickname: "Light Breeze",
-				// 	releaseDate: "2023-06-08 12:00:00",
-				// }
-			},
+			productDetali:{},
 			// 当前登录用户信息
-			currentUser: {
-				id: 1003,
-				head: "../../static/productDetails/3bfdaebea5552b22dec7377488f3941@2x.png"
-			},
+			currentUser: {},
 			// 评论
-			comment: [
-				// {
-				// 	id: 1001,
-				// 	parentId: "",
-				// 	remark:"我想要，可以支持线下交易吗？",
-				// 	sendTime: "昨天 11:12",
-				// 	user: {
-				// 		userId: 1005,
-				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-				// 		nickname: "香蕉于大菠萝",
-				// 		position: "陕西"
-				// 	},
-				// },
-				// {
-				// 	id: 1002,
-				// 	parentId: 1001,// 回复信息的父id
-				// 	remark:"可以的，联系我就好。",
-				// 	sendTime: "昨天 17:23",
-				// 	user: {
-				// 		userId: 1002,
-				// 		nickname: "Light Breeze",
-				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-				// 		position: "陕西"
-				// 	},
-				// },
-				// {
-				// 	id: 1003,
-				// 	parentId: "",
-				// 	remark:"这个怎么看看是不是正品？",
-				// 	sendTime: "2023-01-23 11:12",
-				// 	user: {
-				// 		userId: 1005,
-				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-				// 		nickname: "翠鸟先猪猪",
-				// 		position: "陕西"
-				// 	},
-				// },
-				// {
-				// 	id: 1004,
-				// 	parentId: 1001,
-				// 	remark:"这个怎么看看是不是正品？",
-				// 	sendTime: "2023-01-23 11:12",
-				// 	user: {
-				// 		userId: 1005,
-				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-				// 		nickname: "翠鸟先猪猪",
-				// 		position: "陕西"
-				// 	},
-				// },
-				// {
-				// 	id: 1005,
-				// 	parentId: 1001,
-				// 	remark:"这个怎么看看是不是正品？",
-				// 	sendTime: "2023-01-23 11:12",
-				// 	user: {
-				// 		userId: 1005,
-				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-				// 		nickname: "翠鸟先猪猪",
-				// 		position: "陕西"
-				// 	},
-				// },
-				// {
-				// 	id: 1006,
-				// 	parentId: 1001,
-				// 	remark:"这个怎么看看是不是正品？",
-				// 	sendTime: "2023-01-23 11:12",
-				// 	user: {
-				// 		userId: 1005,
-				// 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-				// 		nickname: "翠鸟先猪猪",
-				// 		position: "陕西"
-				// 	},
-				// }
-			],
+			comment: [],
 			// 推荐商品
 			recommendPro: [],
+			
+			
 			// 轮播图配置
 			current: 0,
 			mode: 'round',
@@ -295,12 +229,21 @@ export default {
 				selectedBackgroundColor:"rgba(255, 255, 255, 1)",
 				backgroundColor: "rgba(255, 255, 255, 0.6)"
 			},
+			
 			// 标题字数控制
 			isLimit: false,
+			
 			// 猜你喜欢分页变量
 			pageNum_: 1,
-			loading: ""
+			loading: "",
 			
+			// 评论
+			inputComment: "",
+			
+			// 评论回复
+			isFocus: false,
+			inputReplyComment: "",
+			CommentedOnId: "",
 		};
 	},
 	methods: {
@@ -321,41 +264,128 @@ export default {
 		contactMe() {
 			console.log("联系我");
 		},
-		// 评论回复处理方法
-		reply(comment) {
-			for(let i = 0; i < comment.length; i++) {
-				if(comment[i].parentId != "") {
-					this.$set(comment[i],"isFirst",false);
-				} 
-				else {
-					this.$set(comment[i],"isFirst", true);
-					this.$set(comment[i],"reply",[]);
-					comment[i].reply = comment.filter(item => item.parentId === comment[i].id);
-				}
-				
-			}
-			return comment;
-		},
 		// 轮播图设置
 		change(e) {
 			this.current = e.detail.current;
 		},
-		// 推荐
+		
+		// 评论拉取
+		getCommentList() {
+			app.globalData.getCommentList({
+				commentId: this.productDetali.id
+			}).then(res => {
+				this.comment = res.data;
+				this.reply();
+			}).catch(err => {
+				console.log(err);
+			})
+		},
+		// 评论数据处理方法
+		reply() {
+			if(this.comment !== []) {
+				for(let i = 0; i < this.comment.length; i++) {
+					this.comment[i].createTime = this.comment[i].createTime.slice(0,16);
+					if(this.comment[i].subComment !== []) {
+						for(let j = 0; j < this.comment[i].subComment.length; j++) {
+							this.comment[i].subComment[j].createTime = this.comment[i].subComment[j].createTime.slice(0,16);
+						}
+					}
+				}
+			}
+		},
+		// 评论功能
+		releaseComment() {
+			// 为空校验
+			const comment = this.inputComment.trim();
+			if(comment === "") {
+				uni.showToast({
+					title: "评论不能为空",
+					icon: "error"
+				});
+				return
+			}
+			// 发送请求
+			const userInfo = uni.getStorageSync("userInfo");
+			app.globalData.userGoodsAddParentComment({
+				detail: comment,
+				userAvatar: userInfo.userAvatar,
+				userId: userInfo.id,
+				userName : userInfo.userName,
+				userGoodsId: this.productDetali.id,
+			}).then(res => {
+				uni.showToast({
+					title:"评论成功",
+					icon: "none"
+				})
+			}).catch(err => {
+				uni.showToast({
+					title: err.message,
+					icon: "error"
+				})
+			})
+			this.inputComment = ""
+		},
+		// 返回点击id
+		getClickType(id) {
+			const replyType = id.substr(0,3);
+			if(reply = "fir") {
+				return id.substr(11);
+			} else {
+				return id.substr(9);
+			}
+			return 
+		},
+		// 评论回复调起文本框
+		replyComment(id) {
+			// 获取点击的评论id
+			const CommentedOnId = this.getClickType(id);
+			
+			// 拉起文本框
+			this.isFocus = true;
+			let obj= uni.createSelectorQuery().in(this).select("#" + id);
+			obj.boundingClientRect(data => {
+				console.log(data);
+				// data为该元素位置信息
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration:10
+				})
+			}).exec()
+		},
+		// 回复评论
+		releaseReply() {
+			const inputReplyCommentThis = this.inputReplyComment.trim();
+			if(inputReplyCommentThis === "") {
+				uni.showToast({
+					title: "评论不能为空",
+					icon: "error"
+				});
+				return
+			}
+			app.globalData.userGoodsAddSubComment({
+				detail: inputReplyCommentThis,
+			})
+		},
+		// 查找所回复的评论
+		// 推荐点击
 		recommend(id) {
-			// this.selectOneGoods(id);
 			var pages = getCurrentPages(); //获取所有页面的数组对象
 			var currPage = pages[pages.length - 1]; //当前页面
 			uni.redirectTo({
 				url: "../../" + currPage.__route__ + "?id=" + id
 			})
 		},
-		// 请求数据
+		
+		// 请求商品详情数据
 		selectOneGoods(id) {
 			app.globalData.selectOneGoods({
 				id,
 			}).then(res => {
 				this.productDetali = res.data;
+				// 数据处理
 				this.dataHandle();
+				// 拉取商品评论
+				this.getCommentList();
 			}).catch(err => {
 				uni.showToast({
 					title: err.message,
@@ -377,16 +407,7 @@ export default {
 				this.productDetali.imgUrl = JSON.parse(this.productDetali.imgUrl);
 			}
 		},
-		dataHandleAboutRecommendPro(obtain) {
-			// 时间处理
-			for(let i =  0 + this.recommendPro.length - obtain; i < this.recommendPro.length; i++) {
-				// 图片处理
-				if(this.recommendPro[i].imgUrl !== null) {
-					this.recommendPro[i].imgUrl = JSON.parse(this.recommendPro[i].imgUrl)[0];
-				}
-			}
-		},
-		// 请求商品
+		// 请求推荐商品分页
 		consult(pageNum = 1, pageSize = 10) {
 			this.loading = "正在加载中哦~";
 			app.globalData.goods({
@@ -408,6 +429,17 @@ export default {
 				this.loading = err.message;
 			});
 		},
+		// 推荐商品数据处理
+		dataHandleAboutRecommendPro(obtain) {
+			// 时间处理
+			for(let i =  0 + this.recommendPro.length - obtain; i < this.recommendPro.length; i++) {
+				// 图片处理
+				if(this.recommendPro[i].imgUrl !== null) {
+					this.recommendPro[i].imgUrl = JSON.parse(this.recommendPro[i].imgUrl)[0];
+				}
+			}
+		},
+
 		// 触底加载事件
 		bottomLoading() {
 			if(this.loading !== "没有了~") {
@@ -416,19 +448,12 @@ export default {
 		},
 	},
 	onLoad(option) {
+		// 请求商品详细信息
 		this.selectOneGoods(option.id);
+		// 请求商品分页
 		this.consult();
+		// 当前用户
 		this.currentUser = uni.getStorageSync("userInfo");
-		// 评论处理逻辑
-		if(this.comment != null) {
-			this.comment = this.reply(this.comment);
-			for(let i = 0; i < this.comment.length; i++) {
-				if(this.comment[i].isFirst === false) {
-					this.comment.splice(i,1);
-					i = 0;
-				}
-			}
-		}
 	},
 }
 </script>
@@ -623,6 +648,9 @@ export default {
 			height: 68rpx;
 		}
 	}
+	.comment_input {
+		color: #999999;
+	}
 	input {
 		width: 594rpx;
 		height: 68rpx;
@@ -630,7 +658,6 @@ export default {
 		padding-left: 24rpx;
 		padding-right: 24rpx;
 		font-size: 28rpx;
-		color: #999999;
 		font-family: PingFang SC-Regular, PingFang SC;
 		font-weight: 400;
 		background-color: #F6F6F6;
@@ -696,6 +723,21 @@ export default {
 			color: #999999;
 			font-weight: 400;
 		}
+	}
+}
+// 评论回复文本框
+.reply_input {
+	position: fixed;
+	bottom: 120rpx;
+	padding: 40rpx 32rpx;
+	background-color: red;
+	input {
+		width: 686rpx;
+		height: 68rpx;
+		padding-left: 24rpx;
+		background-color: #F6F6F6;
+		border-radius: 36rpx;
+		font-size: 28rpx;
 	}
 }
 

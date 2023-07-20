@@ -522,21 +522,23 @@ var _default = {
         content: '确定删除该订单吗？',
         showCancel: true,
         success: function success(res) {
+          var _this3 = this;
           if (res.confirm) {
-            that.flag = !that.flag;
             console.log('删除成功');
-            // app.globalData.deleteOrder({
-            // 	id: id,
-            // 	userId:that.userId ,
-            // }).then(res => {
-            // 	if(res.data !== undefined) {
-            // 		console.log(res.data,'res----');
-            // 	} else {
-            // 		console.log('没有数据');
-            // 	}
-            // }).catch(err => {
-            // 	console.log(err,'err----');
-            // })
+            app.globalData.deleteOrder({
+              id: id,
+              userId: that.userId
+            }).then(function (res) {
+              console.log(res, 'res----');
+              // uni.redirectTo({
+              // 	url:'/pages/allOrder/allOrder?curr=' + this.curr
+              // })
+              uni.navigateTo({
+                url: '/pages/allOrder/allOrder?userId=' + _this3.userId + '&curr=' + 0
+              });
+            }).catch(function (err) {
+              console.log(err, 'err----');
+            });
           } else if (res.cancel) {
             console.log('删除成功');
           }
@@ -555,24 +557,26 @@ var _default = {
     },
     //订单
     getSelectOrderr: function getSelectOrderr() {
-      var _this3 = this;
+      var _this4 = this;
       if (this.curr == 0) {
         this.getAllOrder();
         // console.log("@@@00",this.curr);
       } else {
         this.currs = this.curr - 1;
-        // console.log("@@@11",this.currs,this.curr);
+        console.log("@@@11", this.currs, this.curr);
         app.globalData.selectOrderByStatus({
           userId: this.userId,
           status: this.currs
         }).then(function (res) {
-          if (res.data !== undefined) {
+          if (res.data != undefined) {
             var selectOrdedel = res.data;
-            _this3.selectOrdedel = selectOrdedel;
+            _this4.selectOrdedel = selectOrdedel;
             // const selectOrdedel = res.data
             // this.selectOrdedel.push(selectOrdedel);
-            console.log('res----', _this3.selectOrdedel);
+            console.log('res----', _this4.selectOrdedel);
           } else {
+            _this4.selectOrdedel = '没有数据';
+            console.log('res----', _this4.selectOrdedel);
             console.log('没有数据');
           }
         }).catch(function (err) {

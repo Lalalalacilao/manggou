@@ -137,10 +137,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+//
+//
+//
+//
+//
 //
 //
 //
@@ -258,12 +265,52 @@ var _default = {
     return {
       userInfo: {
         userName: "请先登录",
-        userAvatar: "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg"
+        userAvatar: "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg",
+        id: '******'
       },
-      userId: null
+      userId: null,
+      flag: uni.getStorageSync('token') === '' ? true : false
     };
   },
-  methods: {
+  methods: (0, _defineProperty2.default)({
+    login: function login() {
+      if (uni.getStorageSync('token') !== '') {
+        uni.showToast({
+          title: '请勿重复登录',
+          icon: 'error'
+        });
+        return;
+        this.flag = false;
+      }
+      uni.navigateTo({
+        url: '/pages/index/index'
+      });
+    },
+    unlogin: function unlogin() {
+      var _this = this;
+      app.globalData.logout({}).then(function (res) {
+        uni.setStorageSync('token', '');
+        uni.showToast({
+          title: '退出登录成功',
+          icon: 'success'
+        });
+        _this.token();
+      }).catch(function (err) {
+        console.log(err, 'err----');
+      });
+    },
+    token: function token() {
+      console.log(uni.getStorageSync('token') === '', 'token');
+      this.flag = uni.getStorageSync('token') === '' ? true : false;
+      // console.log(this.flag, 'flag');
+      if (this.flag == true) {
+        uni.setStorageSync("userInfo", "");
+        this.userInfo.userName = "请先登录";
+        this.userInfo.userAvatar = "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg";
+        this.userInfo.id = '******';
+        // console.log(this.userInfo);
+      }
+    },
     // 头像
     head: function head(id) {
       console.log("头像");
@@ -335,19 +382,24 @@ var _default = {
       uni.navigateTo({
         url: '/pages/AfterSales/AfterSales'
       });
-    },
-    // 点击登录
-    login: function login() {
-      if (this.userInfo.userName === "请先登录") {
-        uni.navigateTo({
-          url: "/pages/login/login"
-        });
-      }
     }
+  }, "login", function login() {
+    if (this.userInfo.userName === "请先登录") {
+      uni.navigateTo({
+        url: "/pages/login/login"
+      });
+    }
+  }),
+  onLoad: function onLoad() {
+    this.phone = uni.getStorageSync('token');
+    // console.log(this.phone,'pp');
+    // this.token()
   },
-  onLoad: function onLoad() {},
   onShow: function onShow() {
+    this.token();
+    // console.log(this.flag);
     var userInfoThis = uni.getStorageSync("userInfo");
+    // console.log(userInfoThis,'ooo');
     if (userInfoThis !== "") {
       this.userInfo = userInfoThis;
       this.userId = userInfoThis.id;

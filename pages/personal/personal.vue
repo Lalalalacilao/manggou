@@ -100,6 +100,11 @@
 					</view>
 				</view>
 			</view>
+			<!-- 登录注册 -->
+			<view class="mg-button">
+				<button v-if="flag" @click="login">登录</button>
+				<button v-else @click="unlogin">退出登录</button>
+			</view>
 		</view>
 		
 		
@@ -116,11 +121,51 @@
 				userInfo: {
 					userName: "请先登录",
 					userAvatar: "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg",
+					id:'******'
 				},
-				userId:null
+				userId:null,
+				flag: uni.getStorageSync('token') === '' ? true : false,
 			};
 		},
 		methods: {
+			login() {
+				if (uni.getStorageSync('token') !== '') {
+					uni.showToast({
+						title: '请勿重复登录',
+						icon: 'error'
+					})
+					return
+					this.flag = false
+				}
+				uni.navigateTo({
+					url: '/pages/index/index'
+				})
+			},
+			unlogin() {
+				app.globalData.logout({
+				}).then(res => {
+					uni.setStorageSync('token', '')
+					uni.showToast({
+						title: '退出登录成功',
+						icon: 'success'
+					})
+					this.token()
+				}).catch(err => {
+					console.log(err,'err----');
+				})
+			},
+			token() {
+				console.log(uni.getStorageSync('token') === '', 'token');
+				this.flag = uni.getStorageSync('token') === '' ? true : false
+				// console.log(this.flag, 'flag');
+				if (this.flag == true) {
+					uni.setStorageSync("userInfo","");
+					this.userInfo.userName = "请先登录";
+					this.userInfo.userAvatar = "https://mang-gou.tos-cn-beijing.volces.com/oeRlzleK0UwP02c8877eb0979a88ef8c8c8e6c90cfd6_1689664581294.jpg"
+					this.userInfo.id = '******'
+					// console.log(this.userInfo);
+				}
+			},
 			// 头像
 			head(id) {
 				console.log("头像");
@@ -206,10 +251,15 @@
 			},
 		},
 		onLoad() {
-			
+			this.phone = uni.getStorageSync('token')
+			// console.log(this.phone,'pp');
+			// this.token()
 		},
 		onShow() {
+			this.token()
+			// console.log(this.flag);
 			const userInfoThis = uni.getStorageSync("userInfo");
+			// console.log(userInfoThis,'ooo');
 			if(userInfoThis !== "") {
 				this.userInfo = userInfoThis;
 				this.userId = userInfoThis.id
@@ -358,7 +408,20 @@
 }
 
 
-
+.mg-button{
+	width: 690rpx;
+	height: 100rpx;
+	margin-top: 20rpx;
+	button {
+		background: linear-gradient(90deg, #F5DF9C 0%, #F2D86D 100%);
+		border-radius: 64rpx;
+		margin-top: 20rpx;
+		line-height: 100rpx;
+		text-align: center;
+		font-size: 32rpx;
+		color: #fff;
+	}
+}
 
 
 

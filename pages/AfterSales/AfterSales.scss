@@ -1,0 +1,268 @@
+.mg-AfterSales{
+	width: 750rpx;
+	// 头部
+	.mg-AfterSales-top{
+		width: 750rpx;
+		position: fixed;
+		background-color: white;
+		z-index: 99;
+		// 全部订单
+		.mg-top{
+			background-color: white;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 110rpx;
+			padding-bottom: 35rpx;
+			image{
+				margin-left:30rpx ;
+				width: 44rpx;
+				height: 44rpx;
+			}
+			view{
+				font-size: 32rpx;
+				font-family: PingFang HK-Semibold, PingFang HK;
+				font-weight: 400;
+				color: #333333;
+				font-weight: 600;
+			}
+		}
+		// tab
+		// 隐藏滚动条
+		.mg-AfterSales-tab::-webkit-scrollbar{
+			display: none;
+		}
+		.mg-AfterSales-tab{
+			display: flex;
+			justify-content: center;
+			overflow-x: hidden;
+			overflow-x: scroll;
+			flex-wrap: nowrap;
+			font-family: PingFang HK-Regular, PingFang HK;
+			font-weight: 400;
+			font-size: 32rpx;
+			padding: 0 12rpx;
+			color: #666666;
+			.mg-taberOfservice-select{
+				margin: 10rpx;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				border-radius: 18rpx;
+				justify-content: center;
+				padding: 0 16rpx 0 16rpx;
+				white-space: nowrap;
+				height: 60rpx;
+			}
+			.select{
+				font-weight: 600;
+				color: #333333;
+				font-family: PingFang HK-Semibold, PingFang HK;
+				padding: 0 16rpx 0 16rpx;
+				height: 60rpx;
+				margin: 10rpx;
+				.mt-Community-label-bottom {
+					position: relative;
+					top: 13rpx;
+					width: 32rpx;
+					height: 6rpx;
+					border-radius: 4rpx;
+					background: #0D0D26;
+				}
+			}
+		}
+		
+	}
+	.mg-AfterSales-content{
+		padding-top: 280rpx;
+		background-color:#F9F9F9 ;
+		swiper{
+			swiper-item{
+				scroll-view{
+					.mg-goodsCard-box{
+						padding: 30rpx;
+						// 循环的每一张卡片
+						.mg-goodsCard{
+							width: 690rpx;
+							margin-bottom: 36rpx;
+							background-color: white;
+							border-radius: 18rpx;
+							.mg-shop{
+								// padding: 24rpx 20rpx 24rpx 20rpx;
+								padding: 30rpx;
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+								.mg-shop-img{
+									display: flex;
+									align-items: center;
+									justify-content: start;
+									font-size: 28rpx;
+									font-family: PingFang HK-Medium, PingFang HK;
+									text-overflow: ellipsis;
+									overflow: hidden;
+									white-space: nowrap;
+									image{
+										border-radius: 50%;
+										width: 48rpx;
+										height: 48rpx;
+									}
+									.mg-shop-img-view{
+										width: 260rpx;
+										margin-left: 15rpx;
+										font-size: 28rpx;
+										font-family: PingFang HK-Medium, PingFang HK;
+										font-weight: 600;
+										color: #333333;
+										text-overflow: ellipsis;
+										overflow: hidden;
+										white-space: nowrap;
+									}
+								}
+								
+								// 待支付
+								.mg-dealState-pay{
+									font-size: 28rpx;
+									// margin-left: 250rpx;
+									font-family: PingFang SC-Regular, PingFang SC;
+									font-weight: 400;
+									color: #FB581F;
+								}
+								// 待使用
+								.mg-dealState-use{
+									// margin-left: 45rpx;
+									display: flex;
+									justify-content: end;
+									// align-items: ;
+									image{
+										width: 24rpx;
+										height: 24rpx;
+										// margin-top: 8rpx;
+										padding: 15rpx;
+									}
+									view{
+										text{
+											font-size: 24rpx;
+											font-family: PingFang SC-Regular, PingFang SC;
+											font-weight: 400;
+											color: #FD581F;
+											line-height: 0rpx;
+										}
+									}
+									
+								}
+							}
+							.mg-goodsIntroduction{
+								display: flex;
+								image{
+									margin: 0 30rpx 22rpx 30rpx;
+									width: 138rpx;
+									height: 138rpx;
+									border-radius: 12rpx;
+								}
+								.mg-PurchasedGoods{
+									// padding: 24rpx 0 0 12rpx;
+									width: 420rpx;
+									display: flex;
+									justify-content: space-between;
+									flex-direction: column;
+									height: 138rpx;
+									.mg-GoodsTitle{
+										font-size: 28rpx;
+										font-family: PingFang SC-Regular, PingFang SC;
+										font-weight: 400;
+										color: #333333;
+									}
+									.mg-goodsPriceAndSum{
+										width: 420rpx;
+										margin-right: 20rpx;
+										display: flex;
+										justify-content: space-between;
+										align-items: center;
+										.price{
+											font-size: 32rpx;
+											font-family: PingFang SC-Semibold, PingFang SC;
+											font-weight: bold;
+											color: #0D0D26;
+											font-weight: 600;
+											text{
+												font-size: 20rpx;
+											}
+										}
+										.sum{
+											// width: 15rpx;
+											// margin-left: 245rpx;
+											font-size: 28rpx;
+											font-family: PingFang SC-Regular, PingFang SC;
+											font-weight: 400;
+											color: #666666;
+										}
+									}
+								}
+							}
+							// 更多操作
+							.mg-more{
+								display: flex;
+								align-items: center;
+								// margin: 16rpx 32rpx 0 32rpx;
+								padding: 0rpx 30rpx 30rpx 30rpx;
+								justify-content: space-between;
+								position: relative;
+								color: #A8A8A8;
+								font-size: 28rpx;
+								.used{
+									height: 60rpx;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									.used-1{
+										padding: 0rpx 20rpx;
+										height: 60rpx;
+										text-align: center;
+										line-height: 60rpx;
+										border-radius: 30rpx;
+										background-color: #fff;
+										color: #333333;
+										margin-left: 20rpx;
+										border: 2rpx solid #E0E0E0;
+									}
+								}
+								.used1{
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									.used-3{
+										color: #0D0D26;
+										font-weight: 600;
+									}
+									.used-4{
+										color: #FD581F;
+									}
+								}
+							}
+							// 更多操作
+							.mg-more1{
+								padding: 0rpx 30rpx 0rpx 30rpx;
+								.used{
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									.used-3{
+										color: #0D0D26;
+										font-weight: 600;
+									}
+									.used-4{
+										color: #FD581F;
+									}
+								}
+							}
+							.mg-line{
+								border-bottom:2rpx solid rgba(234, 238, 242, 1);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,165 @@
+page ::-webkit-scrollbar {
+  display: none;
+}
+.mt-Customer{
+	width: 100%;
+	// background-color: #fff;
+	height: 176rpx;
+	// position: fixed;
+	z-index: 1;
+	top: 0;
+	background: #fff;
+	// background-color: #d04949;
+	// background-image: linear-gradient(rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 1));
+}
+.pages_height::-webkit-scrollbar{
+	display: none;
+}
+// page{
+// 	background: #F0F0F0;
+// }
+.pages_height {
+	width: 100%;
+	color: #191919;
+	background: #F0F0F0;
+	font-family: PingFangSC-Regular, PingFang SC;
+	height: 1000rpx;
+}
+/* 取消滚动条 */
+scroll-view ::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	color: transparent;
+	display: none;
+}
+scroll-view {
+	height: 100%;
+	// margin-top: 200rpx;
+	background: #F0F0F0;
+}
+
+.intelligent_main {
+	// position: absolute;
+
+	// height: 100vh;
+}
+
+.intelligent_chat {
+	// margin-top: 200rpx;
+	// height: 90vh;
+	padding: 0 30rpx;
+	box-sizing: border-box;
+}
+
+/* 取消滚动条 */
+.intelligent_chat ::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	color: transparent;
+	display: none;
+}
+
+/* 最上边两句话 */
+.intelligent_chat_view0 {
+	padding-top: 30rpx;
+}
+
+.intelligent_chat>view {
+	width: 100%;
+	background-color: red;
+}
+
+.intelligent_chat>view>view {
+	width: 100%;
+}
+
+.robot_word {
+	color: #191919;
+	display: flex;
+	// flex-direction: column;
+	align-items: flex-start;
+}
+
+.patient_word {
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.patient_word>view,
+.robot_word>view {
+	max-width: 600rpx;
+	margin-bottom: 20rpx;
+	line-height: 42rpx;
+	font-size: 30rpx;
+	padding: 15rpx 20rpx;
+	box-sizing: border-box;
+	white-space: pre-wrap;
+}
+
+/* 患者问题 */
+.patient_word>view {
+	/* background: #F07828; */
+	background-color: #F2D86D;
+	border-radius: 15rpx 0 15rpx 15rpx;
+}
+
+/* 机器人回答 */
+.robot_word>view {
+	background: #FFFFFF;
+	border-radius: 0 15rpx 15rpx 15rpx;
+}
+
+.keyHighlight {
+	font-size: 30rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+	line-height: 42rpx;
+	margin-top: 10rpx;
+}
+
+
+/* 输入框 */
+.intelligent_input {
+	width: 100%;
+	height: 100rpx;
+	min-height: 98rpx;
+	background: #F7F7F7;
+	position: fixed;
+	bottom: 0px;
+	display: flex;
+	box-sizing: content-box;
+	padding-bottom: constant(safe-area-inset-bottom);
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+.intelligent_input>input {
+	width: 80%;
+	background: #FFF;
+	margin: 25rpx 30rpx;
+	padding: 13rpx 20rpx;
+	box-sizing: border-box;
+	height: 70%;
+	min-height: 68rpx;
+	border-radius: 10rpx;
+}
+
+.intelligent_input>input::placeholder {
+	font-size: 30rpx;
+	color: #C8C8C8;
+}
+
+.input_send {
+	margin-top: 25rpx;
+	margin-right: 20rpx;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.input_send>image {
+	width: 62rpx;
+	height: 62rpx;
+	/* padding: 10rpx; */
+}

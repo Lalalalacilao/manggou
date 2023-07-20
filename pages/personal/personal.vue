@@ -127,30 +127,44 @@
 			// 编辑
 			edit(id) {
 				console.log("编辑");
+				uni.navigateTo({
+					url:'/pages/EditInformation/EditInformation'
+				})
 			},
 			// 全部订单
 			allOrder(id) {
 				console.log("全部订单");
+				uni.navigateTo({
+					url:'/pages/allOrder/allOrder'
+				})
 			},
 			// 待付款
 			obligation(id) {
 				console.log("待付款");
-				
+				uni.navigateTo({
+					url:'/pages/allOrder/allOrder?curr=' + 1
+				})
 			},
 			// 待收货
 			goodsToBeRecceived(id) {
 				console.log("待收货");
-				
+				uni.navigateTo({
+					url:'/pages/allOrder/allOrder?curr=' + 2
+				})
 			},
 			// 待评价
 			toBeEvaluated(id) {
 				console.log("待评价");
-				
+				uni.navigateTo({
+					url:'/pages/allOrder/allOrder?curr=' + 3
+				})
 			},
 			// 已完成
 			complete(id) {
 				console.log("已完成");
-				
+				uni.navigateTo({
+					url:'/pages/allOrder/allOrder?curr=' + 4
+				})
 			},
 			// 我的地址
 			myAddress(id) {
@@ -169,11 +183,16 @@
 			// 客服中心
 			callCenter(id) {
 				console.log("客服中心");
-				
+				uni.navigateTo({
+					url:'/pages/Customer/Customer'
+				})
 			},
 			// 售后
 			afterSales(id) {
 				console.log("售后");
+				uni.navigateTo({
+					url:'/pages/AfterSales/AfterSales'
+				})
 				
 			},
 			// 点击登录

@@ -57,8 +57,8 @@
 					</view>
 					<view class="operate clear">
 						<view class="like float">
-							<image src="../../static/forum/组件 53 – 1.png" mode="" v-if="flag == false " @click="like(flag)"></image>
-							<image src="../../static/allOrder/点赞-2.png" mode="" v-else @click="like(flag)"></image>
+							<image src="../../static/forum/组件 53 – 1.png" mode="" @click="like(index,id,userId)" v-if="likenow == false"></image>
+							<image src="../../static/allOrder/点赞-2.png" mode="" v-else @click="like(index,id,userId)"></image>
 							<text class="operate_num">42</text>
 						</view>
 						<view class="comment float">
@@ -111,15 +111,31 @@
 				isIphoneX: false,
 				pageNum_: 1,
 				loading: "",
-				flag:false,
+				likenow:true,
+				id:null,
+				msg:null
 			};
 		},
 		methods: {
-			// 点赞
-			like(flag){
-				this.flag = !this.flag
-				console.log(this.flag,'0000');
+			// 判断是否点赞
+			getexist(){
+				app.globalData.exist({
+					likedId: this.id,//被点赞帖子id
+					userId:24,//用户id
+				}).then(res => {
+					this.msg = res.msg
+					// console.log(res,'判断是否点赞',this.msg);
+				}).catch(err => {
+					console.log(err,'err----');
+				})
 			},
+			// 点赞
+			// 喜欢点赞
+			like(index,id,userId) {
+				// console.log('帖子id',id,'帖子用户id',userId);
+				this.likenow = !this.likenow
+			},
+
 			topRelease() {
 				console.log("顶部发布按钮");
 				uni.navigateTo({
@@ -156,12 +172,19 @@
 			consult(pageNum = 1, pageSize = 10) {
 				this.loading = "正在加载中哦~";
 				app.globalData.getCommunity({pageNum,pageSize}).then(res => {
-					console.log(res);
+					console.log(res,'-----');
 					const nextLenght = this.prcductList.length;
 					this.prcductList = this.prcductList.concat(res.data.records);
+					console.log(this.prcductList,'000000');
 					this.pageNum_++;
 					if(this.prcductList.length != nextLenght) {
 						this.showHide();
+						// 遍历数组并打印id
+						// this.prcductList.forEach(item => {
+						// 	console.log("数组元素id:", item.id);
+						// 	this.id = item.id
+						// 	this.getexist()
+						// })
 					} else {
 						this.loading = "没有了~";
 					}

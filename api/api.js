@@ -61,5 +61,9 @@ export default {
 	//根据用户id查询订单数据
 	selectAllOrder(params) {
 		return request("/order/selectAllOrder","GET",params);
+	},
+	//判断是否点赞
+	exist(params) {
+		return request("/userLike/exist","GET",params);
 	}
 }

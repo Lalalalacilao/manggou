@@ -49,5 +49,17 @@ export default {
 	// 根据id查询商品信息
 	selectOneGoods(params) {
 		return request("/goods/selectOneGoods","GET",params);
+	},
+	// 商品添加评论
+	userGoodsAddParentComment(params) {
+		return request("/user_goods_comment/addParentComment","POST",params);
+	},
+	// 获取商品评论列表
+	getCommentList(params) {
+		return request("/user_goods_comment/getCommentList","POST",params);
+	},
+	// 用户商品添加回复
+	userGoodsAddSubComment(params) {
+		return request("/user_goods_comment/getCommentList","POST",params);
 	}
 }

@@ -206,6 +206,9 @@
   width: 68rpx;
   height: 68rpx;
 }
+.comment_box .comment_input {
+  color: #999999;
+}
 .comment_box input {
   width: 594rpx;
   height: 68rpx;
@@ -213,7 +216,6 @@
   padding-left: 24rpx;
   padding-right: 24rpx;
   font-size: 28rpx;
-  color: #999999;
   font-family: PingFang SC-Regular, PingFang SC;
   font-weight: 400;
   background-color: #F6F6F6;
@@ -271,6 +273,20 @@
   font-size: 24rpx;
   color: #999999;
   font-weight: 400;
+}
+.reply_input {
+  position: fixed;
+  bottom: 120rpx;
+  padding: 40rpx 32rpx;
+  background-color: red;
+}
+.reply_input input {
+  width: 686rpx;
+  height: 68rpx;
+  padding-left: 24rpx;
+  background-color: #F6F6F6;
+  border-radius: 36rpx;
+  font-size: 28rpx;
 }
 .recommend {
   padding: 68rpx 10rpx 0 30rpx;

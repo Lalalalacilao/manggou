@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/productDetalis/productDetalis"],{
 
 /***/ 207:
-/*!*************************************************************************************************!*\
-  !*** C:/Users/14183/Desktop/manggou/main.js?{"page":"pages%2FproductDetalis%2FproductDetalis"} ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/14183/Desktop/manggou/manggou7-18/main.js?{"page":"pages%2FproductDetalis%2FproductDetalis"} ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22,9 +22,9 @@ createPage(_productDetalis.default);
 /***/ }),
 
 /***/ 208:
-/*!******************************************************************************!*\
-  !*** C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue ***!
-  \******************************************************************************/
+/*!******************************************************************************************!*\
+  !*** C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -63,9 +63,9 @@ component.options.__file = "pages/productDetalis/productDetalis.vue"
 /***/ }),
 
 /***/ 209:
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue?vue&type=template&id=0c0787a6& ***!
-  \*************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue?vue&type=template&id=0c0787a6& ***!
+  \*************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -85,9 +85,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 210:
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue?vue&type=template&id=0c0787a6& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue?vue&type=template&id=0c0787a6& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -135,9 +135,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 211:
-/*!*******************************************************************************************************!*\
-  !*** C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -151,9 +151,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 212:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -348,107 +348,39 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp();
 var _default = {
   data: function data() {
     return {
       // 产品信息
-      productDetali: {
-        // id: 1001,
-        // image: ["../../static/productDetails/341003d19f8862a8adb8bbd0b709df3@2x.png","../../static/productDetails/341003d19f8862a8adb8bbd0b709df3@2x.png"],
-        // title: "欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊欧式餐桌啊",
-        // price: 1200,
-        // way: "自提",
-        // intr: "古典欧式餐桌基本功能超过大值就是地位的象征。奢华欧式餐桌的靡靡之味，可让人深刻感受到古典主义家饰中实用与美观的完美结合，绝妙的家饰搭配，超越动能之外的视觉盛宴，同样让享受不断升级。每一个细节都无时不强调着尊贵。色彩绚丽图案精美，材料认真挑选，工序精心打磨，而且这份尊贵是无可复制的，现在细节处理的手法是经过历史锤炼的经典，所以有一种浓郁的气息。",
-        // date: "3小时前",
-        // releaseUser: {
-        // 	id: 1002,
-        // 	head: "../../static/productDetails/3bfdaebea5552b22dec7377488f3941@2x(1).png",
-        // 	nickname: "Light Breeze",
-        // 	releaseDate: "2023-06-08 12:00:00",
-        // }
-      },
+      productDetali: {},
       // 当前登录用户信息
-      currentUser: {
-        id: 1003,
-        head: "../../static/productDetails/3bfdaebea5552b22dec7377488f3941@2x.png"
-      },
+      currentUser: {},
       // 评论
-      comment: [
-        // {
-        // 	id: 1001,
-        // 	parentId: "",
-        // 	remark:"我想要，可以支持线下交易吗？",
-        // 	sendTime: "昨天 11:12",
-        // 	user: {
-        // 		userId: 1005,
-        // 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-        // 		nickname: "香蕉于大菠萝",
-        // 		position: "陕西"
-        // 	},
-        // },
-        // {
-        // 	id: 1002,
-        // 	parentId: 1001,// 回复信息的父id
-        // 	remark:"可以的，联系我就好。",
-        // 	sendTime: "昨天 17:23",
-        // 	user: {
-        // 		userId: 1002,
-        // 		nickname: "Light Breeze",
-        // 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-        // 		position: "陕西"
-        // 	},
-        // },
-        // {
-        // 	id: 1003,
-        // 	parentId: "",
-        // 	remark:"这个怎么看看是不是正品？",
-        // 	sendTime: "2023-01-23 11:12",
-        // 	user: {
-        // 		userId: 1005,
-        // 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-        // 		nickname: "翠鸟先猪猪",
-        // 		position: "陕西"
-        // 	},
-        // },
-        // {
-        // 	id: 1004,
-        // 	parentId: 1001,
-        // 	remark:"这个怎么看看是不是正品？",
-        // 	sendTime: "2023-01-23 11:12",
-        // 	user: {
-        // 		userId: 1005,
-        // 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-        // 		nickname: "翠鸟先猪猪",
-        // 		position: "陕西"
-        // 	},
-        // },
-        // {
-        // 	id: 1005,
-        // 	parentId: 1001,
-        // 	remark:"这个怎么看看是不是正品？",
-        // 	sendTime: "2023-01-23 11:12",
-        // 	user: {
-        // 		userId: 1005,
-        // 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-        // 		nickname: "翠鸟先猪猪",
-        // 		position: "陕西"
-        // 	},
-        // },
-        // {
-        // 	id: 1006,
-        // 	parentId: 1001,
-        // 	remark:"这个怎么看看是不是正品？",
-        // 	sendTime: "2023-01-23 11:12",
-        // 	user: {
-        // 		userId: 1005,
-        // 		head: "../../static/productDetails/56e99a5a4bfd64eb3f2394b607ca579@2x.png",
-        // 		nickname: "翠鸟先猪猪",
-        // 		position: "陕西"
-        // 	},
-        // }
-      ],
+      comment: [],
       // 推荐商品
       recommendPro: [],
       // 轮播图配置
@@ -465,7 +397,13 @@ var _default = {
       isLimit: false,
       // 猜你喜欢分页变量
       pageNum_: 1,
-      loading: ""
+      loading: "",
+      // 评论
+      inputComment: "",
+      // 评论回复
+      isFocus: false,
+      inputReplyComment: "",
+      CommentedOnId: ""
     };
   },
   methods: {
@@ -484,46 +422,128 @@ var _default = {
     contactMe: function contactMe() {
       console.log("联系我");
     },
-    // 评论回复处理方法
-    reply: function reply(comment) {
-      var _this = this;
-      var _loop = function _loop(i) {
-        if (comment[i].parentId != "") {
-          _this.$set(comment[i], "isFirst", false);
-        } else {
-          _this.$set(comment[i], "isFirst", true);
-          _this.$set(comment[i], "reply", []);
-          comment[i].reply = comment.filter(function (item) {
-            return item.parentId === comment[i].id;
-          });
-        }
-      };
-      for (var i = 0; i < comment.length; i++) {
-        _loop(i);
-      }
-      return comment;
-    },
     // 轮播图设置
     change: function change(e) {
       this.current = e.detail.current;
     },
-    // 推荐
+    // 评论拉取
+    getCommentList: function getCommentList() {
+      var _this = this;
+      app.globalData.getCommentList({
+        commentId: this.productDetali.id
+      }).then(function (res) {
+        _this.comment = res.data;
+        _this.reply();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    // 评论数据处理方法
+    reply: function reply() {
+      if (this.comment !== []) {
+        for (var i = 0; i < this.comment.length; i++) {
+          this.comment[i].createTime = this.comment[i].createTime.slice(0, 16);
+          if (this.comment[i].subComment !== []) {
+            for (var j = 0; j < this.comment[i].subComment.length; j++) {
+              this.comment[i].subComment[j].createTime = this.comment[i].subComment[j].createTime.slice(0, 16);
+            }
+          }
+        }
+      }
+    },
+    // 评论功能
+    releaseComment: function releaseComment() {
+      // 为空校验
+      var comment = this.inputComment.trim();
+      if (comment === "") {
+        uni.showToast({
+          title: "评论不能为空",
+          icon: "error"
+        });
+        return;
+      }
+      // 发送请求
+      var userInfo = uni.getStorageSync("userInfo");
+      app.globalData.userGoodsAddParentComment({
+        detail: comment,
+        userAvatar: userInfo.userAvatar,
+        userId: userInfo.id,
+        userName: userInfo.userName,
+        userGoodsId: this.productDetali.id
+      }).then(function (res) {
+        uni.showToast({
+          title: "评论成功",
+          icon: "none"
+        });
+      }).catch(function (err) {
+        uni.showToast({
+          title: err.message,
+          icon: "error"
+        });
+      });
+      this.inputComment = "";
+    },
+    // 返回点击id
+    getClickType: function getClickType(id) {
+      var replyType = id.substr(0, 3);
+      if (reply = "fir") {
+        return id.substr(11);
+      } else {
+        return id.substr(9);
+      }
+      return;
+    },
+    // 评论回复调起文本框
+    replyComment: function replyComment(id) {
+      // 获取点击的评论id
+      var CommentedOnId = this.getClickType(id);
+
+      // 拉起文本框
+      this.isFocus = true;
+      var obj = uni.createSelectorQuery().in(this).select("#" + id);
+      obj.boundingClientRect(function (data) {
+        console.log(data);
+        // data为该元素位置信息
+        uni.pageScrollTo({
+          scrollTop: 0,
+          duration: 10
+        });
+      }).exec();
+    },
+    // 回复评论
+    releaseReply: function releaseReply() {
+      var inputReplyCommentThis = this.inputReplyComment.trim();
+      if (inputReplyCommentThis === "") {
+        uni.showToast({
+          title: "评论不能为空",
+          icon: "error"
+        });
+        return;
+      }
+      app.globalData.userGoodsAddSubComment({
+        detail: inputReplyCommentThis
+      });
+    },
+    // 查找所回复的评论
+    // 推荐点击
     recommend: function recommend(id) {
-      // this.selectOneGoods(id);
       var pages = getCurrentPages(); //获取所有页面的数组对象
       var currPage = pages[pages.length - 1]; //当前页面
       uni.redirectTo({
         url: "../../" + currPage.__route__ + "?id=" + id
       });
     },
-    // 请求数据
+    // 请求商品详情数据
     selectOneGoods: function selectOneGoods(id) {
       var _this2 = this;
       app.globalData.selectOneGoods({
         id: id
       }).then(function (res) {
         _this2.productDetali = res.data;
+        // 数据处理
         _this2.dataHandle();
+        // 拉取商品评论
+        _this2.getCommentList();
       }).catch(function (err) {
         uni.showToast({
           title: err.message,
@@ -545,16 +565,7 @@ var _default = {
         this.productDetali.imgUrl = JSON.parse(this.productDetali.imgUrl);
       }
     },
-    dataHandleAboutRecommendPro: function dataHandleAboutRecommendPro(obtain) {
-      // 时间处理
-      for (var i = 0 + this.recommendPro.length - obtain; i < this.recommendPro.length; i++) {
-        // 图片处理
-        if (this.recommendPro[i].imgUrl !== null) {
-          this.recommendPro[i].imgUrl = JSON.parse(this.recommendPro[i].imgUrl)[0];
-        }
-      }
-    },
-    // 请求商品
+    // 请求推荐商品分页
     consult: function consult() {
       var _this3 = this;
       var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -579,6 +590,16 @@ var _default = {
         _this3.loading = err.message;
       });
     },
+    // 推荐商品数据处理
+    dataHandleAboutRecommendPro: function dataHandleAboutRecommendPro(obtain) {
+      // 时间处理
+      for (var i = 0 + this.recommendPro.length - obtain; i < this.recommendPro.length; i++) {
+        // 图片处理
+        if (this.recommendPro[i].imgUrl !== null) {
+          this.recommendPro[i].imgUrl = JSON.parse(this.recommendPro[i].imgUrl)[0];
+        }
+      }
+    },
     // 触底加载事件
     bottomLoading: function bottomLoading() {
       if (this.loading !== "没有了~") {
@@ -587,19 +608,12 @@ var _default = {
     }
   },
   onLoad: function onLoad(option) {
+    // 请求商品详细信息
     this.selectOneGoods(option.id);
+    // 请求商品分页
     this.consult();
+    // 当前用户
     this.currentUser = uni.getStorageSync("userInfo");
-    // 评论处理逻辑
-    if (this.comment != null) {
-      this.comment = this.reply(this.comment);
-      for (var i = 0; i < this.comment.length; i++) {
-        if (this.comment[i].isFirst === false) {
-          this.comment.splice(i, 1);
-          i = 0;
-        }
-      }
-    }
   }
 };
 exports.default = _default;
@@ -608,9 +622,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 213:
-/*!****************************************************************************************************************!*\
-  !*** C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -624,9 +638,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 214:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/14183/Desktop/manggou/pages/productDetalis/productDetalis.vue?vue&type=style&index=0&lang=scss& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/14183/Desktop/manggou/manggou7-18/pages/productDetalis/productDetalis.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

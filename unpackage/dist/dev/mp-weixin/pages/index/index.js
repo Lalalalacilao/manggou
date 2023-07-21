@@ -267,47 +267,50 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 43));
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = getApp();
 var _default = {
   data: function data() {
     return {
-      productList: [
-        // {id:"001",
-        // img:"../../static/index/81686624219_.pic.png",
-        //  date:"2023年02月23日",
-        //  introduce:"唉杯具啊独霸世界的北京奥斯本大家来看那是空军雷达兵你节哀顺便的骄傲设备接口按鼠标点击腊石坝家里的报价腊石坝的距离",
-        //  price:"1200.00",
-        //  user:{
-        // 	head:"../../static/index/71686624070_.pic@3x.png",
-        // 	nikename:"樱桃小丸子",
-        // 	},
-        // },
-      ],
+      // 当前登录用户
+      user: {},
+      // 用户商品
+      productList: [],
+      // 专栏商品
+      specialColumn: [],
+      // 菜单控制
       curr: 0,
       stockListHeight: 0,
       // 文本框内容
       keyWord: "",
+      // 用户商品分页控制
       loading: "",
       pageNum_: 1,
-      user: {}
+      // 专栏商品分页控制
+      specialColumnLoading: "",
+      specialColumnPageNum_: 1
     };
   },
-  onLoad: function onLoad() {
-    this.consult();
-  },
+  // onLoad() {
+  // 	this.consult();
+  // 	this.specialColumnProConsult();
+  // },
   onReady: function onReady() {},
   methods: {
     // 联动nav————swiper-item
     setCurr: function setCurr(e) {
       this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
       // console.log("@@@",this.curr);
-    },
-    // 商品详情
-    productDetails: function productDetails(item) {
-      uni.navigateTo({
-        url: "/pages/productDetalis/productDetalis?id=" + item.id
-      });
     },
     // 搜索
     search: function search() {
@@ -321,13 +324,19 @@ var _default = {
       }
       this.keyWord = "";
     },
-    // 触底加载事件
-    bottomLoading: function bottomLoading() {
-      if (this.loading !== "没有了~") {
-        this.consult(this.pageNum_, 10);
-      }
+    // 商品详情
+    productDetails: function productDetails(item) {
+      uni.navigateTo({
+        url: "/pages/productDetalis/productDetalis?id=" + item.id
+      });
     },
-    // 请求商品
+    // 专栏商品详情
+    specialColumnProductDetails: function specialColumnProductDetails(item) {
+      uni.navigateTo({
+        url: "/pages/productDetalisMine/productDetalisMine?id=" + item.id
+      });
+    },
+    // 请求用户商品
     consult: function consult() {
       var _this = this;
       var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -339,7 +348,6 @@ var _default = {
       }).then(function (res) {
         var nextLenght = _this.productList.length;
         _this.productList = _this.productList.concat(res.data.records);
-        console.log(_this.productList);
         var obtain = res.data.records.length;
         _this.pageNum_++;
         if (_this.productList.length === nextLenght) {
@@ -366,23 +374,84 @@ var _default = {
           this.productList[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
         }
       }
+    },
+    // 触底加载事件
+    bottomLoading: function bottomLoading() {
+      if (this.loading !== "没有了~") {
+        this.consult(this.pageNum_, 10);
+      }
+    },
+    // 请求专栏商品
+    specialColumnProConsult: function specialColumnProConsult() {
+      var _this2 = this;
+      var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var pageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+      this.specialColumnLoading = "正在加载中哦~";
+      app.globalData.getSpecialColumnGoods({
+        pageNum: pageNum,
+        pageSize: pageSize
+      }).then(function (res) {
+        console.log(res);
+        var nextLenght = _this2.specialColumn.length;
+        _this2.specialColumn = _this2.specialColumn.concat(res.data.records);
+        console.log(_this2.specialColumn);
+        var obtain = res.data.records.length;
+        _this2.specialColumnPageNum_++;
+        if (_this2.specialColumn.length === nextLenght) {
+          _this2.specialColumnLoading = "没有了~";
+        }
+        // 数据处理逻辑
+        if (obtain !== 0) {
+          _this2.specialColumnDataHandle(obtain);
+        }
+      }).catch(function (err) {
+        _this2.specialColumnLoading = err.message;
+      });
+    },
+    // 专栏商品数据处理逻辑
+    specialColumnDataHandle: function specialColumnDataHandle(obtain) {
+      // 时间处理
+      for (var i = 0 + this.specialColumn.length - obtain; i < this.specialColumn.length; i++) {
+        var releaseDate = this.specialColumn[i].createTime.split(" ");
+        this.$set(this.specialColumn[i], "release", "".concat(releaseDate[0]));
+        // 价格处理
+        this.specialColumn[i].price = this.specialColumn[i].price + ".00";
+        // 图片处理
+        if (this.specialColumn[i].imgUrl !== null) {
+          this.specialColumn[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
+        }
+      }
+    },
+    // 触底加载事件
+    specialColumnBottomLoading: function specialColumnBottomLoading() {
+      if (this.specialColumnLoading !== "没有了~") {
+        this.specialColumnProConsult(this.specialColumnPageNum_, 10);
+      }
     }
   },
   onShow: function onShow() {
     // 隐藏掉自带的底部导航栏
     uni.hideTabBar({});
-    // 刷新页面
+
+    // 刷新最新发布
     this.productList = [];
     this.loading = "";
     this.pageNum_ = 1;
     this.consult();
+
+    // 刷新热卖
+    this.specialColumn = [];
+    this.specialColumnLoading = "";
+    this.specialColumnPageNum_ = 1;
+    this.specialColumnProConsult();
+
     // 获取用户信息
     var userInfoThis = uni.getStorageSync("userInfo");
     if (userInfoThis !== "") {
       this.userInfo = userInfoThis;
       console.log(this.userInfo);
       this.dataHandle();
-    } else {}
+    }
   }
 };
 exports.default = _default;

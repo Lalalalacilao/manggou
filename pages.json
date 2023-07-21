@@ -117,7 +117,17 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/productDetalisMine/productDetalisMine",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

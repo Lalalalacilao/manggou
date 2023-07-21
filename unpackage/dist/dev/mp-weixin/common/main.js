@@ -22,7 +22,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 var tabBar = function tabBar() {
   __webpack_require__.e(/*! require.ensure | components/tabBar */ "components/tabBar").then((function () {
-    return resolve(__webpack_require__(/*! ./components/tabBar.vue */ 298));
+    return resolve(__webpack_require__(/*! ./components/tabBar.vue */ 306));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 _vue.default.component("tabBar", tabBar);

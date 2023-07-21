@@ -14,7 +14,7 @@
 			</view>
 			<view class="nav">
 				<view class="nav_item guess_like" :class="curr == 0 ? 'active' : ''" data-index="0" @click="setCurr">
-					<view class="text">猜你喜欢</view>
+					<view class="text">热卖商品</view>
 					<view class="line"></view>
 				</view>
 				<view class="nav_item new_release" :class="curr == 1 ? 'active' : ''" data-index="1" @click="setCurr">
@@ -26,7 +26,43 @@
 			
 		<!-- 下方 -->
 		<swiper  style="height: 1012rpx;" class="buttom" :current="curr" @change="setCurr">
-			<!-- 猜你喜欢 -->
+			
+			<!-- 热卖商品 -->
+			<swiper-item>
+				<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1012rpx;" @scrolltolower="specialColumnBottomLoading()">
+					<view class="banner">
+						<image src="../../static/index/组件 17 – 1.png" mode="widthFix"></image>
+					</view>
+					<!-- 展示列表 -->
+					<view class="pdt_show" >
+						<view class="pdt_item" v-for="item in specialColumn" :key="item.id" @click="specialColumnProductDetails(item)">
+							<view class="pdt_top">
+								<image :src="item.imgUrl" mode=""></image>
+								<text>{{item.release}}发布</text>
+							</view>
+							<view class="pdt_middle">
+								<text class="intr">{{item.introduction}}</text>
+								<text class="price"><text>¥</text?>{{item.price}}</text>
+							</view>
+							<view class="user">
+								<image :src="item.userAvatar"></image>
+								<text class="nickname">{{item.userName}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="loading">
+						{{specialColumnLoading}}
+					</view>
+				</scroll-view>
+			</swiper-item>
+			
+			
+			
+			
+			
+			
+			
+			<!-- 最新发布 -->
 			<swiper-item>
 				<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1012rpx;" @scrolltolower="bottomLoading()">
 					<view class="banner">
@@ -49,43 +85,17 @@
 								<text class="nickname">{{item.userName}}</text>
 							</view>
 						</view>
-						
 					</view>
-					
 					<view class="loading">
 						{{loading}}
 					</view>
-					
 				</scroll-view>
 			</swiper-item>
 			
-			<!-- 最新发布 -->
-			<swiper-item>
-				<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1012rpx;">
-					<view class="banner">
-						<image src="../../static/index/组件 17 – 1.png" mode="widthFix"></image>
-					</view>
-					<!-- 展示列表 -->
-					<view class="pdt_show" >
-						
-						<view class="pdt_item" v-for="item in productList" :key="item.id" @click="productDetails(item)">
-							<view class="pdt_top">
-								<image :src="item.img" mode=""></image>
-								<text>{{item.date}}发布</text>
-							</view>
-							<view class="pdt_middle">
-								<text class="intr">{{item.introduce}}</text>
-								<text class="price"><text>¥</text?>{{item.price}}</text>
-							</view>
-							<view class="user">
-								<image :src="item.user.head"></image>
-								<text class="nickname">{{item.user.nikename}}</text>
-							</view>
-						</view>
-						
-					</view>
-				</scroll-view>
-			</swiper-item>
+			
+			
+			
+			
 			
 		</swiper>
 
@@ -99,30 +109,34 @@
 	export default {
 		data() {
 			return {
-				productList: [
-					// {id:"001",
-					// img:"../../static/index/81686624219_.pic.png",
-					//  date:"2023年02月23日",
-					//  introduce:"唉杯具啊独霸世界的北京奥斯本大家来看那是空军雷达兵你节哀顺便的骄傲设备接口按鼠标点击腊石坝家里的报价腊石坝的距离",
-					//  price:"1200.00",
-					//  user:{
-					// 	head:"../../static/index/71686624070_.pic@3x.png",
-					// 	nikename:"樱桃小丸子",
-					// 	},
-					// },
-				],
+				// 当前登录用户
+				user: {},
+				
+				// 用户商品
+				productList: [],
+				// 专栏商品
+				specialColumn: [],
+				
+				
+				
+				// 菜单控制
 				curr: 0,
 				stockListHeight: 0,
 				// 文本框内容
 				keyWord: "",
+				
+				// 用户商品分页控制
 				loading: "",
 				pageNum_: 1,
-				user: {}
+				// 专栏商品分页控制
+				specialColumnLoading: "",
+				specialColumnPageNum_: 1
 			}
 		},
-		onLoad() {
-			this.consult();
-		},
+		// onLoad() {
+		// 	this.consult();
+		// 	this.specialColumnProConsult();
+		// },
 		onReady() {
 
 		},
@@ -131,12 +145,6 @@
 			setCurr(e) {
 				this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
 				// console.log("@@@",this.curr);
-			},
-			// 商品详情
-			productDetails(item) {
-				uni.navigateTo({
-					url:"/pages/productDetalis/productDetalis?id=" + item.id
-				});
 			},
 			// 搜索
 			search() {
@@ -150,13 +158,23 @@
 				}
 				this.keyWord = "";
 			},
-			// 触底加载事件
-			bottomLoading() {
-				if(this.loading !== "没有了~") {
-					this.consult(this.pageNum_, 10)
-				}
+			
+			// 商品详情
+			productDetails(item) {
+				uni.navigateTo({
+					url:"/pages/productDetalis/productDetalis?id=" + item.id
+				});
 			},
-			// 请求商品
+			// 专栏商品详情
+			specialColumnProductDetails(item) {
+				uni.navigateTo({
+					url: "/pages/productDetalisMine/productDetalisMine?id=" + item.id
+				});
+			},
+			
+
+			
+			// 请求用户商品
 			consult(pageNum = 1, pageSize = 10) {
 				this.loading = "正在加载中哦~";
 				app.globalData.goods({
@@ -165,7 +183,6 @@
 				}).then(res => {
 					const nextLenght = this.productList.length;
 					this.productList = this.productList.concat(res.data.records);
-					console.log(this.productList);
 					const obtain = res.data.records.length;
 					this.pageNum_++;
 					if(this.productList.length === nextLenght) {
@@ -192,24 +209,89 @@
 						this.productList[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
 					}
 				}
-			}
+			},
+			// 触底加载事件
+			bottomLoading() {
+				if(this.loading !== "没有了~") {
+					this.consult(this.pageNum_, 10)
+				}
+			},
+			
+			
+			
+			// 请求专栏商品
+			specialColumnProConsult(pageNum = 1, pageSize = 10) {
+				this.specialColumnLoading = "正在加载中哦~";
+				app.globalData.getSpecialColumnGoods({
+					pageNum,
+					pageSize
+				}).then(res => {
+					console.log(res);
+					const nextLenght = this.specialColumn.length;
+					this.specialColumn = this.specialColumn.concat(res.data.records);
+					console.log(this.specialColumn);
+					const obtain = res.data.records.length;
+					this.specialColumnPageNum_++;
+					if(this.specialColumn.length === nextLenght) {
+						this.specialColumnLoading = "没有了~";
+					}
+					// 数据处理逻辑
+					if(obtain !== 0) {
+						this.specialColumnDataHandle(obtain);
+					}
+				}).catch(err => {
+					this.specialColumnLoading = err.message;
+				})
+			},
+			// 专栏商品数据处理逻辑
+			specialColumnDataHandle(obtain) {
+				// 时间处理
+				for(let i = 0 + this.specialColumn.length - obtain; i < this.specialColumn.length; i++) {
+					const releaseDate = this.specialColumn[i].createTime.split(" ");
+					this.$set(this.specialColumn[i],"release",`${releaseDate[0]}`);
+					// 价格处理
+					this.specialColumn[i].price = this.specialColumn[i].price + ".00";
+					// 图片处理
+					if(this.specialColumn[i].imgUrl !== null) {
+						this.specialColumn[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
+					}
+				}
+			},
+			// 触底加载事件
+			specialColumnBottomLoading() {
+				if(this.specialColumnLoading !== "没有了~") {
+					this.specialColumnProConsult(this.specialColumnPageNum_, 10)
+				}
+			},
+			
+			
+			
+			
+			
+			
 		},
 		onShow() {
 			// 隐藏掉自带的底部导航栏
 			uni.hideTabBar({});
-			// 刷新页面
+			
+			// 刷新最新发布
 			this.productList = [];
 			this.loading = "";
 			this.pageNum_ = 1;
 			this.consult();
+			
+			// 刷新热卖
+			this.specialColumn = [];
+			this.specialColumnLoading = "";
+			this.specialColumnPageNum_ = 1;
+			this.specialColumnProConsult();
+			
 			// 获取用户信息
 			const userInfoThis = uni.getStorageSync("userInfo");
 			if(userInfoThis !== "") {
 				this.userInfo = userInfoThis;
 				console.log(this.userInfo);
 				this.dataHandle();
-			} else {
-				
 			}
 		}
 	}

@@ -9644,11 +9644,16 @@ var _default = {
   },
   // 用户商品添加回复
   userGoodsAddSubComment: function userGoodsAddSubComment(params) {
-    return (0, _request.default)("/user_goods_comment/getCommentList", "POST", params);
+    // return request("/user_goods_comment/getCommentList","POST",params);
+    return (0, _request.default)("/user_goods_comment/addSubComment", "POST", params);
   },
   // 退出登录
   logout: function logout(params) {
     return (0, _request.default)("/user/logout", "POST", params);
+  },
+  // 专栏商品请求分页
+  getSpecialColumnGoods: function getSpecialColumnGoods(params) {
+    return (0, _request.default)("/backendGoods/getBackendGoods", "GET", params);
   }
 };
 exports.default = _default;

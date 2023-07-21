@@ -366,13 +366,25 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #F2D86D;
+  display: flex;
+  background-color: #fff;
   height: 120rpx;
   text-align: center;
   line-height: 120rpx;
+}
+.bottom_funciton .bottom_left {
+  width: 320rpx;
+}
+.bottom_funciton .bottom_left image {
+  width: 38rpx;
+  height: 44rpx;
+}
+.bottom_funciton .bottom_right {
   font-size: 32rpx;
   color: #0D0D26;
   font-family: PingFang SC-Bold, PingFang SC;
   font-weight: bold;
+  width: 430rpx;
+  background-color: #F2D86D;
 }
 

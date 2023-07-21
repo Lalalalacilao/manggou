@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniSwiperDot: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot */ "uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.vue */ 305))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot */ "uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.vue */ 313))
     },
   }
 } catch (e) {
@@ -370,6 +370,11 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 
 var app = getApp();
 var _default = {
@@ -403,7 +408,10 @@ var _default = {
       // 评论回复
       isFocus: false,
       inputReplyComment: "",
-      CommentedOnId: ""
+      commented: {},
+      subComment: {},
+      scrollTop: 0,
+      nextScrollTop: 0
     };
   },
   methods: {
@@ -453,6 +461,7 @@ var _default = {
     },
     // 评论功能
     releaseComment: function releaseComment() {
+      var _this2 = this;
       // 为空校验
       var comment = this.inputComment.trim();
       if (comment === "") {
@@ -475,44 +484,37 @@ var _default = {
           title: "评论成功",
           icon: "none"
         });
+        _this2.getCommentList();
+        _this2.inputComment = "";
       }).catch(function (err) {
         uni.showToast({
           title: err.message,
           icon: "error"
         });
       });
-      this.inputComment = "";
-    },
-    // 返回点击id
-    getClickType: function getClickType(id) {
-      var replyType = id.substr(0, 3);
-      if (reply = "fir") {
-        return id.substr(11);
-      } else {
-        return id.substr(9);
-      }
-      return;
     },
     // 评论回复调起文本框
-    replyComment: function replyComment(id) {
-      // 获取点击的评论id
-      var CommentedOnId = this.getClickType(id);
-
+    replyComment: function replyComment(commentItem) {
+      var _this3 = this;
+      var subCommentThis = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
       // 拉起文本框
       this.isFocus = true;
-      var obj = uni.createSelectorQuery().in(this).select("#" + id);
-      obj.boundingClientRect(function (data) {
-        console.log(data);
-        // data为该元素位置信息
-        uni.pageScrollTo({
-          scrollTop: 0,
-          duration: 10
-        });
+      // 调整该条评论位置
+      this.nextScrollTop = this.scrollTop;
+      uni.createSelectorQuery().select("#commit" + commentItem.id).boundingClientRect(function (data) {
+        uni.createSelectorQuery().select(".swiper-box").boundingClientRect(function (res) {
+          _this3.scrollTop = -(res.top - data.top + 100);
+        }).exec();
       }).exec();
+      this.commented = commentItem;
+      this.subComment = subCommentThis;
     },
-    // 回复评论
+    // 回复
     releaseReply: function releaseReply() {
+      var _this4 = this;
       var inputReplyCommentThis = this.inputReplyComment.trim();
+      this.inputReplyComment = "";
+      this.isFocus = false;
       if (inputReplyCommentThis === "") {
         uni.showToast({
           title: "评论不能为空",
@@ -520,11 +522,38 @@ var _default = {
         });
         return;
       }
+      if (this.commented == "") {
+        uni.showToast({
+          title: "请选择要回复的评论",
+          icon: "error"
+        });
+        return;
+      }
       app.globalData.userGoodsAddSubComment({
-        detail: inputReplyCommentThis
+        detail: inputReplyCommentThis,
+        parentId: this.commented.id,
+        replyUserName: this.subComment === "" ? '' : this.subComment.userName,
+        userAvatar: this.currentUser.userAvatar,
+        userGoodsId: this.productDetali.id,
+        userId: this.currentUser.id,
+        userName: this.currentUser.userName
+      }).then(function (res) {
+        uni.showToast({
+          title: "评论成功",
+          icon: "none"
+        });
+        _this4.getCommentList();
+      }).catch(function (err) {
+        uni.showToast({
+          title: err.message,
+          icon: "error"
+        });
       });
     },
-    // 查找所回复的评论
+    // 查找所回复的评论的信息
+    byIdGetCommentItem: function byIdGetCommentItem(id) {
+      if (this.comment != []) {}
+    },
     // 推荐点击
     recommend: function recommend(id) {
       var pages = getCurrentPages(); //获取所有页面的数组对象
@@ -535,15 +564,15 @@ var _default = {
     },
     // 请求商品详情数据
     selectOneGoods: function selectOneGoods(id) {
-      var _this2 = this;
+      var _this5 = this;
       app.globalData.selectOneGoods({
         id: id
       }).then(function (res) {
-        _this2.productDetali = res.data;
+        _this5.productDetali = res.data;
         // 数据处理
-        _this2.dataHandle();
+        _this5.dataHandle();
         // 拉取商品评论
-        _this2.getCommentList();
+        _this5.getCommentList();
       }).catch(function (err) {
         uni.showToast({
           title: err.message,
@@ -567,7 +596,7 @@ var _default = {
     },
     // 请求推荐商品分页
     consult: function consult() {
-      var _this3 = this;
+      var _this6 = this;
       var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var pageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
       this.loading = "正在加载中哦~";
@@ -575,19 +604,19 @@ var _default = {
         pageNum: pageNum,
         pageSize: pageSize
       }).then(function (res) {
-        var nextLenght = _this3.recommendPro.length;
-        _this3.recommendPro = _this3.recommendPro.concat(res.data.records);
+        var nextLenght = _this6.recommendPro.length;
+        _this6.recommendPro = _this6.recommendPro.concat(res.data.records);
         var obtain = res.data.records.length;
-        _this3.pageNum_++;
-        if (_this3.recommendPro.length === nextLenght) {
-          _this3.loading = "没有了~";
+        _this6.pageNum_++;
+        if (_this6.recommendPro.length === nextLenght) {
+          _this6.loading = "没有了~";
         }
         // 数据处理逻辑
         if (obtain !== 0) {
-          _this3.dataHandleAboutRecommendPro(obtain);
+          _this6.dataHandleAboutRecommendPro(obtain);
         }
       }).catch(function (err) {
-        _this3.loading = err.message;
+        _this6.loading = err.message;
       });
     },
     // 推荐商品数据处理

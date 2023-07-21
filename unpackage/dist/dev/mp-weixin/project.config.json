@@ -19,10 +19,20 @@
     "condition": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.33.0",
+  "libVersion": "3.0.0",
   "appid": "wx381eee87df605b9b",
   "projectname": "manggou-wachat",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/purchase/purchase",
+          "pathName": "pages/purchase/purchase",
+          "query": ""
+        }
+      ]
+    }
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

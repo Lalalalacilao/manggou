@@ -253,7 +253,7 @@
 					this.specialColumn[i].price = this.specialColumn[i].price + ".00";
 					// 图片处理
 					if(this.specialColumn[i].imgUrl !== null) {
-						this.specialColumn[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
+						this.specialColumn[i].imgUrl = JSON.parse(this.specialColumn[i].imgUrl)[0];
 					}
 				}
 			},

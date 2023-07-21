@@ -176,10 +176,10 @@
 						</view>
 						<view class="recommend_user clear">
 							<view class="recommend_head float_left">
-								<image :src="item.releaseUser.head" mode=""></image>
+								<image :src="item.userAvatar" mode=""></image>
 							</view>
 							<view class="recommend_nickname float_left">
-								{{item.releaseUser.nickname}}
+								{{item.userName}}
 							</view>
 						</view>
 					</view>
@@ -430,9 +430,9 @@ export default {
 			// 时间处理
 			this.$set(this.productDetali,"release",`${this.productDetali.createTime}`);
 			// 标题字数处理
-			if(this.productDetali.introduction.length > 25) {
+			if(this.productDetali.goodsName.length > 25) {
 				this.isLimit = true;
-				this.productDetali.introduction = this.productDetali.introduction.slice(0,24);
+				this.productDetali.goodsName = this.productDetali.goodsName.slice(0,24);
 			}
 			// 图片url处理
 			if(this.productDetali.imgUrl !== null) {

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/purchase/purchase",
     "pages/index/index",
     "pages/message/message",
     "pages/forum/forum",

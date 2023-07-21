@@ -18,8 +18,8 @@
 			<!-- tab -->
 			<view class="mg-allOrder-tab">
 				<!-- 选择 -->
-				<view class="nav_item mg-taberOfservice-select" :class="curr===index?'select':''" 
-					v-for="(item,index) in taber" :key="index" @tap="setCurr" :data-index="index">
+				<view class="nav_item mg-taberOfservice-select" v-for="(item,index) in taber" :key="index" 
+				@tap="setCurr" :data-index="index" :class="curr===index?'select':''">
 					<view>{{item}}</view>
 					<view class="mt-Community-label-bottom"></view>
 				</view>
@@ -44,10 +44,10 @@
 									<view class="mg-dealState-pay" v-if="item.status == 0">待支付</view>
 									<view class="mg-dealState-pay" v-if="item.status == 1">待收货</view>
 									<view class="mg-dealState-pay" v-if="item.status == 2">待评价</view>
-									<view class="mg-dealState-pay" v-if="item.status == 3">交易成功</view>
+									<view class="mg-dealState-pay" v-if="item.status == 3">交易完成</view>
 								</view>
 								<!-- 订单详情 -->
-								<view class="mg-goodsIntroduction" @click="OrderDetails(item.orders.id,item.orders.type,item.orders.state,item.orders.goodsId)">
+								<view class="mg-goodsIntroduction">
 									<image :src="item.goodsImg" mode="aspectFill"></image>
 									<view class="mg-PurchasedGoods">
 										<view class="mg-GoodsTitle">{{item.goodsName}}</view>
@@ -62,12 +62,13 @@
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
 									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
-									<view class="used" @click="ComeAgain(item.orders.id)">
+									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-2" v-if="item.status == 0">待付款</view>
 										<view class="used-2" v-if="item.status == 1">确认收货</view>
 										<view class="used-2" v-if="item.status == 2">去评价</view>
-										<view class="used-2" v-if="item.status == 3">待付款</view>
+										<view class="used-4" v-if="item.status == 3">已评价</view>
+										<view class="used-3" @click="OrderDetails(item.id)" v-if="item.status == 1 || item.status == 2 || item.status == 3">查看物流</view>
 									</view>
 								</view>
 							</view>
@@ -88,34 +89,34 @@
 				<!-- 待付款 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
-							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
-							<view class="mg-goodsCard">
+							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
+							<!-- <view class="mg-goodsCard"> -->
 								<!-- 商铺logo和标题订单状态 -->
 								<view class="mg-shop">
 									<view class="mg-shop-img">
-										<image :src="selectOrdedel.userAvatar" mode="aspectFill"></image>
-										<view class="mg-shop-img-view">{{selectOrdedel.userName}}</view>
+										<image :src="item.userAvatar" mode="aspectFill"></image>
+										<view class="mg-shop-img-view">{{item.userName}}</view>
 									</view>
-									<view class="mg-dealState-pay">待支付{{selectOrdedel}}</view>
+									<view class="mg-dealState-pay">待支付</view>
 								</view>
 								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
-									<image :src="selectOrdedel.goodsImg" mode="aspectFill"></image>
+									<image :src="item.goodsImg" mode="aspectFill"></image>
 									<view class="mg-PurchasedGoods">
-										<view class="mg-GoodsTitle">{{selectOrdedel.goodsName}}</view>
+										<view class="mg-GoodsTitle">{{item.goodsName}}</view>
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{selectOrdedel.price}}.00</text>
+												{{item.price}}.00</text>
 										</view>
 									</view>
 								</view>
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(selectOrdedel.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-2">待付款</view>
@@ -136,37 +137,38 @@
 				<!-- 待收货 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
-							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
-								<view class="mg-goodsCard">
+							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
+								<!-- <view class="mg-goodsCard"> -->
 								<!-- 商铺logo和标题订单状态 -->
 								<view class="mg-shop">
 									<view class="mg-shop-img">
-										<image :src="selectOrdedel.userAvatar" mode="aspectFill"></image>
-										<view class="mg-shop-img-view">{{selectOrdedel.userName}}</view>
+										<image :src="item.userAvatar" mode="aspectFill"></image>
+										<view class="mg-shop-img-view">{{item.userName}}</view>
 									</view>
 									<view class="mg-dealState-pay">待收货</view>
 								</view>
 								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
-									<image :src="selectOrdedel.goodsImg" mode="aspectFill"></image>
+									<image :src="item.goodsImg" mode="aspectFill"></image>
 									<view class="mg-PurchasedGoods">
-										<view class="mg-GoodsTitle">{{selectOrdedel.goodsName}}</view>
+										<view class="mg-GoodsTitle">{{item.goodsName}}</view>
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{selectOrdedel.price}}.00</text>
+												{{item.price}}.00</text>
 										</view>
 									</view>
 								</view>
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(selectOrdedel.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-2">确认收货</view>
+										<view class="used-3" @click="OrderDetails(item.id)">查看物流</view>
 									</view>
 								</view>
 							</view>
@@ -184,37 +186,38 @@
 				<!-- 待评价 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
-							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
-								<view class="mg-goodsCard">
+							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
+								<!-- <view class="mg-goodsCard"> -->
 								<!-- 商铺logo和标题订单状态 -->
 								<view class="mg-shop">
 									<view class="mg-shop-img">
-										<image :src="selectOrdedel.userAvatar" mode="aspectFill"></image>
-										<view class="mg-shop-img-view">{{selectOrdedel.userName}}</view>
+										<image :src="item.userAvatar" mode="aspectFill"></image>
+										<view class="mg-shop-img-view">{{item.userName}}</view>
 									</view>
 									<view class="mg-dealState-pay">待评价</view>
 								</view>
 								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
-									<image :src="selectOrdedel.goodsImg" mode="aspectFill"></image>
+									<image :src="item.goodsImg" mode="aspectFill"></image>
 									<view class="mg-PurchasedGoods">
-										<view class="mg-GoodsTitle">{{selectOrdedel.goodsName}}</view>
+										<view class="mg-GoodsTitle">{{item.goodsName}}</view>
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{selectOrdedel.price}}.00</text>
+												{{item.price}}.00</text>
 										</view>
 									</view>
 								</view>
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(selectOrdedel.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-2">去评价</view>
+										<view class="used-3" @click="OrderDetails(item.id)">查看物流</view>
 									</view>
 								</view>
 							</view>
@@ -232,37 +235,38 @@
 				<!-- 已完成 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
-						<view class="mg-goodsCard-box" v-if="selectOrdedel != '没有数据'">
+						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
-							<!-- <view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index"> -->
-								<view class="mg-goodsCard">
+							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
+								<!-- <view class="mg-goodsCard"> -->
 								<!-- 商铺logo和标题订单状态 -->
 								<view class="mg-shop">
 									<view class="mg-shop-img">
-										<image :src="selectOrdedel.userAvatar" mode="aspectFill"></image>
-										<view class="mg-shop-img-view">{{selectOrdedel.userName}}</view>
+										<image :src="item.userAvatar" mode="aspectFill"></image>
+										<view class="mg-shop-img-view">{{item.userName}}</view>
 									</view>
 									<view class="mg-dealState-pay">交易完成</view>
 								</view>
 								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
-									<image :src="selectOrdedel.goodsImg" mode="aspectFill"></image>
+									<image :src="item.goodsImg" mode="aspectFill"></image>
 									<view class="mg-PurchasedGoods">
-										<view class="mg-GoodsTitle">{{selectOrdedel.goodsName}}</view>
+										<view class="mg-GoodsTitle">{{item.goodsName}}</view>
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{selectOrdedel.price}}.00</text>
+												{{item.price}}.00</text>
 										</view>
 									</view>
 								</view>
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(selectOrdedel.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
-										<view class="used-1">已评价</view>
+										<view class="used-4">已评价</view>
+										<view class="used-3" @click="OrderDetails(item.id)">查看物流</view>
 									</view>
 								</view>
 							</view>
@@ -291,7 +295,7 @@
 				active:0,
 				taber:['全部','待付款','待收货','待评价','已完成'],
 				myDeal:[],
-				userId:null,
+				userId:24,
 				selectOrdedel:null,
 				flag:null,
 				selectAllOrdedel:[],
@@ -303,18 +307,24 @@
 			}
 		},
 		onLoad(option) {
-			this.userId = option.userId
+			// this.userId = option.userId
 			// console.log(this.userId,'用户id');
 			this.curr = option.curr
+			console.log(this.curr,'000');
 			this.getSelectOrderr()
 		},
 		methods: {
+			OrderDetails(id){
+				uni.navigateTo({
+					url:'/pages/logistics/logistics?id=' + id
+				})
+			},
 			// 全部订单触底加载
 			lowerBottomAll(){
 				console.log("搜索触底加载",this.total);
 				if(this.total > this.page*6){
 					this.page = this.page + 1
-					console.log(this.page,'页数');
+					// console.log(this.page,'页数');
 					app.globalData.selectAllOrder({
 						pageNum: this.page,
 						pageSize:4,
@@ -323,7 +333,7 @@
 						if(res.data !== undefined) {
 							let list = res.data.records
 							this.selectAllOrdedel.push(...list)
-							console.log('res----',this.selectAllOrdedel);
+							// console.log('res----',this.selectAllOrdedel);
 						} else {
 							console.log('没有数据');
 						}
@@ -332,7 +342,7 @@
 					})
 				}else{
 					uni.hideLoading()
-					console.log('到底了~');
+					// console.log('到底了~');
 					this.button = '到底了~'
 				}
 			},
@@ -346,7 +356,7 @@
 					if(res.data !== undefined) {
 						this.selectAllOrdedel = res.data.records
 						this.total = res.data.total
-						console.log('res----',this.selectAllOrdedel);
+						// console.log('res----',this.selectAllOrdedel);
 					} else {
 						console.log('没有数据');
 					}
@@ -358,10 +368,10 @@
 			deletedeal(e) {
 				if (this.flag == e) {
 					this.flag = null
-					console.log(this.flag,'111');
+					// console.log(this.flag,'111');
 				} else {
 					this.flag = e
-					console.log(this.flag,'222');
+					// console.log(this.flag,'222');
 				}
 			},
 			// 删除订单
@@ -375,7 +385,6 @@
 					showCancel: true,
 					success: function(res) {
 						if (res.confirm) {
-							console.log('删除成功');
 							app.globalData.deleteOrder({
 								id: id,
 								userId:that.userId ,
@@ -384,14 +393,15 @@
 								// uni.redirectTo({
 								// 	url:'/pages/allOrder/allOrder?curr=' + this.curr
 								// })
-								uni.navigateTo({
-									url:'/pages/allOrder/allOrder?userId=' + this.userId + '&curr=' + 0
+								uni.redirectTo({
+									url:'/pages/allOrder/allOrder?userId=' + this.userId
 								})
+								console.log('删除成功');
 							}).catch(err => {
 								console.log(err,'err----');
 							})
 						} else if (res.cancel) {
-							console.log('删除成功');
+							console.log('删除失败');
 						}
 					}
 				});
@@ -399,21 +409,24 @@
 			//swiper-item
 			setCurr(e) {
 				this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
+				this.page = 1
 				this.getSelectOrderr()
 				// console.log("@@@",this.curr);
 			},
 			// 返回
 			toBack(){
-				uni.navigateBack()
+				uni.switchTab({
+					url:'/pages/personal/personal'
+				})
 			},
 			//订单
 			getSelectOrderr() {
-				if(this.curr == 0){
+				if(this.curr == '' || this.curr ==undefined ){
 					this.getAllOrder()
 					// console.log("@@@00",this.curr);
 				}else{
 					this.currs = this.curr - 1
-					console.log("@@@11",this.currs,this.curr);
+					// console.log("@@@11",this.currs,this.curr);
 					app.globalData.selectOrderByStatus({
 						userId: this.userId,
 						status:this.currs,
@@ -423,11 +436,7 @@
 							this.selectOrdedel = selectOrdedel
 							// const selectOrdedel = res.data
 							// this.selectOrdedel.push(selectOrdedel);
-							console.log('res----',this.selectOrdedel);
-						} else {
-							this.selectOrdedel = '没有数据'
-							console.log('res----',this.selectOrdedel);
-							console.log('没有数据');
+							// console.log('res----',this.selectOrdedel);
 						}
 					}).catch(err => {
 						console.log(err,'err----');

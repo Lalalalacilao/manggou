@@ -15,7 +15,8 @@
     "pages/Customer/Customer",
     "pages/EditInformation/EditInformation",
     "pages/AfterSales/AfterSales",
-    "pages/productDetalisMine/productDetalisMine"
+    "pages/productDetalisMine/productDetalisMine",
+    "pages/logistics/logistics"
   ],
   "subPackages": [],
   "window": {

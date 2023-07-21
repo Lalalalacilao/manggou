@@ -427,6 +427,10 @@ var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/
 //
 //
 //
+//
+//
+//
+//
 
 var app = getApp();
 var _default = {
@@ -436,7 +440,7 @@ var _default = {
       active: 0,
       taber: ['全部', '待付款', '待收货', '待评价', '已完成'],
       myDeal: [],
-      userId: null,
+      userId: 24,
       selectOrdedel: null,
       flag: null,
       selectAllOrdedel: [],
@@ -448,19 +452,25 @@ var _default = {
     };
   },
   onLoad: function onLoad(option) {
-    this.userId = option.userId;
+    // this.userId = option.userId
     // console.log(this.userId,'用户id');
     this.curr = option.curr;
+    console.log(this.curr, '000');
     this.getSelectOrderr();
   },
   methods: {
+    OrderDetails: function OrderDetails(id) {
+      uni.navigateTo({
+        url: '/pages/logistics/logistics?id=' + id
+      });
+    },
     // 全部订单触底加载
     lowerBottomAll: function lowerBottomAll() {
       var _this = this;
       console.log("搜索触底加载", this.total);
       if (this.total > this.page * 6) {
         this.page = this.page + 1;
-        console.log(this.page, '页数');
+        // console.log(this.page,'页数');
         app.globalData.selectAllOrder({
           pageNum: this.page,
           pageSize: 4,
@@ -470,7 +480,7 @@ var _default = {
             var _this$selectAllOrdede;
             var list = res.data.records;
             (_this$selectAllOrdede = _this.selectAllOrdedel).push.apply(_this$selectAllOrdede, (0, _toConsumableArray2.default)(list));
-            console.log('res----', _this.selectAllOrdedel);
+            // console.log('res----',this.selectAllOrdedel);
           } else {
             console.log('没有数据');
           }
@@ -479,7 +489,7 @@ var _default = {
         });
       } else {
         uni.hideLoading();
-        console.log('到底了~');
+        // console.log('到底了~');
         this.button = '到底了~';
       }
     },
@@ -494,7 +504,7 @@ var _default = {
         if (res.data !== undefined) {
           _this2.selectAllOrdedel = res.data.records;
           _this2.total = res.data.total;
-          console.log('res----', _this2.selectAllOrdedel);
+          // console.log('res----',this.selectAllOrdedel);
         } else {
           console.log('没有数据');
         }
@@ -506,10 +516,10 @@ var _default = {
     deletedeal: function deletedeal(e) {
       if (this.flag == e) {
         this.flag = null;
-        console.log(this.flag, '111');
+        // console.log(this.flag,'111');
       } else {
         this.flag = e;
-        console.log(this.flag, '222');
+        // console.log(this.flag,'222');
       }
     },
     // 删除订单
@@ -524,7 +534,6 @@ var _default = {
         success: function success(res) {
           var _this3 = this;
           if (res.confirm) {
-            console.log('删除成功');
             app.globalData.deleteOrder({
               id: id,
               userId: that.userId
@@ -533,14 +542,15 @@ var _default = {
               // uni.redirectTo({
               // 	url:'/pages/allOrder/allOrder?curr=' + this.curr
               // })
-              uni.navigateTo({
-                url: '/pages/allOrder/allOrder?userId=' + _this3.userId + '&curr=' + 0
+              uni.redirectTo({
+                url: '/pages/allOrder/allOrder?userId=' + _this3.userId
               });
+              console.log('删除成功');
             }).catch(function (err) {
               console.log(err, 'err----');
             });
           } else if (res.cancel) {
-            console.log('删除成功');
+            console.log('删除失败');
           }
         }
       });
@@ -548,22 +558,25 @@ var _default = {
     //swiper-item
     setCurr: function setCurr(e) {
       this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
+      this.page = 1;
       this.getSelectOrderr();
       // console.log("@@@",this.curr);
     },
     // 返回
     toBack: function toBack() {
-      uni.navigateBack();
+      uni.switchTab({
+        url: '/pages/personal/personal'
+      });
     },
     //订单
     getSelectOrderr: function getSelectOrderr() {
       var _this4 = this;
-      if (this.curr == 0) {
+      if (this.curr == '' || this.curr == undefined) {
         this.getAllOrder();
         // console.log("@@@00",this.curr);
       } else {
         this.currs = this.curr - 1;
-        console.log("@@@11", this.currs, this.curr);
+        // console.log("@@@11",this.currs,this.curr);
         app.globalData.selectOrderByStatus({
           userId: this.userId,
           status: this.currs
@@ -573,11 +586,7 @@ var _default = {
             _this4.selectOrdedel = selectOrdedel;
             // const selectOrdedel = res.data
             // this.selectOrdedel.push(selectOrdedel);
-            console.log('res----', _this4.selectOrdedel);
-          } else {
-            _this4.selectOrdedel = '没有数据';
-            console.log('res----', _this4.selectOrdedel);
-            console.log('没有数据');
+            // console.log('res----',this.selectOrdedel);
           }
         }).catch(function (err) {
           console.log(err, 'err----');

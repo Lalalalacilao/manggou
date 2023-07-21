@@ -326,7 +326,7 @@ var _default = {
     allOrder: function allOrder(id) {
       console.log("全部订单");
       uni.navigateTo({
-        url: '/pages/allOrder/allOrder?userId=' + this.userId + '&curr=' + 0
+        url: '/pages/allOrder/allOrder?userId=' + this.userId
       });
     },
     // 待付款

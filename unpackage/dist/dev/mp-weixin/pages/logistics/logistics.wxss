@@ -1,0 +1,138 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.mg-logistics {
+  background-color: #eff0f2;
+}
+.mg-line {
+  padding: 20rpx;
+}
+.mg-logistics-box {
+  padding-top: 200rpx;
+}
+.mg-logistics-box .mg-logistics-box-del {
+  background-color: #fff;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 30rpx;
+  border-radius: 20rpx;
+}
+.mg-logistics-box .mg-logistics-box-del .mg-box-image {
+  padding: 25rpx 25rpx 25rpx 25rpx;
+}
+.mg-logistics-box .mg-logistics-box-del .mg-box-image image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+}
+.mg-allOrder-top {
+  width: 750rpx;
+  position: fixed;
+  background-color: white;
+  z-index: 99;
+}
+.mg-allOrder-top .mg-top {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 110rpx;
+  padding-bottom: 35rpx;
+}
+.mg-allOrder-top .mg-top image {
+  margin-left: 20rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+.mg-allOrder-top .mg-top view {
+  font-size: 32rpx;
+  font-family: PingFang HK-Semibold, PingFang HK;
+  font-weight: 400;
+  color: #333333;
+  font-weight: 600;
+}
+.box2 {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 30rpx;
+}
+.box2 .flow {
+  position: relative;
+  overflow: hidden;
+  margin: 20rpx 30rpx;
+}
+.box2 .flow .line {
+  height: 65%;
+  width: 1px;
+  background: #eff0f2;
+  position: absolute;
+  left: 9rpx;
+  z-index: 0;
+}
+.box2 .flow .item {
+  margin: 38rpx 0;
+}
+.box2 .flow .item .dot {
+  width: 20rpx;
+  height: 20rpx;
+  background: #eff0f2;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 32rpx;
+}
+.box2 .flow .item .flex-grow-1 {
+  padding-left: 40rpx;
+}
+.box2 .flow .item .flex-grow-1 .title {
+  color: #a5a5a5;
+}
+.box2 .flow .item .flex-grow-1 .name {
+  font-size: 0.75rem;
+  margin-top: 5rpx;
+  color: #707070;
+}
+.box2 .flow .item .flex-grow-1 .time {
+  font-size: 0.75rem;
+  margin-top: 5rpx;
+  color: #707070;
+}
+.box2 .flow .item:nth-child(1) {
+  color: #3493ff;
+}
+.box2 .flow .item:nth-child(1) .title {
+  color: #3493ff;
+}
+.box2 .flow .item:nth-child(1) .name {
+  color: #3493ff;
+}
+.box2 .flow .item:nth-child(1) .time {
+  color: #3493ff;
+}
+.box2 .flow .item:nth-child(1) .dot {
+  background: #3493ff;
+}
+

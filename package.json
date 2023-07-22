@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "md5": "^2.3.0",
     "moment": "^2.29.4",
     "uni-request": "^1.0.2"
   }

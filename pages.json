@@ -138,9 +138,21 @@
 		    
 		}
 
+<<<<<<< HEAD
 
 
 
+=======
+        ,{
+            "path" : "pages/logistics/logistics",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+>>>>>>> fc2134f9ea2b0ff35102137b3e9eb68719fa47d7
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

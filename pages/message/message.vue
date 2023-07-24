@@ -4,16 +4,16 @@
 			<view class="status_bar"></view>
 			<view class="top_title clear">
 				<view class="title float">分销</view>
-				<view class="clear_mess float" @click="toClear">
+				<!-- <view class="clear_mess float" @click="toClear">
 					<image src="../../static/message/清除@2x.png" mode=""></image>
-				</view>
+				</view> -->
 			</view>
-			<view class="search">
+			<!-- <view class="search">
 				<view class="search_btn">
 					<image src="../../static/message/搜索@2x.png" mode=""></image>
 				</view>
 				<input type="text" placeholder="搜索聊天记录/联系人">
-			</view>
+			</view> -->
 		</view>
 		<view class="fill">
 			

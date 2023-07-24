@@ -22,17 +22,7 @@
   "libVersion": "3.0.0",
   "appid": "wx381eee87df605b9b",
   "projectname": "manggou-wachat",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "pages/purchase/purchase",
-          "pathName": "pages/purchase/purchase",
-          "query": ""
-        }
-      ]
-    }
-  },
+  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

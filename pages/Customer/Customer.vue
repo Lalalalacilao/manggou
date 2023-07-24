@@ -1,5 +1,4 @@
 <template>
-	<!-- <view class="pages_height" :style="[{height:stockListHeight + 'px'}]"> -->
 	<view class="pages_height">
 		<view class="mt-Customer">
 			<view style="width: 100%;height: 76rpx;">
@@ -13,12 +12,18 @@
 			</view>
 		</view>
 		<view class="intelligent_main" :style="[{height:key_height}]">
-			<scroll-view :scroll-y="true" :style="[{height:key_height}]"
-				:scroll-into-view="controlId ? bottomId : 'msg'+controlId" :scroll-with-animation="true"
-				class="intelligent_chat" @click="other_click" @dragging="other_click" :show-scrollbar="false">
+			<scroll-view 
+				:scroll-y="true" 
+				:style="[{height:key_height}]"
+				:scroll-into-view="controlId ? bottomId : 'msg'+controlId" 
+				:scroll-with-animation="true"
+				class="intelligent_chat" 
+				@click="other_click" 
+				@dragging="other_click" 
+				:show-scrollbar="false"
+			>
 				<view v-for="(item, index) in msg_list" :key="index" :class="'intelligent_chat_view'+index">
 					<view :class="item.left ? 'robot_word' : 'patient_word'">
-						<!-- <image v-if="item.left" style="width: 60rpx;height: 60rpx;margin-right: 32rpx;" src="https://maotaiwx.tos-cn-beijing.volces.com/Customer%2Fmt-robot.png"></image> -->
 						<view v-if="item.msg">
 							<view>
 								{{item.msg}}
@@ -43,14 +48,22 @@
 			</scroll-view>
 
 			<view class="intelligent_input" :style="{ bottom: bottom }">
-			<!-- <view class="intelligent_input"> -->
-				<input type="text" placeholder-style="font-size: 30rpx;color: #C8C8C8;" placeholder="请输入…"
-					:adjust-position="false" v-model="value" @confirm.prevent="input_send" :focus="fouse"
-					:hold-keyboard="hold_keyboard" :confirm-hold="hold_keyboard" @focus="i_focus" @blur="blur"
-					confirm-type="发送"></input>
+				<input 
+					type="text" 
+					placeholder-style="font-size: 30rpx;color: #C8C8C8;" 
+					placeholder="请输入…"
+					:adjust-position="false" 
+					v-model="value" 
+					@confirm.prevent="input_send" 
+					:focus="fouse"
+					:hold-keyboard="hold_keyboard" 
+					:confirm-hold="hold_keyboard"
+					 @focus="i_focus" 
+					 @blur="blur"
+					confirm-type="发送"
+				></input>
 				<view class="input_send" @touchend.prevent="input_send">
-					<!-- <image src="https://maotaiwx.tos-cn-beijing.volces.com/Customer%2F_fasong%402x.png" mode=""></image> -->
-					<image src="../../static/allOrder/发送.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%8F%91%E9%80%81.png" mode=""></image>
 				</view>
 			</view>
 		</view>

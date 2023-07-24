@@ -16,10 +16,10 @@
 		</view>
 		
 		<view class="product_show">
-			<view class="function_area clear">
+			暂未开放，敬请期待
+			<!-- <view class="function_area clear">
 				<view class="comprehensive fun_item float_left" :class="isSeleted[0] ? 'bold' : ''" @click="comprehensive">
 					<text>综合</text>
-					<!-- <text>∧</text> -->
 					<image :class="{'rotate' : isRotate}" :src=" isSeleted[0] ? '../../static/searchResult/bolddown.png' : '../../static/searchResult/ruledown (2).png'" mode=""></image>
 					<view class="comprehensive_page" :style="{'display' : isRotate ? 'block' : 'none'}">
 						<view class="default" :class="{'bold' : comprehensiveShow === 0}" @click="comprehensive">
@@ -78,7 +78,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>

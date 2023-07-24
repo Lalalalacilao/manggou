@@ -1,7 +1,7 @@
 <template>
 	<view class="mt-EditInformation">
 		<!-- 头 -->
-		<view class="mt-EditInformation-head" style="background-image: url('../../static/personal center/组件 22 – 1@2x.png');">
+		<view class="mt-EditInformation-head" style="background-image: url('https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E7%BB%84%E4%BB%B6%2022%20%E2%80%93%201%402x.png');">
 			<!-- 文字 -->
 			<view class="mt-EditInformation-head-text">
 				<image src="https://maotaiwx.tos-cn-beijing.volces.com/EditInformation%2Fback.png"  @click="toback"></image>

@@ -1,0 +1,206 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+.clear {
+  clear: both;
+  content: "";
+  overflow: hidden;
+}
+.fill {
+  height: 176rpx;
+}
+.content {
+  background-color: #f7f7f7;
+  padding: 20rpx 32rpx 0 32rpx;
+  height: 95vh;
+}
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+}
+.top .status_bar {
+  width: 100%;
+  height: 88rpx;
+}
+.top .title {
+  height: 88rpx;
+  box-sizing: border-box;
+  padding: 24rpx 0 20rpx 32rpx;
+  font-size: 0;
+}
+.top .title .back image {
+  width: 44rpx;
+  height: 44rpx;
+}
+.top .title .title_text {
+  font-family: PingFang SC-Heavy, PingFang SC;
+  color: #333;
+  font-weight: 800;
+  font-size: 32rpx;
+  margin-left: 234rpx;
+}
+.address {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx 10rpx 20rpx 10rpx;
+  font-size: 0;
+}
+.address .title {
+  margin-bottom: 20rpx;
+}
+.address .title .title_text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.address .title .title_icon image {
+  width: 44rpx;
+  height: 44rpx;
+}
+.address .address_info .detail {
+  font-size: 28rpx;
+  color: #191919;
+  margin-bottom: 5rpx;
+}
+.address .address_info .personal_info {
+  font-size: 28rpx;
+}
+.address .address_info .personal_info .name {
+  margin-right: 20rpx;
+}
+.order {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx 10rpx 20rpx 10rpx;
+  font-size: 0;
+}
+.order .preview {
+  margin-right: 30rpx;
+}
+.order .preview image {
+  width: 200rpx;
+  height: 200rpx;
+}
+.order .order_info {
+  width: 440rpx;
+}
+.order .order_info .pro_title {
+  font-size: 32rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.order .order_info .price {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+}
+.order .order_info .pro_info {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+}
+.order .order_info .pro_info .num_adjust {
+  display: flex;
+}
+.order .order_info .pro_info .num_adjust button {
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  padding: 0;
+  padding-top: -3rpx;
+}
+.order .order_info .pro_info .num_adjust button:last-child {
+  background-color: #F2D86D;
+}
+.order .order_info .pro_info .num_adjust input {
+  text-align: center;
+  width: 60rpx;
+  height: 40rpx;
+}
+.notes {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx 10rpx 20rpx 10rpx;
+  font-size: 0;
+}
+.notes .title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.notes textarea {
+  width: 100%;
+  margin-top: 10rpx;
+  height: 150rpx;
+  font-size: 28rpx;
+  line-height: 34rpx;
+}
+.price {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  font-size: 28rpx;
+}
+.price text {
+  color: red;
+  font-weight: bold;
+}
+.bottom_funciton {
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  padding: 10rpx 32rpx 20rpx 32rpx;
+  line-height: 120rpx;
+}
+.bottom_funciton .money {
+  font-size: 28rpx;
+}
+.bottom_funciton .btn {
+  margin-top: 10rpx;
+}
+.bottom_funciton .btn button {
+  font-weight: bold;
+  width: 300rpx;
+  background-color: #F2D86D;
+  color: #f0f0f0;
+  border: 2rpx solid #F2D86D;
+}
+

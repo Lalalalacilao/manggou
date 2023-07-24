@@ -4,12 +4,12 @@
 		<view class="top">
 			<view class="status_bar"></view>
 			<view class="title">
-				<image src="../../static/index/MangGou@2x.png"></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2FMangGou%403x.png"></image>
 			</view>
 			<view class="search">
 				<input class="input" type="text" placeholder="搜索你感兴趣的内容" v-model="keyWord">
 				<view class="btn" @click="search">
-					<image src="../../static/index/组件 29 – 6@2x.png" mode="" ></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2F%E7%BB%84%E4%BB%B6%2029%20%E2%80%93%206%403x.png" mode="" ></image>
 				</view>
 			</view>
 			<view class="nav">
@@ -31,7 +31,7 @@
 			<swiper-item>
 				<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1012rpx;" @scrolltolower="specialColumnBottomLoading()">
 					<view class="banner">
-						<image src="../../static/index/组件 17 – 1.png" mode="widthFix"></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2F%E7%BB%84%E4%BB%B6%2017%20%E2%80%93%201%403x.png" mode="widthFix"></image>
 					</view>
 					<!-- 展示列表 -->
 					<view class="pdt_show" >
@@ -66,7 +66,7 @@
 			<swiper-item>
 				<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1012rpx;" @scrolltolower="bottomLoading()">
 					<view class="banner">
-						<image src="../../static/index/组件 17 – 1.png" mode="widthFix"></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2F%E7%BB%84%E4%BB%B6%2017%20%E2%80%93%201%403x.png" mode="widthFix"></image>
 					</view>
 					<!-- 展示列表 -->
 					<view class="pdt_show" >
@@ -116,9 +116,6 @@
 				productList: [],
 				// 专栏商品
 				specialColumn: [],
-				
-				
-				
 				// 菜单控制
 				curr: 0,
 				stockListHeight: 0,
@@ -133,13 +130,6 @@
 				specialColumnPageNum_: 1
 			}
 		},
-		// onLoad() {
-		// 	this.consult();
-		// 	this.specialColumnProConsult();
-		// },
-		onReady() {
-
-		},
 		methods: {
 			// 联动nav————swiper-item
 			setCurr(e) {
@@ -148,14 +138,18 @@
 			},
 			// 搜索
 			search() {
-				let text = this.keyWord.trim();
-				if(text === "") {
-					console.log("请输入要搜索的商品");
-				} else {
-					uni.navigateTo({
-						url:"/pages/searcchResult/searcchResult?keyWord=" + text,
-					});
-				}
+				uni.showToast({
+					title: "暂未开放，敬请期待",
+					icon: "none"
+				})
+				// let text = this.keyWord.trim();
+				// if(text === "") {
+				// 	console.log("请输入要搜索的商品");
+				// } else {
+				// 	uni.navigateTo({
+				// 		url:"/pages/searcchResult/searcchResult?keyWord=" + text,
+				// 	});
+				// }
 				this.keyWord = "";
 			},
 			
@@ -171,9 +165,6 @@
 					url: "/pages/productDetalisMine/productDetalisMine?id=" + item.id
 				});
 			},
-			
-
-			
 			// 请求用户商品
 			consult(pageNum = 1, pageSize = 10) {
 				this.loading = "正在加载中哦~";

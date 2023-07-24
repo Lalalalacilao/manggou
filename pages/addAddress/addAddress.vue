@@ -4,7 +4,7 @@
 			<view class="status_bar"></view>
 			<view class="title clear">
 				<view class="back float_left" @click="back">
-					<image src="../../static/address/返回@3x@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 				</view>
 				<view class="title_text float_left">
 					添加地址
@@ -66,9 +66,7 @@
 				// 设为默认
 				isDefault: false,
 				// 用户信息
-				user: {
-					userId: 1
-				}
+				userInfo: {}
 			};
 		},
 		methods: {
@@ -105,7 +103,7 @@
 					address: addressString,
 					name: this.userName,
 					phone: this.userPhone,
-					userId: this.user.userId,
+					userId: this.userInfo.id,
 					isDefault: +(this.isDefault ? 1 : 0)
 					
 				}).then(res => {
@@ -113,14 +111,14 @@
 						title: "添加成功",
 						icon: "none"
 					})
+					uni.navigateBack({
+						delta: 1
+					})
 				}).catch(err => {
 					uni.showToast({
 						title: "添加失败",
 						icon: "error"
 					})
-				})
-				uni.navigateBack({
-					delta: 1
 				})
 				
 			},
@@ -130,6 +128,9 @@
 					delta: 1
 				})
 			}
+		},
+		onLoad() {
+			this.userInfo = uni.getStorageSync("userInfo");
 		}
 	}
 </script>

@@ -4,7 +4,7 @@
 			<view class="status_bar"></view>
 			<view class="title clear">
 				<view class="back float_left" @click="back">
-					<image src="../../static/address/返回@3x@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 				</view>
 				<view class="title_text float_left">
 					我的地址
@@ -47,10 +47,10 @@
 						</view>
 						<view class="fun_right">
 							<view class="edit fun_btn float_left" @click="editThis(index)">
-								<image src="../../static/address/编辑@2x.png" mode=""></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E7%BC%96%E8%BE%91%402x.png" mode=""></image>
 							</view>
 							<view class="delete fun_btn float_left" @click="deleteThis(index)">
-								<image src="../../static/address/删除@2x.png" mode=""></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E5%88%A0%E9%99%A4%402x.png" mode=""></image>
 							</view>
 						</view>
 					</view>
@@ -88,9 +88,7 @@
 		data() {
 			return {
 				myAddress: [],
-				user: {
-					userId: 1
-				}
+				userInfo:{}
 			};
 		},
 		methods: {
@@ -169,9 +167,9 @@
 			// 地址请求
 			getAddress(id) {
 				app.globalData.getUserAddress({
-					userId: id
+					userId: this.userInfo.id
 				}).then(res => {
-					if(res.data !== null) {
+					if(res.data !== undefined) {
 						this.myAddress = res.data;
 						this.dataHandle();
 					} else {
@@ -203,10 +201,10 @@
  		},
 		
 		onLoad(){
-			this.getAddress(1);
+			this.userInfo = uni.getStorageSync("userInfo");
 		},
 		onShow() {
-			this.getAddress(1);
+			this.getAddress(this.userInfo.id);
 		}
 	}
 </script>
@@ -282,7 +280,7 @@
 				margin-top: 40rpx;
 			}
 			.chooseThis {
-				background: url("../../static/address/组件 171 – 1@2x.png");
+				background: url("https://mang-gou.tos-cn-beijing.volces.com/address%2F%E7%BB%84%E4%BB%B6%20171%20%E2%80%93%201%402x.png");
 				background-size: 32rpx,32rpx;
 				border: none;
 			}

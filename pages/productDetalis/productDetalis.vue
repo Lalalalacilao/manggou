@@ -5,7 +5,7 @@
 			<view class="status_bar"></view>
 			<view class="function_area">
 				<view class="back" @click="goBack">
-					<image src="../../static/productDetails/向左1@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 					<text>返回</text>
 				</view>
 			</view>
@@ -34,14 +34,14 @@
 						自提
 					</view>
 					<view class="share float_right" @click="share">
-						<image src="../../static/productDetails/分享 2.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E5%88%86%E4%BA%AB%202.png" mode=""></image>
 					</view>
 				</view>
 				<view class="intr">
 					{{productDetali.introduction}}
 				</view>
 				<view class="date">
-					<image src="../../static/productDetails/分享 2.png" mode=""></image>{{productDetali.date}}发布
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E5%88%86%E4%BA%AB%202.png" mode=""></image>{{productDetali.date}}发布
 				</view>
 			</view>
 			

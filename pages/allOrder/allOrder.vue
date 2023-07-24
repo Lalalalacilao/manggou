@@ -4,22 +4,28 @@
 		<view class="mg-allOrder-top">
 			<!-- 我的订单标题 -->
 			<view class="mg-top">
-				<image src="../../static/allOrder/返回@2x.jpg" @click="toBack"></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" @click="toBack"></image>
 				<view class="">全部订单</view>
 				<image></image>
 			</view>
 			<!-- 搜索框 -->
 			<view class="mg-allOrder-search">
 				<view class="mg-search">
-					<image src="../../static/allOrder/搜索@2x.png"></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2F%E7%BB%84%E4%BB%B6%2029%20%E2%80%93%206%403x.png"></image>
 					<input type="text" placeholder="搜索我的订单" v-model="ordercontent" @input="handleInput">
 				</view>
 			</view>
 			<!-- tab -->
 			<view class="mg-allOrder-tab">
 				<!-- 选择 -->
-				<view class="nav_item mg-taberOfservice-select" v-for="(item,index) in taber" :key="index" 
-				@tap="setCurr" :data-index="index" :class="curr===index?'select':''">
+				<view 
+					class="nav_item mg-taberOfservice-select" 
+					v-for="(item,index) in taber" 
+					:key="index" 
+					@tap="setCurr" 
+					:data-index="index" 
+					:class="curr===index ? 'select' : ''"
+				>
 					<view>{{item}}</view>
 					<view class="mt-Community-label-bottom"></view>
 				</view>
@@ -76,7 +82,7 @@
 						<view class="mg-goodsCard-box" v-else>
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard-box-none" style="text-align: center;">
-								<image src="../../static/allOrder/没有订单.png"></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230724170906.png"></image>
 								<view v-if="curr == 0">还没有相关订单</view>
 							</view>
 						</view>
@@ -88,7 +94,7 @@
 				
 				<!-- 待付款 -->
 				<swiper-item>
-					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
+					<scroll-view @scrolltolower="getSelectOrderr" scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
 						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
@@ -119,7 +125,7 @@
 									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
-										<view class="used-2">待付款</view>
+										<view class="used-2" @click="buy(item)">待付款</view>
 									</view>
 								</view>
 							</view>
@@ -127,7 +133,7 @@
 						<view class="mg-goodsCard-box" v-else>
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard-box-none" style="text-align: center;">
-								<image src="../../static/allOrder/没有订单.png"></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230724170906.png"></image>
 								<view v-if="currs == 0">还没有相关订单</view>
 							</view>
 						</view>
@@ -167,7 +173,7 @@
 									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
-										<view class="used-2">确认收货</view>
+										<view class="used-2" @click="confirmReceipt(item.id)">确认收货</view>
 										<view class="used-3" @click="OrderDetails(item.id)">查看物流</view>
 									</view>
 								</view>
@@ -176,7 +182,7 @@
 						<view class="mg-goodsCard-box" v-else>
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard-box-none" style="text-align: center;">
-								<image src="../../static/allOrder/没有订单.png"></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230724170906.png"></image>
 								<view v-if="currs == 1">还没有相关订单</view>
 							</view>
 						</view>
@@ -225,7 +231,7 @@
 						<view class="mg-goodsCard-box" v-else>
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard-box-none" style="text-align: center;">
-								<image src="../../static/allOrder/没有订单.png"></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230724170906.png"></image>
 								<view v-if="currs == 2">还没有相关订单</view>
 							</view>
 						</view>
@@ -274,7 +280,7 @@
 						<view class="mg-goodsCard-box" v-else>
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard-box-none" style="text-align: center;">
-								<image src="../../static/allOrder/没有订单.png"></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230724170906.png"></image>
 								<view v-if="currs == 3">还没有相关订单</view>
 							</view>
 						</view>
@@ -291,33 +297,38 @@
 	export default {
 		data() {
 			return {
+				// 
 				curr: 0,
 				active:0,
 				taber:['全部','待付款','待收货','待评价','已完成'],
 				myDeal:[],
-				userId:24,
-				selectOrdedel:null,
+				selectOrdedel:[],
 				flag:null,
 				selectAllOrdedel:[],
 				currs:null,
 				total:null,
 				page:0,
 				list:null,
-				button:''
+				button:'',
+				userInfo: {},
+				pageNum: 1
 			}
 		},
-		onLoad(option) {
-			// this.userId = option.userId
-			// console.log(this.userId,'用户id');
-			this.curr = option.curr
-			console.log(this.curr,'000');
-			this.getSelectOrderr()
+		watch: {
+			curr(newValue,oldValue) {
+				this.pageNum = 1,
+				this.selectOrdedel = [];
+			}
 		},
 		methods: {
 			OrderDetails(id){
-				uni.navigateTo({
-					url:'/pages/logistics/logistics?id=' + id
+				uni.showToast({
+					title: "暂未开放，敬请期待",
+					icon: "none"
 				})
+				// uni.navigateTo({
+				// 	url:'/pages/logistics/logistics?id=' + id
+				// })
 			},
 			// 全部订单触底加载
 			lowerBottomAll(){
@@ -328,7 +339,7 @@
 					app.globalData.selectAllOrder({
 						pageNum: this.page,
 						pageSize:4,
-						userId:this.userId,
+						userId:this.userInfo.id,
 					}).then(res => {
 						if(res.data !== undefined) {
 							let list = res.data.records
@@ -351,7 +362,7 @@
 				app.globalData.selectAllOrder({
 					pageNum: 0,
 					pageSize:4,
-					userId:this.userId,
+					userId:this.userInfo.id,
 				}).then(res => {
 					if(res.data !== undefined) {
 						this.selectAllOrdedel = res.data.records
@@ -387,14 +398,14 @@
 						if (res.confirm) {
 							app.globalData.deleteOrder({
 								id: id,
-								userId:that.userId ,
+								userId:that.userInfo.id,
 							}).then(res => {
 								console.log(res,'res----');
 								// uni.redirectTo({
 								// 	url:'/pages/allOrder/allOrder?curr=' + this.curr
 								// })
 								uni.redirectTo({
-									url:'/pages/allOrder/allOrder?userId=' + this.userId
+									url:'/pages/allOrder/allOrder?userId=' + this.userInfo.id
 								})
 								console.log('删除成功');
 							}).catch(err => {
@@ -415,35 +426,104 @@
 			},
 			// 返回
 			toBack(){
-				uni.switchTab({
-					url:'/pages/personal/personal'
+				uni.navigateBack({
+					delta: 1
 				})
 			},
 			//订单
 			getSelectOrderr() {
 				if(this.curr == '' || this.curr ==undefined ){
 					this.getAllOrder()
-					// console.log("@@@00",this.curr);
 				}else{
 					this.currs = this.curr - 1
-					// console.log("@@@11",this.currs,this.curr);
 					app.globalData.selectOrderByStatus({
-						userId: this.userId,
-						status:this.currs,
+						userId: this.userInfo.id,
+						status: this.currs,
+						pageNum: this.pageNum,
+						pageSize: 5
 					}).then(res => {
 						if(res.data != undefined) {
-							const selectOrdedel = res.data
-							this.selectOrdedel = selectOrdedel
-							// const selectOrdedel = res.data
-							// this.selectOrdedel.push(selectOrdedel);
-							// console.log('res----',this.selectOrdedel);
+							this.pageNum++;
+							this.selectOrdedel = this.selectOrdedel.concat(res.data.records);
+							console.log(this.selectOrdedel)
 						}
 					}).catch(err => {
 						console.log(err,'err----');
 					})
 				}
+			},
+			// 待付款按钮
+			buy(item) {
+				uni.showToast({
+					title:"加载中",
+					icon:"loading"
+				})
+				this.getWxPayById(item.adminOrderId);
+			},
+			// 根据id获取微信支付签名
+			getWxPayById(outTradeNo) {
+				app.globalData.getWxPaymentSignature({
+					outTradeNo,
+				}).then (res => {
+					this.wxPayment(JSON.parse(res.data));
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
+					})
+				})
+			},
+			// 支付
+			wxPayment(data) {
+				uni.requestPayment({
+					provider:'wxpay',
+					timeStamp: data.timeStamp,
+					nonceStr: data.nonceStr,
+					package: data.packageStr,
+					signType: data.signType,
+					paySign: data.paySign,
+					success: (res) => {
+						uni.showToast({
+							title:'支付成功',
+							icon:'success'
+						})
+						uni.navigateTo({
+							url:'/pages/allOrder/allOrder?curr=' + 2 + '&userId=' + this.userInfo.id
+						})
+					},
+					fail: (err) => {
+						uni.showToast({
+							title:'支付失败',
+							icon:'error'
+						})
+					}
+				})
+			},
+			// 确认收货
+			confirmReceipt(orderId) {
+				app.globalData.confirmReceipt({
+					orderId,
+				}).then(res => {
+					this.curr = 4; 
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
+					})
+				})
 			}
 		},
+		onLoad(option) {
+			this.curr = option.curr
+			console.log(this.curr,'000');
+			this.getSelectOrderr();
+			
+			
+			
+			
+			this.userInfo = uni.getStorageSync("userInfo");
+			console.log(this.userInfo);
+		}
 	}
 </script>
 

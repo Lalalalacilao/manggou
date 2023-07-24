@@ -5,7 +5,7 @@
 			<view class="top_title clear">
 				<view class="title float">论坛</view>
 				<view class="top_release float" @click="topRelease">
-					<image src="../../static/forum/清除.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E6%B8%85%E9%99%A4%402x.png" mode=""></image>
 					<text>发布</text>
 				</view>
 			</view>
@@ -57,20 +57,20 @@
 					</view>
 					<view class="operate clear">
 						<view class="like float">
-							<image src="../../static/forum/组件 53 – 1.png" mode="" @click="like(index,id,userId)" v-if="likenow == false"></image>
+							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2053%20%E2%80%93%201%402x.png" mode="" @click="like(index,id,userId)" v-if="likenow == false"></image>
 							<image src="../../static/allOrder/点赞-2.png" mode="" v-else @click="like(index,id,userId)"></image>
 							<text class="operate_num">42</text>
 						</view>
 						<view class="comment float">
-							<image src="../../static/forum/组件 55 – 1.png" mode=""></image>
+							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2055%20%E2%80%93%201%402x.png" mode=""></image>
 							<text class="operate_num">42</text>
 						</view>
 						<view class="forward float">
-							<image src="../../static/forum/组件 54 – 1.png" mode=""></image>
+							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2054%20%E2%80%93%201%402x.png" mode=""></image>
 							<text class="operate_num">42</text>
 						</view>
 						<view class="more">
-							<image src="../../static/forum/组件 56 – 1@2x.png" mode=""></image>
+							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2056%20%E2%80%93%201%402x.png" mode=""></image>
 
 						</view>
 					</view>
@@ -87,7 +87,7 @@
 
 		<!-- 侧边发布按钮 -->
 		<view class="side_release" @click="sideRelease">
-			<image src="../../static/forum/组件 77 – 1@2x.png" mode="aspectFit"></image>
+			<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2077%20%E2%80%93%201%402x.png" mode="aspectFit"></image>
 			<view>发动态</view>
 		</view>
 

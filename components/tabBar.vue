@@ -11,7 +11,7 @@
 				<image class="tab_img" v-else :src="item.iconPath"></image>
 			</view>
 			<view class="releaseIcon" @click="isRelease = true">
-				<image src="../static/组件 20 – 7@2x.png" mode=""></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2020%20%E2%80%93%207%402x.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -21,7 +21,7 @@
 			<view class="release" :class="isRelease ? 'release_appear' : 'release_vanish'" @click.stop="this.isRelease = true">
 				<view class="top_btn clear">
 					<view class="release_item float">
-						<image src="../static/release/组件 68 – 1@2x.png" mode="" @click.stop="shineUpOn"></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2068%20%E2%80%93%201%402x.png" mode="" @click.stop="shineUpOn"></image>
 						<view class="text">
 							晒好物
 						</view>
@@ -30,7 +30,7 @@
 						</view>
 					</view>
 					<view class="release_item float">
-						<image src="../static/release/组件 68 – 1@2x.png" mode="" @click.stop="sendIdle"></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2069%20%E2%80%93%201%402x.png" mode="" @click.stop="sendIdle"></image>
 						<view class="text">
 							发闲置
 						</view>
@@ -41,7 +41,7 @@
 				</view>
 				
 				<view class="close">
-					<image src="../static/release/组件 67 – 1@2x.png" mode=""  @click.stop="this.isRelease = false"></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2067%20%E2%80%93%201%402x.png" mode=""  @click.stop="this.isRelease = false"></image>
 				</view>
 				
 			</view>
@@ -68,26 +68,26 @@
 					{	//首页
 						"id": "001",
 						"pagePath": "/pages/index/index",
-						"iconPath": "../static/1@2x.png",
-						"selectedIconPath": "../static/1=3@3x.png"
+						"iconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F1%402x.png",
+						"selectedIconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F1%3D3%403x.png"
 					},
 					{	// 论坛
 						"id": "002",
 						"pagePath": "/pages/forum/forum",
-						"iconPath": "../static/2@2x.png",
-						"selectedIconPath": "../static/论坛@2x.png"
+						"iconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F2%402x.png",
+						"selectedIconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F%E8%AE%BA%E5%9D%9B%402x.png"
 					},
 					{	// 消息列表
 						"id": "003",
 						"pagePath": "/pages/message/message",
-						"iconPath": "../static/3@2x.png",
-						"selectedIconPath": "../static/消息@2x.png"
+						"iconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F3%402x.png",
+						"selectedIconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F%E6%B6%88%E6%81%AF%402x.png"
 					},
 					{	// 个人中心
 						"id": "004",
 						"pagePath": "/pages/personal/personal",
-						"iconPath": "../static/4@2x.png",
-						"selectedIconPath": "../static/4-2@2x.png"
+						"iconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F4%402x.png",
+						"selectedIconPath": "https://mang-gou.tos-cn-beijing.volces.com/release%2F4-2%402x.png"
 					}
 				],
 				isRelease: false,
@@ -154,7 +154,7 @@
 	width: 100%;
 	height: 216rpx;
 
-	background-image: url("../static/联合 2@2x.png");
+	background-image: url("https://mang-gou.tos-cn-beijing.volces.com/release%2F%E8%81%94%E5%90%88%202%402x.png");
 	background-size: 100%,196rpx;
 	background-repeat: no-repeat;
 	

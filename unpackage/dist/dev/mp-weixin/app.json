@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/purchase/purchase",
     "pages/index/index",
     "pages/message/message",
     "pages/forum/forum",
@@ -17,7 +16,8 @@
     "pages/EditInformation/EditInformation",
     "pages/AfterSales/AfterSales",
     "pages/productDetalisMine/productDetalisMine",
-    "pages/logistics/logistics"
+    "pages/logistics/logistics",
+    "pages/purchase/purchase"
   ],
   "subPackages": [],
   "window": {

@@ -4,7 +4,7 @@
 			<view class="status_bar"></view>
 			<view class="title clear">
 				<view class="back float_left" @click="back">
-					<image src="../../static/problemFeedback/返回@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 				</view>
 				<view class="title_text float_left">
 					问题反馈
@@ -16,7 +16,7 @@
 			<view class="function_choose clear">
 				<view class="function_item flashback float_left" :class="{'functionBacc' : functionBacc[0]}" @click="choose(0)">
 					<view class="icon">
-						<image src="../../static/problemFeedback/1@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F1%402x.png" mode=""></image>
 					</view>
 					<view class="text">
 						页面闪退
@@ -24,7 +24,7 @@
 				</view>
 				<view class="function_item transmission float_left" :class="{'functionBacc' : functionBacc[1]}"  @click="choose(1)">
 					<view class="icon">
-						<image src="../../static/problemFeedback/2@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F2%402x.png" mode=""></image>
 					</view>
 					<view class="text">
 						传输问题
@@ -32,7 +32,7 @@
 				</view>
 				<view class="function_item operate float_left" :class="{'functionBacc' : functionBacc[2]}"  @click="choose(2)">
 					<view class="icon">
-						<image src="../../static/problemFeedback/3@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F3%402x.png" mode=""></image>
 					</view>
 					<view class="text">
 						操作体验
@@ -40,7 +40,7 @@
 				</view>
 				<view class="function_item interface float_left"  :class="{'functionBacc' : functionBacc[3]}" @click="choose(3)">
 					<view class="icon">
-						<image src="../../static/problemFeedback/4@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F4%402x.png" mode=""></image>
 					</view>
 					<view class="text">
 						界面审美
@@ -48,7 +48,7 @@
 				</view>
 				<view class="function_item function_recommendation float_left"  :class="{'functionBacc' : functionBacc[4]}" @click="choose(4)">
 					<view class="icon">
-						<image src="../../static/problemFeedback/5@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F5%402x.png" mode=""></image>
 					</view>
 					<view class="text">
 						功能建议
@@ -56,7 +56,7 @@
 				</view>
 				<view class="function_item other float_left"  :class="{'functionBacc' : functionBacc[5]}" @click="choose(5)">
 					<view class="icon">
-						<image src="../../static/problemFeedback/6@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F6%402x.png" mode=""></image>
 					</view>
 					<view class="text">
 						其他反馈
@@ -76,7 +76,7 @@
 							<image :src="item" mode=""></image>
 						</view>
 						<view class="upload_btn upload_item float_left" @click="upload">
-							<image src="../../static/problemFeedback/组件 71 – 1@2x.png" mode=""></image>
+							<image src="https://mang-gou.tos-cn-beijing.volces.com/problemFeeback%2F%E7%BB%84%E4%BB%B6%2071%20%E2%80%93%201%402x.png" mode=""></image>
 						</view>
 					</view>
 				</view>

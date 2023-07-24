@@ -2,15 +2,12 @@
 	<view class="mg-AfterSales">
 		<!-- 头部 -->
 		<view class="mg-AfterSales-top">
-			<!-- 我的订单标题 -->
 			<view class="mg-top">
-				<image src="../../static/allOrder/返回@2x.jpg" @click="toBack"></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" @click="toBack"></image>
 				<view class="">售后/退款</view>
 				<image></image>
 			</view>
-			<!-- tab -->
 			<view class="mg-AfterSales-tab">
-				<!-- 选择 -->
 				<view class="nav_item mg-taberOfservice-select" :class="curr===index?'select':''" 
 					v-for="(item,index) in taber" :key="index" @tap="setCurr" :data-index="index">
 					<view>{{item}}</view>
@@ -22,13 +19,10 @@
 		<!-- 内容 -->
 		<view class="mg-AfterSales-content">
 			<swiper style="height: 1342rpx;width: 100%;" class="mg-AfterSales-buttom" :current="curr" @change="setCurr">
-				<!-- 全部 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1342rpx;">
 						<view class="mg-goodsCard-box">
-							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in 10" :key="index">
-								<!-- 商铺logo和标题订单状态 -->
 								<view class="mg-shop">
 									<view class="mg-shop-img">
 										<image src="../../static/allOrder/341686733007_.pic@2x.png" mode="aspectFill"></image>
@@ -36,7 +30,6 @@
 									</view>
 									<view class="mg-dealState-pay">退款成功</view>
 								</view>
-								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
 									<image src="../../static/allOrder/41686710147_.pic@2x.png" mode="aspectFill"></image>
 									<view class="mg-PurchasedGoods">
@@ -55,10 +48,8 @@
 										<view class="used-4">￥200.00</view>
 									</view>
 								</view>
-								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text>更多</text>
-									<!-- <view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.orders.id)">删除订单</view> -->
 									<view class="used">
 										<view class="used-1">删除售后单</view>
 										<view class="used-1">售后详情</view>
@@ -69,13 +60,11 @@
 					</scroll-view>
 				</swiper-item>
 				
-				<!-- 待处理 -->
 				<swiper-item>
 					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1342rpx;">
 						<view class="mg-goodsCard-box">
-							<!-- 卡片循环 -->
 							<view class="mg-goodsCard-box-none" style="text-align: center;">
-								<image src="../../static/allOrder/没有订单.png"></image>
+								<image src="https://mang-gou.tos-cn-beijing.volces.com/allOrder%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230724170906.png"></image>
 								<view>暂无待处理的售后/退款订单</view>
 							</view>
 							

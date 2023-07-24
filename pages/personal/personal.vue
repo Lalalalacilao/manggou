@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<!-- userinfo -->
-		<view class="top" style="background-image: url('../../static/personal center/组件 22 – 1@2x.png');">
+		<view class="top" style="background-image: url('https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E7%BB%84%E4%BB%B6%2022%20%E2%80%93%201%402x.png');">
 			<view class="status_bar"></view>
 			<view class="personal_info clear" @click="login">
 				<view class="head float_left" @click="head(userInfo.userId)">
@@ -36,25 +36,25 @@
 			<!-- 物流状态 -->
 			<view class="middle clear">
 				<view class="order_relete obligation  float_left" @click="obligation(userInfo.userId)">
-					<image src="../../static/personal center/1@2x(1).png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F1%402x(1).png" mode=""></image>
 					<view class="mid_tips_text">
 						待付款
 					</view>
 				</view>
 				<view class="order_relete Goods_to_be_received float_left" @click="goodsToBeRecceived(userInfo.userId)">
-					<image src="../../static/personal center/3@2x(1).png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F3%402x(1).png" mode=""></image>
 					<view class="mid_tips_text">
 						待收货
 					</view>
 				</view>
 				<view class="order_relete to_be_evaluated float_left" @click="toBeEvaluated(userInfo.userId)">
-					<image src="../../static/personal center/2@2x(1).png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F2%402x(1).png" mode=""></image>
 					<view class="mid_tips_text">
 						待评价
 					</view>
 				</view>
 				<view class="order_relete complete float_left" @click="complete(userInfo.userId)">
-					<image src="../../static/personal center/4@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F4%402x.png" mode=""></image>
 					<view class="mid_tips_text">
 						已完成
 					</view>
@@ -69,7 +69,7 @@
 						我的地址
 					</view>
 					<view class="right_icon float_right">
-						<image src="../../static/personal center/向右1@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E5%90%91%E5%8F%B31%402x.png" mode=""></image>
 					</view>
 				</view>
 				<view class="bottom_item clear" @click="help(userInfo.userId)">
@@ -78,7 +78,7 @@
 						帮助与反馈
 					</view>
 					<view class="right_icon float_right">
-						<image src="../../static/personal center/向右1@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E5%90%91%E5%8F%B31%402x.png" mode=""></image>
 					</view>
 				</view>
 				<view class="bottom_item clear" @click="callCenter(userInfo.userId)">
@@ -87,7 +87,7 @@
 						客服中心
 					</view>
 					<view class="right_icon float_right">
-						<image src="../../static/personal center/向右1@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E5%90%91%E5%8F%B31%402x.png" mode=""></image>
 					</view>
 				</view>
 				<view class="bottom_item clear" @click="afterSales(userInfo.userId)">
@@ -96,7 +96,7 @@
 						售后/退款
 					</view>
 					<view class="right_icon float_right">
-						<image src="../../static/personal center/向右1@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E5%90%91%E5%8F%B31%402x.png" mode=""></image>
 					</view>
 				</view>
 			</view>
@@ -173,9 +173,13 @@
 			// 编辑
 			edit(id) {
 				console.log("编辑");
-				uni.navigateTo({
-					url:'/pages/EditInformation/EditInformation'
+				uni.showToast({
+					title: "暂未开放，敬请期待",
+					icon: "none"
 				})
+				// uni.navigateTo({
+				// 	url:'/pages/EditInformation/EditInformation'
+				// })
 			},
 			// 全部订单
 			allOrder(id) {
@@ -229,16 +233,24 @@
 			// 客服中心
 			callCenter(id) {
 				console.log("客服中心");
-				uni.navigateTo({
-					url:'/pages/Customer/Customer'
+				uni.showToast({
+					title: "暂未开放，敬请期待",
+					icon: "none"
 				})
+				// uni.navigateTo({
+				// 	url:'/pages/Customer/Customer'
+				// })
 			},
 			// 售后
 			afterSales(id) {
 				console.log("售后");
-				uni.navigateTo({
-					url:'/pages/AfterSales/AfterSales'
+				uni.showToast({
+					title: "暂未开放，敬请期待",
+					icon: "none"
 				})
+				// uni.navigateTo({
+				// 	url:'/pages/AfterSales/AfterSales'
+				// })
 				
 			},
 			// 点击登录

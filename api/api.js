@@ -103,4 +103,15 @@ export default {
 	specialColumnAddReply(params) {
 		return request("/backend_goods_comment/addSubComment","POST",params);
 	},
+	// 订单生成
+	orderForGoods(params) {
+		return request("/wechatPay/generateWeixinPaySigner","POST",params);
+	},
+	// 从缓存中获取微信支付签名
+	getWxPaymentSignature(params) {
+		return request("/wechatPay/getCachePaySign","POST",params);
+	},
+	confirmReceipt(params) {
+		return request("/order/receipt","POST",params);
+	}
 }

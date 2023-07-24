@@ -4,7 +4,7 @@
 		<view class="mg-allOrder-top">
 			<!-- 我的订单标题 -->
 			<view class="mg-top">
-				<image src="../../static/allOrder/返回@2x.jpg" @click="toBack"></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" @click="toBack"></image>
 				<view class="">已签收</view>
 				<image></image>
 			</view>
@@ -25,7 +25,7 @@
 			<view class="flow flex-y-center">
 				<view class="line"></view>
 				<view>
-					<view class="item flex-y-center" v-for="(item,index) in flow">
+					<view class="item flex-y-center" v-for="(item,index) in flow" :key="index">
 						<view class="dot flex-grow-0"></view>
 						<view class="flex-grow-1">
 							<view class="title">{{item.title}}</view>

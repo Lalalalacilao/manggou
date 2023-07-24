@@ -1,16 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/purchase/purchase",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		},
-		
-		{
 			"path": "pages/index/index"
 		}
 	    ,{
@@ -71,10 +61,6 @@
 		    }
 		    
 		}
-
-
-
-
         ,{
             "path" : "pages/login/login",
             "style" :                                                                                    
@@ -137,12 +123,6 @@
 		    }
 		    
 		}
-
-<<<<<<< HEAD
-
-
-
-=======
         ,{
             "path" : "pages/logistics/logistics",
             "style" :                                                                                    
@@ -151,8 +131,17 @@
                 "enablePullDownRefresh": false
             }
             
-        }
->>>>>>> fc2134f9ea2b0ff35102137b3e9eb68719fa47d7
+        },
+		{
+		    "path" : "pages/purchase/purchase",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

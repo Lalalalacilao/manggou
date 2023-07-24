@@ -5,7 +5,7 @@
 			<view class="status_bar"></view>
 			<view class="title clear">
 				<view class="back float_left" @click="back">
-					<image src="../../static/address/返回@3x@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/current%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 				</view>
 				<view class="title_text float_left">
 					确认订单
@@ -22,20 +22,20 @@
 				<view class="title_text float_left">
 					服务地址
 				</view>
-				<view class="title_icon float_right">
-					<image src="../../static/release/向右1@2x.png" mode=""></image>
+				<view class="title_icon float_right" @click="goAddAddress">
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/current%2F%E5%90%91%E5%8F%B31%402x(1).png" mode=""></image>
 				</view>
 			</view>
 			<view class="address_info">
 				<view class="detail">
-					河北省按随便打把手里的布拉暗杀部队拉
+					{{address.addressDetail}}
 				</view>
 				<view class="personal_info clear">
 					<view class="name float_left">
-						老刘吃牛
+						{{address.name}}
 					</view>
 					<view class="phone float_left">
-						12345678911
+						{{address.phone}}
 					</view>
 				</view>
 			</view>
@@ -43,23 +43,23 @@
 		
 		<view class="order clear">
 			<view class="preview float_left">
-				<image src="../../static/searchResult/1.png" mode="widthFix"></image>
+				<image :src="productiDetail.imgUrl" mode="widthFix"></image>
 			</view>
 			<view class="order_info float_left">
 				<view class="pro_title">
-					我是产品标题我是产品标题我是产品标题我是产品标题我是产品标题
+					{{productiDetail.goodsName}}
 				</view>
 				<view class="price">
-					商品单价：￥599.00
+					商品单价：￥{{(productiDetail.price / 100).toFixed(2)}}
 				</view>
 				<view class="pro_info clear">
 					<view class="order_num float_left">
-						数量：1
+						数量：{{number}}
 					</view>
 					<view class="num_adjust float_right">
-						<button>-</button>
+						<button @click="this.number--">-</button>
 						<input type="text" v-model="number">
-						<button>+</button>
+						<button @click="this.number++">+</button>
 					</view>
 				</view>
 			</view>
@@ -69,7 +69,7 @@
 			<view class="title">
 				备注
 			</view>
-			<textarea maxlength="-1" rows="3" placeholder="请输入备注"></textarea>
+			<textarea v-module="remark" maxlength="-1" placeholder="请输入备注"></textarea>
 		</view>
 		
 		<view class="price clear">
@@ -77,31 +77,212 @@
 				合计
 			</view>
 			<view class="num float_right">
-				<text>￥0.00</text>
+				<text>￥{{(sumPrice / 100).toFixed(2)}}</text>
 			</view>
 		</view>
 		
 		
 		<view class="bottom_funciton clear">
 			<view class="money float_left">
-				应付金额：￥599.00
+				应付金额：￥{{(sumPrice / 100).toFixed(2)}}
 			</view>
 			<view class="btn float_right">
-				<button>确认购买</button>
+				<button @click="buy">确认购买</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	const app = getApp()
 	// 引入时间选择器
 	export default {
 		data() {
 			return {
+				// 产品信息
+				productiDetail: {},
+				// 用户地址
+				address:{
+					addressDetail: "您还没有地址，快去添加吧",
+					name: "",
+					phone: ""
+				},
+				// 用户信息
+				userInfo: {},
+				// 购买数量，默认1
 				number: 1,
-				text: ""
+				// 备注
+				remark: "",
+				// 
+				timer: null
 			}
 		},
+		watch: {
+			number: {
+				immediate:true,
+				handler(newValue,oldValue) {
+					if(newValue <= 0) {
+						this.number = 1;
+					} else {
+						this.number = newValue;
+					}
+				}
+			},
+		},
+		computed: {
+			// 总金额
+			sumPrice: {
+				get() {
+					return this.productiDetail.price * this.number;
+				},
+				set(value) {}
+			}
+		},
+		methods: {
+			back() {
+				uni.navigateBack({
+					delta: 1
+				})
+			},
+			// 去添加地址
+			goAddAddress() {
+				uni.navigateTo({
+					url: "/pages/address/address",
+				})
+			},
+			// 获取产品信息
+			getProductDetail(id) {
+				uni.showToast({
+					title: "加载中",
+					icon: "loading"
+				})
+				if(id === null) {
+					uni.showToast({
+						title: "错误",
+						icon: "none"
+					})
+					return
+				}
+				
+				app.globalData.getSpecialColumnGoosDetailById({
+					id
+				}).then(res => {
+					this.productiDetail = res.data;
+					this.dataHandle();
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
+					})
+				})
+			},
+			// 产品信息图片处理
+			dataHandle() {
+				if(this.productiDetail.imgUrl != null) {
+					this.productiDetail.imgUrl = JSON.parse(this.productiDetail.imgUrl)[0];
+				}
+				this.sumPrice = this.productiDetail.price;
+			},
+			// 获取用户默认地址
+			getDefaltAddress() {
+				app.globalData.getUserAddress({
+					userId: this.userInfo.id
+				}).then(res => {
+					if(res.data !== undefined) {
+						this.address = res.data.filter(item => {
+							return item.isDefault == 1 ? item : "";
+						})[0];
+					}
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
+					})
+				})
+			},
+			// 节流函数
+			throttle(fun,t) {
+			    let timer = null;
+			    return function() {
+			        if(!timer){
+			            timer = setTimeout(function() {
+			                fun();
+			                // 清除定时器后，以下次可以继续定时
+			                timer = null;
+			            },t);
+			        }
+			    }
+			},
+			// 订单生成封装
+			orderGenerated() {
+				app.globalData.orderForGoods({
+					goodsId: this.productiDetail.id,
+					num: this.number,
+					userId: this.userInfo.id,
+					addressId: this.address.id
+				}).then(res => {
+					console.log(res);
+					this.wxPayment(res.data)
+				}).catch(err => {
+					uni.showToast({
+						title: "订单创建失败",
+						icon: "error"
+					})
+				})
+			},
+			// 购买按钮
+			buy() {
+				uni.showToast({
+					title: "加载中",
+					icon: "loading"
+				})
+				// 节流处理
+				if(!this.timer){
+					this.timer = setTimeout(() => {
+						this.orderGenerated();
+						// 清除定时器后，以下次可以继续定时
+						this.timer = null;
+					},1000);
+				}
+			},
+			// 支付
+			wxPayment(data) {
+				uni.requestPayment({
+					provider:'wxpay',
+					timeStamp: data.timeStamp,
+					nonceStr: data.nonceStr,
+					package: data.packageStr,
+					signType: data.signType,
+					paySign: data.paySign,
+					success: (res) => {
+						console.log(res);
+						uni.showToast({
+							title:'支付成功',
+							icon:'success'
+						})
+						uni.navigateTo({
+							url:'/pages/allOrder/allOrder?curr=' + 2 + '&userId=' + this.userInfo.id
+						})
+					},
+					fail: (err) => {
+						uni.showToast({
+							title:'支付失败',
+							icon:'error'
+						})
+						uni.navigateTo({
+							url:'/pages/allOrder/allOrder?curr=' + 1 + '&userId=' + this.userInfo.id
+						})
+					}
+				})
+			}
+		},
+		onLoad(option) {
+			this.userInfo = uni.getStorageSync("userInfo");
+			this.getProductDetail(option.proId);
+		},
+		onShow() {
+			this.getDefaltAddress();
+		}
 	}
 </script>
 
@@ -264,15 +445,14 @@
 		width: 100%;
 		margin-top: 10rpx;
 		height: 150rpx;
-		// background-color: blue;
+		font-size: 28rpx;
+		line-height: 34rpx;
 	}
 }
 
 .price {
 	margin-bottom: 20rpx;
 	background-color: #fff;
-	border-radius: 20rpx;
-	padding: 20rpx 10rpx 20rpx 10rpx;
 	font-size: 28rpx;
 	text {
 		color: red;

@@ -61,22 +61,8 @@
 		    }
 		    
 		},
-		{
-		    "path" : "pages/purchase/purchase",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
-        ,{
+        {
             "path" : "pages/login/login",
             "style" :                                                                                    
             {
@@ -146,7 +132,7 @@
                 "enablePullDownRefresh": false
             }
             
-<<<<<<< HEAD
+
         },
 		{
 		    "path" : "pages/purchase/purchase",
@@ -157,10 +143,6 @@
 		    }
 		    
 		}
-
-=======
-        }
->>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

@@ -27,7 +27,7 @@
 				<view class="releateIntr clear">
 					<view class="price float_left">
 						￥<text>
-							{{productDetali.price}}
+							{{(productDetali.price / 100).toFixed(2)}}
 						</text>
 					</view>
 					<view class="way float_left">

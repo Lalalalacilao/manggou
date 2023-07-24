@@ -9,7 +9,6 @@
     "pages/release/release",
     "pages/address/address",
     "pages/problemFeedback/problemFeedback",
-    "pages/purchase/purchase",
     "pages/login/login",
     "pages/addAddress/addAddress",
     "pages/allOrder/allOrder",

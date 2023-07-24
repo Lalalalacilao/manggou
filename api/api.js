@@ -103,7 +103,6 @@ export default {
 	specialColumnAddReply(params) {
 		return request("/backend_goods_comment/addSubComment","POST",params);
 	},
-<<<<<<< HEAD
 	// 订单生成
 	orderForGoods(params) {
 		return request("/wechatPay/generateWeixinPaySigner","POST",params);
@@ -114,8 +113,7 @@ export default {
 	},
 	confirmReceipt(params) {
 		return request("/order/receipt","POST",params);
-	}
-=======
+	},
 	// 取消点赞
 	cancel(params) {
 		return request("/userLike/cancel","POST",params);
@@ -124,5 +122,4 @@ export default {
 	add(params) {
 		return request("/userLike/add","POST",params);
 	},
->>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
 }

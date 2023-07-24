@@ -42,7 +42,7 @@
 							</view>
 							<view class="pdt_middle">
 								<text class="intr">{{item.introduction}}</text>
-								<text class="price"><text>¥</text?>{{item.price}}</text>
+								<text class="price"><text>¥</text?>{{(item.price / 100).toFixed(2)}}</text>
 							</view>
 							<view class="user">
 								<image :src="item.userAvatar"></image>
@@ -78,7 +78,7 @@
 							</view>
 							<view class="pdt_middle">
 								<text class="intr">{{item.introduction}}</text>
-								<text class="price"><text>¥</text?>{{item.price}}</text>
+								<text class="price"><text>¥</text?>{{(item.price / 100).toFixed(2)}}</text>
 							</view>
 							<view class="user">
 								<image :src="item.userAvatar"></image>
@@ -142,14 +142,6 @@
 					title: "暂未开放，敬请期待",
 					icon: "none"
 				})
-				// let text = this.keyWord.trim();
-				// if(text === "") {
-				// 	console.log("请输入要搜索的商品");
-				// } else {
-				// 	uni.navigateTo({
-				// 		url:"/pages/searcchResult/searcchResult?keyWord=" + text,
-				// 	});
-				// }
 				this.keyWord = "";
 			},
 			
@@ -193,8 +185,6 @@
 				for(let i = 0 + this.productList.length - obtain; i < this.productList.length; i++) {
 					const releaseDate = this.productList[i].createTime.split(" ");
 					this.$set(this.productList[i],"release",`${releaseDate[0]}`);
-					// 价格处理
-					this.productList[i].price = this.productList[i].price + ".00";
 					// 图片处理
 					if(this.productList[i].imgUrl !== null) {
 						this.productList[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
@@ -217,10 +207,8 @@
 					pageNum,
 					pageSize
 				}).then(res => {
-					console.log(res);
 					const nextLenght = this.specialColumn.length;
 					this.specialColumn = this.specialColumn.concat(res.data.records);
-					console.log(this.specialColumn);
 					const obtain = res.data.records.length;
 					this.specialColumnPageNum_++;
 					if(this.specialColumn.length === nextLenght) {
@@ -240,8 +228,6 @@
 				for(let i = 0 + this.specialColumn.length - obtain; i < this.specialColumn.length; i++) {
 					const releaseDate = this.specialColumn[i].createTime.split(" ");
 					this.$set(this.specialColumn[i],"release",`${releaseDate[0]}`);
-					// 价格处理
-					this.specialColumn[i].price = this.specialColumn[i].price + ".00";
 					// 图片处理
 					if(this.specialColumn[i].imgUrl !== null) {
 						this.specialColumn[i].imgUrl = JSON.parse(this.specialColumn[i].imgUrl)[0];
@@ -254,12 +240,6 @@
 					this.specialColumnProConsult(this.specialColumnPageNum_, 10)
 				}
 			},
-			
-			
-			
-			
-			
-			
 		},
 		onShow() {
 			// 隐藏掉自带的底部导航栏
@@ -281,7 +261,6 @@
 			const userInfoThis = uni.getStorageSync("userInfo");
 			if(userInfoThis !== "") {
 				this.userInfo = userInfoThis;
-				console.log(this.userInfo);
 				this.dataHandle();
 			}
 		}

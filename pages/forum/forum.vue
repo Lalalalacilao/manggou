@@ -44,7 +44,7 @@
 				<view class="preview clear">
 					<image v-if="item.imgs != null" class="float" v-for="(img,index) in item.imgs" :key="index"
 						:style=" index > 5 ? `display: ${item.previewImg}`  : 'display: block'" :src="img"
-						@click="clickImg(item)">
+						@click="clickImg(item)" :data-img="img">
 					</image>
 					<view v-if="item.moreImg" class="moreImg" :style="isIphoneX ? 'right: 3rpx;' : ''"
 						@click="moreImg(item)">+{{item.imgs.length - 6}}
@@ -57,15 +57,9 @@
 					</view>
 					<view class="operate clear">
 						<view class="like float">
-<<<<<<< HEAD
-							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2053%20%E2%80%93%201%402x.png" mode="" @click="like(index,id,userId)" v-if="likenow == false"></image>
-							<image src="../../static/allOrder/点赞-2.png" mode="" v-else @click="like(index,id,userId)"></image>
-							<text class="operate_num">42</text>
-=======
-							<image v-if="item.isLike" src="../../static/allOrder/点赞-2.png" alt="已点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
-							<image v-else src="../../static/forum/组件 53 – 1.png" alt="未点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
+							<image v-if="item.isLike" src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%82%B9%E8%B5%9E-2.png" alt="已点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
+							<image v-else src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2053%20%E2%80%93%201%402x.png" alt="未点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
 							<text class="operate_num">{{item.likeCount}}</text>
->>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
 						</view>
 						<view class="comment float">
 							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2055%20%E2%80%93%201%402x.png" mode=""></image>
@@ -77,7 +71,6 @@
 						</view>
 						<view class="more">
 							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2056%20%E2%80%93%201%402x.png" mode=""></image>
-
 						</view>
 					</view>
 				</view>
@@ -108,6 +101,7 @@
 </template>
 
 <script>
+	import moment from "moment"
 	const app = getApp();
 	export default {
 		data() {
@@ -191,16 +185,9 @@
 					console.log(res,'-----');
 					const nextLenght = this.prcductList.length;
 					this.prcductList = this.prcductList.concat(res.data.records);
-					console.log(this.prcductList,'000000');
 					this.pageNum_++;
 					if(this.prcductList.length != nextLenght) {
 						this.showHide();
-						// 遍历数组并打印id
-						// this.prcductList.forEach(item => {
-						// 	console.log("数组元素id:", item.id);
-						// 	this.id = item.id
-						// 	this.getexist()
-						// })
 					} else {
 						this.loading = "没有了~";
 					}
@@ -218,9 +205,11 @@
 						this.$set(this.prcductList[i], "showHide", false);
 					}
 					// 图片处理
-					this.prcductList[i].imgs = JSON.parse(this.prcductList[i].imgs);
+					if(this.prcductList[i].imgs != undefined) {
+						this.prcductList[i].imgs = JSON.parse(this.prcductList[i].imgs);
+					}
 					// 图片展开配置
-					if (this.prcductList[i].imgs !== null && this.prcductList[i].imgs.length > 5) {
+					if (this.prcductList[i].imgs !== undefined && this.prcductList[i].imgs.length > 5) {
 						this.$set(this.prcductList[i], "moreImg", true);
 					} else {
 						this.$set(this.prcductList[i], "moreImg", false);
@@ -228,8 +217,7 @@
 					this.$set(this.prcductList[i], "previewImg", "none");
 					// 时间处理
 					if(this.prcductList[i].createTime != null) {
-						const releaseDate = this.prcductList[i].createTime.split(" ");
-						this.$set(this.prcductList[i],"release",`${releaseDate[0]}`);
+						this.$set(this.prcductList[i],"release",moment(this.prcductList[i].createTime).format("YYYY-MM-DD"));
 					}
 				}
 			},
@@ -239,23 +227,7 @@
 					url: "/pages/release/release?type=user",
 				})
 			},
-
-			// 删除
-			// deleteThis(item.id) {
-				
-			// }
-
-
-
-
-
-
 		},
-		// onLoad() {
-				
-		// 	this.consult();
-
-		// },
 		onReady() {
 			// 数据处理展开
 			uni.getSystemInfo({
@@ -267,11 +239,6 @@
 					}
 				}
 			})
-
-
-
-
-
 		},
 		onShow() {
 			this.prcductList = [];

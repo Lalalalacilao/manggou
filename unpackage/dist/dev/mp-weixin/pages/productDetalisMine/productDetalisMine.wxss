@@ -112,7 +112,15 @@
 .product_intr .releateIntr .price text {
   font-size: 52rpx;
 }
+.product_intr .releateIntr .cashback {
+  margin-top: 26rpx;
+  font-size: 30rpx;
+  color: #ff0000;
+  font-weight: bold;
+  font-family: DIN-Bold, DIN;
+}
 .product_intr .releateIntr .way {
+  margin-left: 65rpx;
   font-size: 32rpx;
   color: #191D26;
   font-family: PingFang SC-Bold, PingFang SC;
@@ -167,6 +175,7 @@
   margin-right: 24rpx;
 }
 .releaseUser .head image {
+  border-radius: 50%;
   width: 96rpx;
   height: 96rpx;
 }

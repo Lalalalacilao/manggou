@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniSwiperDot: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot */ "uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.vue */ 325))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot */ "uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.vue */ 333))
     },
   }
 } catch (e) {
@@ -585,9 +585,9 @@ var _default = {
       // 时间处理
       this.$set(this.productDetali, "release", "".concat(this.productDetali.createTime));
       // 标题字数处理
-      if (this.productDetali.introduction.length > 25) {
+      if (this.productDetali.goodsName.length > 25) {
         this.isLimit = true;
-        this.productDetali.introduction = this.productDetali.introduction.slice(0, 24);
+        this.productDetali.goodsName = this.productDetali.goodsName.slice(0, 24);
       }
       // 图片url处理
       if (this.productDetali.imgUrl !== null) {

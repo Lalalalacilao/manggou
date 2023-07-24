@@ -86,5 +86,29 @@ export default {
 	// 专栏商品请求分页
 	getSpecialColumnGoods(params) {
 		return request("/backendGoods/getBackendGoods","GET",params);
-	}
+	},
+	// 根据id查询专栏商品详情
+	getSpecialColumnGoosDetailById(params) {
+		return request("/backendGoods/getOneBackendGoods","GET",params);
+	},
+	// 专栏商品详情拉取
+	specialColumnGoosComment(params) {
+		return request("/backend_goods_comment/getCommentList","POST",params);
+	},
+	// 专栏商品添加评论
+	specialColumnAddParentComment(params) {
+		return request("/backend_goods_comment/addParentComment","POST",params);
+	},
+	// 专栏商品添加回复
+	specialColumnAddReply(params) {
+		return request("/backend_goods_comment/addSubComment","POST",params);
+	},
+	// 取消点赞
+	cancel(params) {
+		return request("/userLike/cancel","POST",params);
+	},
+	// 点赞
+	add(params) {
+		return request("/userLike/add","POST",params);
+	},
 }

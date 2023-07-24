@@ -22,7 +22,7 @@
 
 			<view class="product_intr">
 				<view class="title">
-					{{productDetali.goodsName }}{{isLimit ? "..." : ""}}
+					{{productDetali.goodsName}}{{isLimit ? "..." : ""}}
 				</view>
 				<view class="releateIntr clear">
 					<view class="price float_left">
@@ -30,8 +30,11 @@
 							{{productDetali.price}}
 						</text>
 					</view>
+					<view class="cashback float_left">
+						赏金：￥<text>{{productDetali.cashback}}</text>
+					</view>
 					<view class="way float_left">
-						自提
+						邮寄
 					</view>
 					<view class="share float_right" @click="share">
 						<image src="../../static/productDetails/分享 2.png" mode=""></image>
@@ -176,10 +179,10 @@
 						</view>
 						<view class="recommend_user clear">
 							<view class="recommend_head float_left">
-								<image :src="item.releaseUser.head" mode=""></image>
+								<image :src="item.userAvatar" mode=""></image>
 							</view>
 							<view class="recommend_nickname float_left">
-								{{item.releaseUser.nickname}}
+								{{item.userName}}
 							</view>
 						</view>
 					</view>
@@ -200,7 +203,7 @@
 			<view class="bottom_left">
 				<image src="../../static/productDetails/组件 173 – 1.png" mode=""></image>
 			</view>
-			<view class="bottom_right">
+			<view class="bottom_right" @click="purchase">
 				点击购买
 			</view>
 		</view>
@@ -288,7 +291,7 @@ export default {
 		
 		// 评论拉取
 		getCommentList() {
-			app.globalData.getCommentList({
+			app.globalData.specialColumnGoosComment({
 				commentId: this.productDetali.id
 			}).then(res => {
 				this.comment = res.data;
@@ -321,14 +324,15 @@ export default {
 				});
 				return
 			}
+			
 			// 发送请求
 			const userInfo = uni.getStorageSync("userInfo");
-			app.globalData.userGoodsAddParentComment({
+			app.globalData.specialColumnAddParentComment({
 				detail: comment,
 				userAvatar: userInfo.userAvatar,
 				userId: userInfo.id,
 				userName : userInfo.userName,
-				userGoodsId: this.productDetali.id,
+				backendGoodsId : this.productDetali.id,
 			}).then(res => {
 				uni.showToast({
 					title:"评论成功",
@@ -378,12 +382,12 @@ export default {
 				return
 			}
 
-			app.globalData.userGoodsAddSubComment({
+			app.globalData.specialColumnAddReply({
 				detail: inputReplyCommentThis,
 				parentId: this.commented.id,
 				replyUserName: this.subComment === "" ? '' : this.subComment.userName,
 				userAvatar: this.currentUser.userAvatar,
-				userGoodsId: this.productDetali.id,
+				backendGoodsId : this.productDetali.id,
 				userId: this.currentUser.id,
 				userName: this.currentUser.userName
 			}).then(res => {
@@ -402,12 +406,6 @@ export default {
 			
 			
 		},
-		// 查找所回复的评论的信息
-		byIdGetCommentItem(id) {
-			if(this.comment != []) {
-				
-			}
-		},
 		// 推荐点击
 		recommend(id) {
 			var pages = getCurrentPages(); //获取所有页面的数组对象
@@ -419,7 +417,7 @@ export default {
 		
 		// 请求商品详情数据
 		selectOneGoods(id) {
-			app.globalData.selectOneGoods({
+			app.globalData.getSpecialColumnGoosDetailById({
 				id,
 			}).then(res => {
 				this.productDetali = res.data;
@@ -437,11 +435,11 @@ export default {
 		// 数据处理逻辑
 		dataHandle() {
 			// 时间处理
-			this.$set(this.productDetali,"release",`${this.productDetali.createTime}`);
+			this.$set(this.productDetali,"release",this.productDetali.createTime.substr(0,16));
 			// 标题字数处理
-			if(this.productDetali.introduction.length > 25) {
+			if(this.productDetali.goodsName.length > 25) {
 				this.isLimit = true;
-				this.productDetali.introduction = this.productDetali.introduction.slice(0,24);
+				this.productDetali.goodsName = this.productDetali.goodsName.slice(0,24);
 			}
 			// 图片url处理
 			if(this.productDetali.imgUrl !== null) {
@@ -451,7 +449,7 @@ export default {
 		// 请求推荐商品分页
 		consult(pageNum = 1, pageSize = 10) {
 			this.loading = "正在加载中哦~";
-			app.globalData.goods({
+			app.globalData.getSpecialColumnGoods({
 				pageNum,
 				pageSize
 			}).then(res => {
@@ -481,6 +479,13 @@ export default {
 			}
 		},
 
+		// 购买
+		purchase() {
+			uni.navigateTo({
+				url: "/pages/purchase/purchase?id=" + productDetali.id
+			})
+		},
+		
 		// 触底加载事件
 		bottomLoading() {
 			if(this.loading !== "没有了~") {
@@ -592,7 +597,18 @@ export default {
 				font-size: 52rpx;
 			}
 		}
+		.cashback {
+			margin-top: 26rpx;
+			font-size: 30rpx;
+			color: #ff0000;
+			font-weight: bold;
+			font-family: DIN-Bold, DIN;
+			// text {
+			// 	font-size: 32rpx;
+			// }
+		}
 		.way {
+			margin-left: 65rpx;
 			font-size: 32rpx;
 			color: #191D26;
 			font-family: PingFang SC-Bold, PingFang SC;
@@ -648,6 +664,7 @@ export default {
 	.head {
 		margin-right: 24rpx;
 		image {
+			border-radius: 50%;
 			width: 96rpx;
 			height: 96rpx;
 		}

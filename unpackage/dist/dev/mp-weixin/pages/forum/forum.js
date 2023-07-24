@@ -272,29 +272,38 @@ var _default = {
       loading: "",
       likenow: true,
       id: null,
-      msg: null
+      msg: null,
+      userId: 24,
+      isLike: null
     };
   },
   methods: {
-    // 判断是否点赞
-    getexist: function getexist() {
-      var _this = this;
-      app.globalData.exist({
-        likedId: this.id,
-        //被点赞帖子id
-        userId: 24 //用户id
-      }).then(function (res) {
-        _this.msg = res.msg;
-        // console.log(res,'判断是否点赞',this.msg);
-      }).catch(function (err) {
-        console.log(err, 'err----');
-      });
-    },
-    // 点赞
-    // 喜欢点赞
-    like: function like(index, id, userId) {
-      // console.log('帖子id',id,'帖子用户id',userId);
-      this.likenow = !this.likenow;
+    // 点赞/取消点赞
+    toggleLike: function toggleLike(item, id, userId, likeCount) {
+      item.isLike = !item.isLike;
+      console.log(item.isLike, id, userId);
+      if (item.isLike == true) {
+        item.likeCount++;
+        app.globalData.add({
+          likedId: id,
+          userId: this.userId,
+          likedUserId: userId
+        }).then(function (res) {
+          console.log(res, '点赞成功');
+        }).catch(function (err) {
+          console.log(err, 'err----');
+        });
+      } else {
+        item.likeCount--;
+        app.globalData.cancel({
+          likedId: id,
+          userId: this.userId
+        }).then(function (res) {
+          console.log(res, '取消点赞');
+        }).catch(function (err) {
+          console.log(err, 'err----');
+        });
+      }
     },
     topRelease: function topRelease() {
       console.log("顶部发布按钮");
@@ -332,21 +341,23 @@ var _default = {
     },
     // 查询帖子
     consult: function consult() {
-      var _this2 = this;
+      var _this = this;
       var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var pageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+      var userId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.userId;
       this.loading = "正在加载中哦~";
       app.globalData.getCommunity({
         pageNum: pageNum,
-        pageSize: pageSize
+        pageSize: pageSize,
+        userId: userId
       }).then(function (res) {
         console.log(res, '-----');
-        var nextLenght = _this2.prcductList.length;
-        _this2.prcductList = _this2.prcductList.concat(res.data.records);
-        console.log(_this2.prcductList, '000000');
-        _this2.pageNum_++;
-        if (_this2.prcductList.length != nextLenght) {
-          _this2.showHide();
+        var nextLenght = _this.prcductList.length;
+        _this.prcductList = _this.prcductList.concat(res.data.records);
+        console.log(_this.prcductList, '000000');
+        _this.pageNum_++;
+        if (_this.prcductList.length != nextLenght) {
+          _this.showHide();
           // 遍历数组并打印id
           // this.prcductList.forEach(item => {
           // 	console.log("数组元素id:", item.id);
@@ -354,10 +365,10 @@ var _default = {
           // 	this.getexist()
           // })
         } else {
-          _this2.loading = "没有了~";
+          _this.loading = "没有了~";
         }
       }).catch(function (err) {
-        _this2.loading = err.message;
+        _this.loading = err.message;
       });
     },
     // 数据处理
@@ -398,14 +409,14 @@ var _default = {
   // 	this.consult();
   // },
   onReady: function onReady() {
-    var _this3 = this;
+    var _this2 = this;
     // 数据处理展开
     uni.getSystemInfo({
       success: function success(res) {
-        _this3.systemInfo = res;
-        _this3.phoneSystem = res.platform; //手机型号 Android、ios
-        if (_this3.systemInfo.model === "iPhone X") {
-          _this3.isIphoneX = true;
+        _this2.systemInfo = res;
+        _this2.phoneSystem = res.platform; //手机型号 Android、ios
+        if (_this2.systemInfo.model === "iPhone X") {
+          _this2.isIphoneX = true;
         }
       }
     });

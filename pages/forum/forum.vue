@@ -57,9 +57,9 @@
 					</view>
 					<view class="operate clear">
 						<view class="like float">
-							<image src="../../static/forum/组件 53 – 1.png" mode="" @click="like(index,id,userId)" v-if="likenow == false"></image>
-							<image src="../../static/allOrder/点赞-2.png" mode="" v-else @click="like(index,id,userId)"></image>
-							<text class="operate_num">42</text>
+							<image v-if="item.isLike" src="../../static/allOrder/点赞-2.png" alt="已点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
+							<image v-else src="../../static/forum/组件 53 – 1.png" alt="未点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
+							<text class="operate_num">{{item.likeCount}}</text>
 						</view>
 						<view class="comment float">
 							<image src="../../static/forum/组件 55 – 1.png" mode=""></image>
@@ -113,29 +113,39 @@
 				loading: "",
 				likenow:true,
 				id:null,
-				msg:null
+				msg:null,
+				userId:24,
+				isLike:null
 			};
 		},
 		methods: {
-			// 判断是否点赞
-			getexist(){
-				app.globalData.exist({
-					likedId: this.id,//被点赞帖子id
-					userId:24,//用户id
-				}).then(res => {
-					this.msg = res.msg
-					// console.log(res,'判断是否点赞',this.msg);
-				}).catch(err => {
-					console.log(err,'err----');
-				})
+			// 点赞/取消点赞
+			toggleLike(item,id,userId,likeCount) {
+				item.isLike = !item.isLike;
+				console.log( item.isLike,id,userId);
+				if(item.isLike == true ){
+					item.likeCount++;
+					app.globalData.add({
+						likedId : id,
+						userId :this.userId,
+						likedUserId :userId
+					}).then(res => {
+						console.log(res,'点赞成功');
+					}).catch(err => {
+						console.log(err,'err----');
+					})
+				}else{
+					item.likeCount--;
+					app.globalData.cancel({
+						likedId : id,
+						userId :this.userId,
+					}).then(res => {
+						console.log(res,'取消点赞');
+					}).catch(err => {
+						console.log(err,'err----');
+					})
+				}
 			},
-			// 点赞
-			// 喜欢点赞
-			like(index,id,userId) {
-				// console.log('帖子id',id,'帖子用户id',userId);
-				this.likenow = !this.likenow
-			},
-
 			topRelease() {
 				console.log("顶部发布按钮");
 				uni.navigateTo({
@@ -169,9 +179,9 @@
 				}
 			},
 			// 查询帖子
-			consult(pageNum = 1, pageSize = 10) {
+			consult(pageNum = 1, pageSize = 10, userId = this.userId) {
 				this.loading = "正在加载中哦~";
-				app.globalData.getCommunity({pageNum,pageSize}).then(res => {
+				app.globalData.getCommunity({pageNum,pageSize,userId}).then(res => {
 					console.log(res,'-----');
 					const nextLenght = this.prcductList.length;
 					this.prcductList = this.prcductList.concat(res.data.records);

@@ -60,8 +60,16 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
+		},
+		{
+		    "path" : "pages/purchase/purchase",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
 		}
-
 
 
 
@@ -127,7 +135,6 @@
 		    }
 		    
 		}
-
         ,{
             "path" : "pages/logistics/logistics",
             "style" :                                                                                    

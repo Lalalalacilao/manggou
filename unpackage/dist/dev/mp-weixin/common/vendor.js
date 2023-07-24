@@ -9671,6 +9671,7 @@ var _default = {
   specialColumnAddReply: function specialColumnAddReply(params) {
     return (0, _request.default)("/backend_goods_comment/addSubComment", "POST", params);
   },
+<<<<<<< HEAD
   // 订单生成
   orderForGoods: function orderForGoods(params) {
     return (0, _request.default)("/wechatPay/generateWeixinPaySigner", "POST", params);
@@ -9681,6 +9682,15 @@ var _default = {
   },
   confirmReceipt: function confirmReceipt(params) {
     return (0, _request.default)("/order/receipt", "POST", params);
+=======
+  // 取消点赞
+  cancel: function cancel(params) {
+    return (0, _request.default)("/userLike/cancel", "POST", params);
+  },
+  // 点赞
+  add: function add(params) {
+    return (0, _request.default)("/userLike/add", "POST", params);
+>>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
   }
 };
 exports.default = _default;
@@ -29194,7 +29204,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* 274 */,
 /* 275 */,
 /* 276 */,
-/* 277 */
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */
 /*!************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/@babel/runtime/regenerator/index.js ***!
   \************************************************************************************************/
@@ -29203,11 +29221,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 // TODO(Babel 8): Remove this file.
 
-var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 278)();
+var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 286)();
 module.exports = runtime;
 
 /***/ }),
-/* 278 */
+/* 286 */
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/regeneratorRuntime.js ***!
   \*******************************************************************/
@@ -29528,7 +29546,7 @@ function _regeneratorRuntime() {
 module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 279 */
+/* 287 */
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/asyncToGenerator.js ***!
   \*****************************************************************/
@@ -29568,14 +29586,6 @@ function _asyncToGenerator(fn) {
 module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
 /* 288 */,
 /* 289 */,
 /* 290 */,
@@ -29600,18 +29610,33 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 /* 309 */,
 /* 310 */,
 /* 311 */,
+<<<<<<< HEAD
 /* 312 */
 /*!**********************************************************************************!*\
   !*** C:/Users/14183/Desktop/manggou/manggou7-21/manggou/node_modules/md5/md5.js ***!
   \**********************************************************************************/
+=======
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */
+/*!***************************************************************************!*\
+  !*** C:/Users/28574/Desktop/应用/企业/芒购/1.0/manggou/node_modules/md5/md5.js ***!
+  \***************************************************************************/
+>>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function () {
-  var crypt = __webpack_require__(/*! crypt */ 313),
-    utf8 = __webpack_require__(/*! charenc */ 314).utf8,
-    isBuffer = __webpack_require__(/*! is-buffer */ 315),
-    bin = __webpack_require__(/*! charenc */ 314).bin,
+  var crypt = __webpack_require__(/*! crypt */ 321),
+    utf8 = __webpack_require__(/*! charenc */ 322).utf8,
+    isBuffer = __webpack_require__(/*! is-buffer */ 323),
+    bin = __webpack_require__(/*! charenc */ 322).bin,
     // The core
     md5 = function md5(message, options) {
       // Convert to byte array
@@ -29747,10 +29772,17 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 })();
 
 /***/ }),
+<<<<<<< HEAD
 /* 313 */
 /*!**************************************************************************************!*\
   !*** C:/Users/14183/Desktop/manggou/manggou7-21/manggou/node_modules/crypt/crypt.js ***!
   \**************************************************************************************/
+=======
+/* 321 */
+/*!*******************************************************************************!*\
+  !*** C:/Users/28574/Desktop/应用/企业/芒购/1.0/manggou/node_modules/crypt/crypt.js ***!
+  \*******************************************************************************/
+>>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -29839,10 +29871,17 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 })();
 
 /***/ }),
+<<<<<<< HEAD
 /* 314 */
 /*!******************************************************************************************!*\
   !*** C:/Users/14183/Desktop/manggou/manggou7-21/manggou/node_modules/charenc/charenc.js ***!
   \******************************************************************************************/
+=======
+/* 322 */
+/*!***********************************************************************************!*\
+  !*** C:/Users/28574/Desktop/应用/企业/芒购/1.0/manggou/node_modules/charenc/charenc.js ***!
+  \***********************************************************************************/
+>>>>>>> 9dcafb748496c3cc74bd03c0c7453fb035daf2d0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -29879,7 +29918,7 @@ var charenc = {
 module.exports = charenc;
 
 /***/ }),
-/* 315 */
+/* 323 */
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
   \*****************************************/

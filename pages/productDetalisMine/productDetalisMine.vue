@@ -36,9 +36,9 @@
 					<view class="way float_left">
 						邮寄
 					</view>
-					<view class="share float_right" @click="share">
+					<button open-type="share" class="share float_right">
 						<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E5%88%86%E4%BA%AB%202.png" mode=""></image>
-					</view>
+					</button>
 				</view>
 				<view class="intr">
 					{{productDetali.introduction}}
@@ -274,8 +274,12 @@ export default {
 			});
 		},
 		// 分享
-		share() {
-			
+		onShareAppMessage() {
+			const url="/pages/productDetalis/productDetalis?id=" + this.productDetali.id;//你的转发页面路径拼接参数
+			return {
+				title: this.productDetali.title,
+				path: url,
+			}
 		},
 		// 个人信息
 		personalIntr(id) {
@@ -629,10 +633,16 @@ export default {
 			z-index: -1;
 		}
 		.share {
-			padding: 18rpx;
+			display: block;
+			position: relative;
 			border-radius: 50%;
 			background-color: #F1F1F1;
+			height: 72rpx;
+			width: 72rpx;
 			image {
+				position: absolute;
+				top: 17rpx;
+				left: 17rpx;
 				width: 36rpx;
 				height: 36rpx;
 			}

@@ -4,19 +4,20 @@
 			<view class="status_bar"></view>
 			<view class="search clear">
 				<view class="back float_left" @click="back">
-					<image src="../../static/searchResult/fanhui@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 				</view>
 				<view class="search_box float_left">
 					<view class="btn" @click="search">
-						<image src="../../static/searchResult/sousuo-2@2x.png" mode=""></image>
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2F%E7%BB%84%E4%BB%B6%2029%20%E2%80%93%206%403x.png" mode=""></image>
 					</view>
 					<input type="text" v-model="keyWord">
 				</view>
 			</view>
 		</view>
-		
+		<view class="fill">
+			
+		</view>
 		<view class="product_show">
-			暂未开放，敬请期待
 			<!-- <view class="function_area clear">
 				<view class="comprehensive fun_item float_left" :class="isSeleted[0] ? 'bold' : ''" @click="comprehensive">
 					<text>综合</text>
@@ -55,35 +56,41 @@
 					<text>区域</text>
 					<image :class="{'rotate' : isArea}" :src="isSeleted[3] ? '../../static/searchResult/bolddown.png' : '../../static/searchResult/ruledown.png'" mode=""></image>
 				</view>
-			</view>
-			<view class="product_preview clear">
-				<view class="pre_item float_left" v-for="(item,index) in productList" :key="item.id" @click="productDetails(item.id)">
-					<view class="image">
-						<image :src="item.image" mode="widthFix"></image>
-					</view>
-					<view class="text">
-						<view class="intr">
-							{{item.intr}}
+			</view> -->
+			<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1435rpx;" @scrolltolower="bottomLoading">
+				<view class="product_preview clear">
+					<view class="pre_item float_left" v-for="(item,index) in productList" :key="item.id" @click="productDetails(item.id)">
+						<view class="image">
+							<image :src="item.imgUrl" mode="widthFix"></image>
 						</view>
-						<view class="price">
-							￥<text>{{item.price}}</text>
+						<view class="text">
+							<view class="intr">
+								{{item.introduction}}
+							</view>
+							<view class="price">
+								￥<text>{{(item.price / 100).toFixed(2)}}</text>
+							</view>
 						</view>
-					</view>
-					<view class="user clear">
-						<view class="head float_left">
-							<image :src="item.user.head" mode=""></image>
-						</view>
-						<view class="nickname float_left">
-							{{item.user.nickname}}
+						<view class="user clear">
+							<view class="head float_left">
+								<image :src="item.userAvatar" mode=""></image>
+							</view>
+							<view class="nickname float_left">
+								{{item.userName}}
+							</view>
 						</view>
 					</view>
 				</view>
-			</view> -->
+				<view class="loading">
+					{{loading}}
+				</view>
+			</scroll-view>
 		</view>
 	</view>
 </template>
 
 <script>
+	const app = getApp();
 	export default {
 		data() {
 			return {
@@ -101,36 +108,30 @@
 				// 区域
 				isArea: false,
 				
+				// 搜索类型
+				searchType: -1,
 				
+				// 分页控制变量
+				loading: "",
+				pageNum_: 1,
 				// 商品数组
-				productList: [
-					{
-						id: 1001,
-						image: "../../static/searchResult/1@2x(1).png",
-						intr: "宜家同款的全新升降桌，原价现2200自提。宜家同款的全新升降桌，原价现2200自提。",
-						price: 1200,
-						user: {
-							head: "../../static/searchResult/1@2x(5).png",
-							nickname: "月亮慢慢圆"
-						}
-					},
-				],
+				productList: [],
 			};
 		},
-		onLoad(option) {
-			console.log(option);
-			console.log(this);
-			this.keyWord = option.keyWord;
-			
-		},
 		methods: {
+			// 触底加载
+			bottomLoading() {
+				if(this.loading !== "没有了~" || this.loading !== "没有对应商品") {
+					this.consult(this.pageNum_, 10)
+				}
+			},
 			// 返回上一页
 			back() {
 				uni.navigateBack({
 					delta: 1
 				});
-				console.log("上一页");
 			},
+			
 			// 综合
 			comprehensive() {
 				this.isSeletedEesetting();
@@ -159,7 +160,6 @@
 				this.order.descendingOrder = !this.order.descendingOrder;
 				console.log(this.order);
 			},
-			
 			// 发布时间
 			releaseDate() {
 				this.isRotate = false;
@@ -176,14 +176,25 @@
 			// 商品详情
 			productDetails(id) {
 				this.isRotate = false;
-				const a = uni.navigateTo({
-					url:"/pages/productDetalis/productDetalis?id=" + id,
-				});
-				console.log(id);
+				
+				if(this.searchType === "0" ) {
+					uni.redirectTo({
+						url: "/pages/productDetalisMine/productDetalisMine?id=" + id
+					})
+				} else if(this.searchType === "1") {
+					uni.redirectTo({
+						url: "/pages/productDetalis/productDetalis?id=" + id
+					})
+				}
 			},
 			// 搜索
 			search() {
 				this.isRotate = false;
+				this.loading = "";
+				this.pageNum_ =  1;
+				this.productList = [];
+				this.searchPage();
+				
 				console.log("搜索");
 			},
 			// 重置功能区控制数组
@@ -200,9 +211,70 @@
 
 				console.log(this.order);
 				console.log(this.isSeleted);
-			}
+			},
 			
-		}
+			// 搜索分页
+			searchPage(pageNum = 1,pageSize = 10) {
+				if(this.searchType !== "0" && this.searchType !== "1") {
+					uni.showToast({
+						title: "搜索类型错误",
+						icon: "error"
+					})
+					return
+				}
+				
+				this.loading = "正在加载中哦~";
+				app.globalData.search({
+					pageNum,
+					pageSize,
+					index: this.keyWord,
+					tag: this.searchType
+				}).then(res => {
+					uni.showToast({
+						title: res.msg,
+					})
+					const nextLenght = this.productList.length;
+					this.productList = this.productList.concat(res.data.records);
+					const obtain = res.data.records.length;
+					this.pageNum_++;
+					if(this.productList.length === nextLenght && pageNum !== 1) {
+						this.loading = "没有了~";
+					} else if(this.productList.length === nextLenght && pageNum === 1){
+						this.loading = "没有对应商品";
+						uni.showToast({
+							title: "没有对应商品哦~",
+							icon: "fail"
+						})
+					} else {
+						// 数据处理逻辑
+						if(obtain !== 0) {
+							this.dataHandle(obtain);
+						}
+					}
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
+					})
+				})
+			},
+			// 数据处理
+			dataHandle(obtain) {
+				// 图片处理
+				for(let i = 0 + this.productList.length - obtain; i < this.productList.length; i++) {
+					if(this.productList[i].imgUrl !== null) {
+						this.productList[i].imgUrl = JSON.parse(this.productList[i].imgUrl)[0];
+					}
+				}
+			}
+		},
+		onLoad(option) {
+			console.log(option);
+			this.keyWord = option.keyword;
+			this.searchType = option.curr;
+			
+			this.searchPage();
+		},
 	}
 </script>
 
@@ -222,12 +294,18 @@
 
 .content {
 	background-color: #F9F9F9;
+	// background-color: #0000ff;
 }
 .status_bar {
 	width: 100%;
 	height: 76rpx;
 }
 .top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	// background-color: blue;
 	margin-bottom: 16rpx;
 	.search {
 		padding: 26rpx 0 10rpx 14rpx;
@@ -268,6 +346,10 @@
 			}
 		}
 	}
+}
+
+.fill {
+	height: 176rpx;
 }
 
 .product_show {
@@ -334,6 +416,7 @@
 		position: relative;
 		z-index: 0;
 		.pre_item {
+			background-color: #fff;
 			margin-bottom: 48rpx;
 			margin-right: 22rpx;
 			.image {
@@ -404,7 +487,13 @@
 
 
 
-
+.loading {
+	height: 156rpx;
+	text-align: center;
+	line-height: 156rpx;
+	font-size: 26rpx;
+	color: #333333;
+}
 
 
 

@@ -33,9 +33,9 @@
 					<view class="way float_left">
 						自提
 					</view>
-					<view class="share float_right" @click="share">
+					<button open-type="share" class="share float_right">
 						<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E5%88%86%E4%BA%AB%202.png" mode=""></image>
-					</view>
+					</button>
 				</view>
 				<view class="intr">
 					{{productDetali.introduction}}
@@ -57,7 +57,7 @@
 						{{productDetali.release}}&nbsp;发布
 					</view> -->
 				</view>
-				<view class="consult float_right" @click="goGuidance">
+				<view class="consult float_right" @click="contactMe">
 					咨询
 				</view>
 			</view>
@@ -262,15 +262,57 @@ export default {
 			});
 		},
 		// 分享
-		share() {
-			
+		onShareAppMessage() {
+			const url="/pages/productDetalis/productDetalis?id=" + this.productDetali.id;//你的转发页面路径拼接参数
+			return {
+				title: this.productDetali.title,
+				path: url,
+			}
 		},
 		// 个人信息
 		personalIntr(id) {
 			console.log("查看个人信息");
 		},
+		// 联系我
 		contactMe() {
-			console.log("联系我");
+			uni.showToast({
+				title: "加载中",
+				icon: "loading"
+			})
+			
+			app.globalData.getUserPhoneById({
+				userId: this.productDetali.userId
+			}).then(response => {
+				uni.showModal({
+					title: '联系方式：电话',
+					content: response.data,
+					confirmText: '复制文本',
+					success: (res) => {
+						if (res.confirm) {
+							wx.setClipboardData({
+								data: response.data,
+								success(res) {
+									// wx.getClipboardData({
+									// 	success(res) {
+									// 		console.log(res.data) // data
+									// 	}
+									// })
+									uni.showToast({
+										title: "内容已复制",
+									})
+								}
+							})
+						}
+					}
+				});
+			}).catch(err => {
+				uni.showToast({
+					title: err.message,
+					icon: "error"
+				})
+			})
+			
+
 		},
 		// 轮播图设置
 		change(e) {
@@ -610,10 +652,16 @@ export default {
 			z-index: -1;
 		}
 		.share {
-			padding: 18rpx;
+			display: block;
+			position: relative;
 			border-radius: 50%;
 			background-color: #F1F1F1;
+			height: 72rpx;
+			width: 72rpx;
 			image {
+				position: absolute;
+				top: 17rpx;
+				left: 17rpx;
 				width: 36rpx;
 				height: 36rpx;
 			}

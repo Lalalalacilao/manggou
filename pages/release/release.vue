@@ -181,7 +181,7 @@
 						goodsName : this.title,
 						introduction : this.intr,
 						imgUrl: JSON.stringify(this.uploadPreviewImage),
-						price: +this.price*100,
+						price: parseInt(this.price*100),
 						userId: userInfo.id,
 						userAvatar : userInfo.userAvatar,
 						userName: userInfo.userName

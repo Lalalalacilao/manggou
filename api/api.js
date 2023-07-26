@@ -125,5 +125,13 @@ export default {
 	// 编辑资料
 	editUserInfo(params) {
 		return request("/user/updateUserInfo","POST", params);
+	},
+	// 根据用户id获取用户手机号
+	getUserPhoneById(params) {
+		return request("/user/getUserPhone","GET",params);
+	},
+	// 搜索接口
+	search(params) {
+		return request("/search/getGoods","GET",params);
 	}
 }

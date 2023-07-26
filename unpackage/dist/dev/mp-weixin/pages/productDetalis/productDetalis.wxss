@@ -131,11 +131,17 @@
   z-index: -1;
 }
 .product_intr .releateIntr .share {
-  padding: 18rpx;
+  display: block;
+  position: relative;
   border-radius: 50%;
   background-color: #F1F1F1;
+  height: 72rpx;
+  width: 72rpx;
 }
 .product_intr .releateIntr .share image {
+  position: absolute;
+  top: 17rpx;
+  left: 17rpx;
   width: 36rpx;
   height: 36rpx;
 }

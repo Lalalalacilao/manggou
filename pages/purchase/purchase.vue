@@ -86,8 +86,8 @@
 			<view class="money float_left">
 				应付金额：￥{{(sumPrice / 100).toFixed(2)}}
 			</view>
-			<view class="btn float_right">
-				<button @click="buy">确认购买</button>
+			<view class="btn float_right" @click="buy">
+				确认购买
 			</view>
 		</view>
 	</view>
@@ -147,7 +147,7 @@
 			// 去添加地址
 			goAddAddress() {
 				uni.navigateTo({
-					url: "/pages/address/address",
+					url: "/pages/address/address?type=select",
 				})
 			},
 			// 获取产品信息
@@ -281,8 +281,16 @@
 			this.getProductDetail(option.proId);
 		},
 		onShow() {
+			// let newAddress = uni.getStorageSync("newAddress");
+			// if(newAddress) {
+			// 	newAddress = JSON.parse(newAddress);
+			// 	this.myAddress = newAddress;
+			// 	this.$set(this.myAddress,"null",null);
+			// 	console.log(this.myAddress);
+			// 	uni.removeStorageSync("newAddress");
+			// }
 			this.getDefaltAddress();
-		}
+		},
 	}
 </script>
 
@@ -306,7 +314,7 @@
 
 .content {
 	// background-color: red;
-	background-color: #f7f7f7;
+	background-color: #f9f9f9;
 	padding: 20rpx 32rpx 0 32rpx;
 	height: 95vh;
 }
@@ -451,7 +459,9 @@
 }
 
 .price {
-	margin-bottom: 20rpx;
+	border-radius: 20rpx;
+	padding: 20rpx 10rpx 20rpx 10rpx;
+	
 	background-color: #fff;
 	font-size: 28rpx;
 	text {
@@ -473,15 +483,16 @@
 		font-size: 28rpx;
 	}
 	.btn {
+		text-align: center;
 		margin-top: 10rpx;
-		button {
-			font-weight: bold;
-			width: 300rpx;
-			background-color: #F2D86D;
-			color: #f0f0f0;
-			border: 2rpx solid #F2D86D;
-			// border: none;
-		}
+		font-weight: bold;
+		width: 300rpx;
+		height: 100rpx;
+		line-height: 100rpx;
+		background-color: #F2D86D;
+		color: #f0f0f0;
+		border: 2rpx solid #F2D86D;
+		border-radius: 50rpx;
 	}
 }
 

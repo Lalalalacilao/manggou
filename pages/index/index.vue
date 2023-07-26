@@ -18,7 +18,7 @@
 					<view class="line"></view>
 				</view>
 				<view class="nav_item new_release" :class="curr == 1 ? 'active' : ''" data-index="1" @click="setCurr">
-					<view class="text">最新发布</view>
+					<view class="text">交易中心</view>
 					<view class="line"></view>
 				</view>
 			</view>
@@ -301,20 +301,23 @@
 			// clear: all;
 			// content: "";
 			display: flex;
+			padding-top: 35rpx;
+			padding-bottom: 35rpx;
 			input {
 				width: 622rpx;
-				height: 40rpx;
-				padding: 22rpx 32rpx;
+				height: 84rpx;
+				padding-left: 32rpx;
 				background-color: #F5F5F5;
-				margin: 36rpx 0rpx;
+				box-sizing: border-box;
 				border-radius: 16rpx 0 0 16rpx;
+				box-shadow: 0rpx 0rpx 33rpx -16rpx #000000;
 			}
 			.btn {
+				box-shadow: 20rpx 0rpx 32rpx -15rpx #000000;
 				border-radius: 0 16rpx 16rpx 0;
-				margin-top: 35rpx;
 				background-color: #F5F5F5;;
 				width: 93rpx;
-				height: 86rpx;
+				height: 84rpx;
 				text-align: center;
 				line-height: 100rpx;
 				image {
@@ -379,6 +382,7 @@
 			flex-wrap: wrap;
 			justify-content: space-between;
 			.pdt_item {
+				border-radius: 16rpx;
 				box-shadow: 0rpx 0rpx 20rpx 2rpx rgba(153,153,153,0.16);
 				width: 336rpx;
 				height: 566rpx;

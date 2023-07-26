@@ -34,10 +34,20 @@
 		
 		<!-- 内容 -->
 		<view class="mg-allOrder-content">
-			<swiper style="height: 1242rpx;width: 100%;" class="mg-allOrder-buttom" :current="curr" @change="setCurr">
+			<swiper 
+				style="height: 1242rpx;width: 100%;" 
+				class="mg-allOrder-buttom" 
+				:current="curr" 
+				@change="setCurr"
+			>
 				<!-- 全部 -->
 				<swiper-item>
-					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;" @scrolltolower="lowerBottomAll">
+					<scroll-view 
+						scroll-with-animation="true" 
+						scroll-y="true" 
+						style="height:1242rpx;" 
+						@scrolltolower="getAllOrder(pageNumAllOrder)"
+					>
 						<view class="mg-goodsCard-box" v-if="selectAllOrdedel != ''">
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in selectAllOrdedel" :key="index">
@@ -60,7 +70,7 @@
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{item.price}}.00</text>
+												{{(item.price / 100).toFixed(2)}}</text>
 										</view>
 									</view>
 								</view>
@@ -94,7 +104,7 @@
 				
 				<!-- 待付款 -->
 				<swiper-item>
-					<scroll-view @scrolltolower="getSelectOrderr" scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
+					<scroll-view @scrolltolower="getSelectOrderr(pageNum)" scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
 						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
@@ -115,7 +125,7 @@
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{item.price}}.00</text>
+												{{(item.price / 100).toFixed(2)}}</text>
 										</view>
 									</view>
 								</view>
@@ -142,7 +152,7 @@
 				
 				<!-- 待收货 -->
 				<swiper-item>
-					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
+					<scroll-view @scrolltolower="getSelectOrderr(pageNum)" scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
 						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
@@ -163,7 +173,7 @@
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{item.price}}.00</text>
+												{{(item.price / 100).toFixed(2)}}</text>
 										</view>
 									</view>
 								</view>
@@ -191,7 +201,7 @@
 				
 				<!-- 待评价 -->
 				<swiper-item>
-					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
+					<scroll-view @scrolltolower="getSelectOrderr(pageNum)" scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
 						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
@@ -212,7 +222,7 @@
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{item.price}}.00</text>
+												{{(item.price / 100).toFixed(2)}}</text>
 										</view>
 									</view>
 								</view>
@@ -240,7 +250,7 @@
 				
 				<!-- 已完成 -->
 				<swiper-item>
-					<scroll-view scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
+					<scroll-view @scrolltolower="getSelectOrderr(pageNum)" scroll-with-animation="true" scroll-y="true" style="height:1242rpx;">
 						<view class="mg-goodsCard-box" v-if="selectOrdedel != ''">
 							<!-- 卡片循环 -->
 							<view class="mg-goodsCard" v-for="(item,index) in selectOrdedel" :key="index">
@@ -261,7 +271,7 @@
 										<view class="mg-goodsPriceAndSum">
 											<text class="price">
 												<text>¥</text>
-												{{item.price}}.00</text>
+												{{(item.price / 100).toFixed(2)}}</text>
 										</view>
 									</view>
 								</view>
@@ -297,7 +307,6 @@
 	export default {
 		data() {
 			return {
-				// 
 				curr: 0,
 				active:0,
 				taber:['全部','待付款','待收货','待评价','已完成'],
@@ -311,16 +320,24 @@
 				list:null,
 				button:'',
 				userInfo: {},
-				pageNum: 1
+				pageNum: 1,
+				pageNumAllOrder: 1,
+				
+				timer: null,
+				timerAll: null
 			}
 		},
 		watch: {
 			curr(newValue,oldValue) {
-				this.pageNum = 1,
+				this.pageNum = 1;
+				this.pageNumAllOrder = 1;
+				
 				this.selectOrdedel = [];
+				this.selectAllOrdedel = [];
 			}
 		},
 		methods: {
+			// 查看物流
 			OrderDetails(id){
 				uni.showToast({
 					title: "暂未开放，敬请期待",
@@ -330,50 +347,43 @@
 				// 	url:'/pages/logistics/logistics?id=' + id
 				// })
 			},
-			// 全部订单触底加载
-			lowerBottomAll(){
-				console.log("搜索触底加载",this.total);
-				if(this.total > this.page*6){
-					this.page = this.page + 1
-					// console.log(this.page,'页数');
+			// 查询全部订单信息
+			getAllOrder(pageNum = 1,pageSize = 6){
+				if(this.selectAllOrdedel.length !== this.total || this.total === null) {
 					app.globalData.selectAllOrder({
-						pageNum: this.page,
-						pageSize:4,
-						userId:this.userInfo.id,
+						pageNum,
+						pageSize,
+						userId: this.userInfo.id,
 					}).then(res => {
 						if(res.data !== undefined) {
-							let list = res.data.records
-							this.selectAllOrdedel.push(...list)
-							// console.log('res----',this.selectAllOrdedel);
+							this.pageNumAllOrder++;
+							this.total = res.data.total;
+							const newLenght = res.data.records.length;
+							this.selectAllOrdedel = this.selectAllOrdedel.concat(this.dataHandle(res.data.records,newLenght));
+							console.log("^^^^^^^^^^^^^^^^^^^^^^^^^");
+							console.log(res.data.records);
+							console.log(this.selectAllOrdedel);
+						} else if(pageNum === 1) {
+							uni.showToast({
+								title: "还没有订单哦",
+								icon: "none"
+							})
 						} else {
-							console.log('没有数据');
+							uni.showToast({
+								title: "没有数据了哦~",
+								icon: "none"
+							})
 						}
 					}).catch(err => {
-						console.log(err,'err----');
+						uni.showToast({
+							title: err.message,
+							icon: "error"
+						})
 					})
-				}else{
-					uni.hideLoading()
-					// console.log('到底了~');
-					this.button = '到底了~'
+				} else {
+						uni.hideLoading()
+						this.button = '到底了~'
 				}
-			},
-			// 查询全部订单信息
-			getAllOrder(){
-				app.globalData.selectAllOrder({
-					pageNum: 0,
-					pageSize:4,
-					userId:this.userInfo.id,
-				}).then(res => {
-					if(res.data !== undefined) {
-						this.selectAllOrdedel = res.data.records
-						this.total = res.data.total
-						// console.log('res----',this.selectAllOrdedel);
-					} else {
-						console.log('没有数据');
-					}
-				}).catch(err => {
-					console.log(err,'err----');
-				})
 			},
 			// 点击更多
 			deletedeal(e) {
@@ -417,12 +427,39 @@
 					}
 				});
 			},
+			// 节流
+			// throttle(fun,t) {
+			//     let timer = null;
+			//     return function() 
+			// }, 
+
 			//swiper-item
 			setCurr(e) {
 				this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
 				this.page = 1
-				this.getSelectOrderr()
-				// console.log("@@@",this.curr);
+				
+				// 根据状态获取订单
+				// 节流控制
+				if(!timer){
+					console.log("******************");
+					timer = setTimeout(function() {
+						this.getSelectOrderr();
+						// 清除定时器后，以下次可以继续定时
+						timer = null;
+					},50);
+				}
+				
+				// 获取所有订单
+				if(this.curr === 0) {
+					// 节流控制
+					if(!timerAll){
+						timerAll = setTimeout(function() {
+							this.getAllOrder();
+							// 清除定时器后，以下次可以继续定时
+							timerAll = null;
+						},50);
+					}
+				}
 			},
 			// 返回
 			toBack(){
@@ -432,25 +469,37 @@
 			},
 			//订单
 			getSelectOrderr() {
-				if(this.curr == '' || this.curr ==undefined ){
-					this.getAllOrder()
-				}else{
-					this.currs = this.curr - 1
-					app.globalData.selectOrderByStatus({
-						userId: this.userInfo.id,
-						status: this.currs,
-						pageNum: this.pageNum,
-						pageSize: 5
-					}).then(res => {
-						if(res.data != undefined) {
-							this.pageNum++;
-							this.selectOrdedel = this.selectOrdedel.concat(res.data.records);
-							console.log(this.selectOrdedel)
-						}
-					}).catch(err => {
-						console.log(err,'err----');
+				this.currs = this.curr - 1
+				app.globalData.selectOrderByStatus({
+					userId: this.userInfo.id,
+					status: this.currs,
+					pageNum: this.pageNum,
+					pageSize: 6
+				}).then(res => {
+					if(res.data.records != undefined) {
+						const newLenght = res.data.records.length;
+						this.pageNum++;
+						this.selectOrdedel = this.selectOrdedel.concat(this.dataHandle(res.data.records,newLenght));
+						console.log("__________________________");
+						console.log(res.data.records);
+						console.log(this.selectOrdedel);
+					}
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
 					})
+				})
+			},
+			// 数据处理逻辑
+			dataHandle(arr,newLenght) {
+ 				for(let i = arr.length - newLenght; i < arr.length; i++) {
+					arr[i].goodsImg = JSON.parse(arr[i].goodsImg)[0];
+					if(arr[i].expireTime) {
+						arr[i].expireTime = arr[i].expireTime.split(" ")[1];
+					}
 				}
+				return arr;
 			},
 			// 待付款按钮
 			buy(item) {
@@ -514,15 +563,13 @@
 			}
 		},
 		onLoad(option) {
-			this.curr = option.curr
-			console.log(this.curr,'000');
-			this.getSelectOrderr();
-			
-			
-			
-			
 			this.userInfo = uni.getStorageSync("userInfo");
-			console.log(this.userInfo);
+			
+			if(option.curr) {
+				this.curr = option.curr
+			} else {
+				this.getAllOrder();
+			}
 		}
 	}
 </script>

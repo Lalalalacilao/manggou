@@ -143,6 +143,15 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/serveTrem/serveTrem",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

@@ -4,7 +4,7 @@
 			<view class="status_bar"></view>
 			<view class="title clear">
 				<view class="close float_left" @click="close">
-					<image src="../../static/release/组件 22 – 2.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2022%20%E2%80%93%202%402x.png" mode=""></image>
 				</view>
 				<view class="title_text float_left">
 					{{type != "user" ? "发布订单" : "发布动态"}}
@@ -28,13 +28,13 @@
 				<image :src="item" mode=""></image>
 			</view>
 			<view class="upload_btn" @click="uploadImage">
-				<image src="../../static/release/组件 16 – 2@2x.png" mode=""></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2016%20%E2%80%93%202%402x.png" mode=""></image>
 				添加更多<br>细节图卖的更快~
 			</view>
 		</view>
-		<view class="position flex" v-if="type != 'user'">
+		<!-- <view class="position flex" v-if="type != 'user'">
 			<view class="icon">
-				<image src="../../static/release/地址 (1)@2x.png" mode=""></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E5%9C%B0%E5%9D%80%20(1)%402x.png" mode=""></image>
 			</view>
 			<view class="text">
 				{{position}}
@@ -42,17 +42,17 @@
 			<view class="arrow">
 				▶
 			</view>
-		</view>
+		</view> -->
 		<view class="choose" v-if="type != 'user'">
 			<view class="price choose_item clear">
 				<view class="icon float_left">
-					<image src="../../static/release/价格@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E4%BB%B7%E6%A0%BC%402x.png" mode=""></image>
 				</view>
 				<view class="text float_left">
 					价格
 				</view>
 				<view class="arrow float_right">
-					<image src="../../static/release/向右1@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E5%90%91%E5%8F%B31%402x(1).png" mode=""></image>
 				</view>
 				<view class="price_num text_right float_right">
 					<view class="float_left" style="margin-right: 10rpx;">¥</view>
@@ -62,18 +62,17 @@
 			</view>
 			<view class="delivery choose_item clear">
 				<view class="icon float_left">
-					<image src="../../static/release/发货@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E5%8F%91%E8%B4%A7%402x.png" mode=""></image>
 				</view>
 				<view class="text float_left">
 					发货方式
 				</view>
 				<view class="arrow float_right">
-					<image src="../../static/release/向右1@2x.png" mode=""></image>
+					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E5%90%91%E5%8F%B31%402x(1).png" mode=""></image>
 				</view>
 				<view class="postage text_right float_right">
 					邮费(运费未填)
 				</view>
-
 			</view>
 		</view>
 		<view class="btn flex">
@@ -109,9 +108,26 @@
 			},
 			// 添加请求
 			add() {
+				const titleThis = this.title.trim();
+				const intrThis = this.intr.trim();
+				
 				const userInfo = uni.getStorageSync("userInfo");
 				// 发布帖子添加请求
 				if(this.type === "user") {
+					if(!intrThis) {
+						uni.showToast({
+							title: "请输入文字",
+							icon: "none"
+						})
+						return 
+					}
+					if(this.uploadPreviewImage.length === 0) {
+						uni.showToast({
+							title: "上传图片会更快卖出哦",
+							icon: "none"
+						})
+						return 
+					}
 					app.globalData.addCommunity({
 						introduction : this.intr,
 						imgs: JSON.stringify(this.uploadPreviewImage),
@@ -129,12 +145,43 @@
 						})
 					})
 				} else {
+					const priceThis = +this.price;
+					// 表单校验
+					if(!titleThis) {
+						uni.showToast({
+							title: "请输入商品标题",
+							icon: "none"
+						})
+						return 
+					}
+					if(!intrThis) {
+						uni.showToast({
+							title: "请输入商品介绍",
+							icon: "none"
+						})
+						return 
+					}
+					if(this.uploadPreviewImage.length === 0) {
+						uni.showToast({
+							title: "上传图片会更快卖出哦",
+							icon: "none"
+						})
+						return 
+					}
+					if(!priceThis || priceThis < 0) {
+						uni.showToast({
+							title: "请输入正确的价格",
+							icon: "none"
+						})
+						return
+					}
+					
 					// 发布商品
 					app.globalData.addGoods({
 						goodsName : this.title,
 						introduction : this.intr,
 						imgUrl: JSON.stringify(this.uploadPreviewImage),
-						price: +this.price,
+						price: +this.price*100,
 						userId: userInfo.id,
 						userAvatar : userInfo.userAvatar,
 						userName: userInfo.userName
@@ -163,7 +210,7 @@
 					success: (res) => {
 						console.log(res);
 						uni.uploadFile({
-							url: 'http://192.168.18.78:8080/tos/uploadFile',
+							url: 'https://www.ydtloan.com/tos/uploadFile',
 							files: res.tempFiles,
 							filePath: res.tempFilePaths[0],
 							name: 'file',

@@ -30,9 +30,9 @@
 							{{(productDetali.price / 100).toFixed(2)}}
 						</text>
 					</view>
-					<view class="cashback float_left">
+					<!-- <view class="cashback float_left">
 						赏金：￥<text>{{productDetali.cashback}}</text>
-					</view>
+					</view> -->
 					<view class="way float_left">
 						邮寄
 					</view>
@@ -43,9 +43,9 @@
 				<view class="intr">
 					{{productDetali.introduction}}
 				</view>
-				<view class="date">
+<!-- 				<view class="date">
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E5%88%86%E4%BA%AB%202.png" mode=""></image>{{productDetali.date}}发布
-				</view>
+				</view> -->
 			</view>
 			
 			<view class="releaseUser clear">
@@ -201,7 +201,7 @@
 		<!-- 底部功能区 -->
 		<view class="bottom_funciton">
 			<view class="bottom_left">
-				<image src="../../static/productDetails/组件 173 – 1.png" mode=""></image>
+				<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E7%BB%84%E4%BB%B6%20173%20%E2%80%93%201%402x.png" mode=""></image>
 			</view>
 			<view class="bottom_right" @click="purchase">
 				点击购买
@@ -520,6 +520,7 @@ export default {
 }
 .content {
 	background-color: #F9F9F9;
+	// background-color: #ff0000;
 }
 // 顶部
 .topping {
@@ -662,6 +663,8 @@ export default {
 // 发布者
 .releaseUser {
 	padding: 40rpx 32rpx;
+	background-color: #fff;
+	margin-bottom: 20rpx;
 	.head {
 		margin-right: 24rpx;
 		image {
@@ -698,6 +701,7 @@ export default {
 }
 // 评论发布框
 .comment_box {
+	background-color: #fff;
 	padding:40rpx 32rpx;
 	font-size: 0;
 	.comment_box_head {
@@ -726,6 +730,7 @@ export default {
 
 // 评论
 .comment {
+	background-color: #fff;
 	padding: 0 32rpx;
 	.comment_item {
 		padding-bottom: 58rpx;
@@ -793,6 +798,7 @@ export default {
 	bottom: 120rpx;
 	padding: 40rpx 32rpx;
 	background-color: #eeebea;
+	margin-bottom: 20rpx;
 	input {
 		width: 686rpx;
 		height: 68rpx;
@@ -815,6 +821,7 @@ export default {
 	}
 	.recommend_show {
 		.recommend_item {
+			background-color: #fff;
 			width: 332rpx;
 			// height: 480rpx;
 			box-sizing: border-box;

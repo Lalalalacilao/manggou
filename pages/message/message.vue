@@ -3,12 +3,12 @@
 		<view class="top">
 			<view class="status_bar"></view>
 			<view class="top_title clear">
-				<view class="title float">分销</view>
+				<view class="title float">通知</view>
 				<!-- <view class="clear_mess float" @click="toClear">
 					<image src="../../static/message/清除@2x.png" mode=""></image>
 				</view> -->
 			</view>
-			<!-- <view class="search">
+<!-- 			<view class="search">
 				<view class="search_btn">
 					<image src="../../static/message/搜索@2x.png" mode=""></image>
 				</view>
@@ -55,13 +55,13 @@
 					</view>
 				</view>
 				
-				<view class="delete float" @click="deleteThis(item)">
+<!-- 				<view class="delete float" @click="deleteThis(item)">
 					<image src="../../static/message/删除@2x.png" mode="aspectFit"></image>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="tips">
-			暂未开放~
+			暂无通知~
 		</view>
 		
 		

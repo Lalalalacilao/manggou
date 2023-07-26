@@ -122,4 +122,8 @@ export default {
 	add(params) {
 		return request("/userLike/add","POST",params);
 	},
+	// 编辑资料
+	editUserInfo(params) {
+		return request("/user/updateUserInfo","POST", params);
+	}
 }

@@ -173,13 +173,13 @@
 			// 编辑
 			edit(id) {
 				console.log("编辑");
-				uni.showToast({
-					title: "暂未开放，敬请期待",
-					icon: "none"
-				})
-				// uni.navigateTo({
-				// 	url:'/pages/EditInformation/EditInformation'
+				// uni.showToast({
+				// 	title: "暂未开放，敬请期待",
+				// 	icon: "none"
 				// })
+				uni.navigateTo({
+					url:'/pages/EditInformation/EditInformation'
+				})
 			},
 			// 全部订单
 			allOrder(id) {
@@ -327,6 +327,11 @@
 				font-size: 48rpx;
 				font-weight: 600;
 				margin-bottom: 8rpx;
+				overflow:hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
 			}
 			.user_id {
 				font-size: 28rpx;

@@ -85,4 +85,8 @@
 .login .protocol text {
   font-size: 30rpx;
 }
+.login .protocol text text {
+  color: blue;
+  text-decoration: underline;
+}
 

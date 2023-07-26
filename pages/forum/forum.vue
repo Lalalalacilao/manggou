@@ -52,9 +52,9 @@
 				</view>
 				<!-- 下方操作区 -->
 				<view class="buttom">
-					<view class="past_time">
+					<!-- <view class="past_time">
 						{{item.howLong}}
-					</view>
+					</view> -->
 					<view class="operate clear">
 						<view class="like float">
 							<image v-if="item.isLike" src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%82%B9%E8%B5%9E-2.png" alt="已点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
@@ -245,6 +245,10 @@
 			this.loading = "";
 			this.pageNum_ = 1;
 			this.consult();
+		},
+		onLoad() {
+			this.userInfo = uni.getStorageSync("userInfo");
+			this.userId = this.userInfo.id
 		}
 	}
 </script>

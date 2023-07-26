@@ -3,6 +3,7 @@ const whiteList = [
 	'/pages/index/index',
 	'/pages/personal/personal',
 	'/pages/login/login',
+	"/pages/serveTrem/serveTrem"
 ];
 // 登录页
 const loginPage = '/pages/login/login';

@@ -88,7 +88,8 @@
 		data() {
 			return {
 				myAddress: [],
-				userInfo:{}
+				userInfo:{},
+				select: false,
 			};
 		},
 		methods: {
@@ -124,6 +125,15 @@
 			
 			
 			back() {
+				if(this.select) {
+					for(let i = 0; i < this.myAddress.length; i++) {
+						if(this.myAddress[i].isChoose) {
+							console.log(this.myAddress[i]);
+							uni.setStorageSync("newAddress",JSON.stringify(this.myAddress[i]));
+							break;
+						}
+					}
+				}
 				uni.navigateBack({
 					delta: 1
 				})
@@ -200,7 +210,10 @@
 			
  		},
 		
-		onLoad(){
+		onLoad(option){
+			if(option.type === "select") {
+				this.select = true;
+			}
 			this.userInfo = uni.getStorageSync("userInfo");
 		},
 		onShow() {

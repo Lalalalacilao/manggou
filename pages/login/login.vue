@@ -1,17 +1,5 @@
 <template>
 	<view class="content">
-<!-- 		<view class="top">
-			<view class="status_bar"></view>
-			<view class="function_area clear">
-				<view class="back float_left" @click="back">
-					<image src="../../static/address/返回@3x.png" mode=""></image>
-				</view>
-				<view class="title float_left">
-					登录
-				</view>
-			</view>
-		</view> -->
-		
 		<view class="login">
 			<view class="btn">
 				<button :open-type="isCheck ? 'getPhoneNumber' : ''" @getphonenumber="getPhoneNumber" @click="checkPlease">点击登录</button>
@@ -20,7 +8,7 @@
 			<view class="protocol">
 				<checkbox-group @change="check">
 					<label>
-						<checkbox value="isCheck" /><text>勾选同意巴拉巴拉</text>
+						<checkbox value="isCheck" /><text>勾选同意<text @click="serve">《隐私服务协议》</text></text>
 					</label>
 				</checkbox-group>
 				
@@ -50,21 +38,13 @@
 						icon: 'error',
 						mask: true
 					})
-				} else {
-					// 获取用户信息
-					// let info = this.wxGetUserProfile();
-					// info.then((res) => {
-					// 	// 存储用户信息至本地
-					// 	uni.setStorageSync('userInfo', res.rawData);
-					// }).catch((err) => {
-					// 	// uni.showToast({
-					// 	// 	title:"信息获取失败",
-					// 	// 	icon:'error'
-					// 	// })
-					// 	console.log("失败");
-					// 	console.log(err);
-					// });
 				}
+			},
+			//跳转服务条款
+			serve() {
+				uni.navigateTo({
+					url:  "/pages/serveTrem/serveTrem"
+				})
 			},
 			// 获取phoneNumber
 			getPhoneNumber(e) {
@@ -272,6 +252,10 @@
 		margin-left: 20rpx;
 		text {
 			font-size: 30rpx;
+			text {
+				color: blue;
+				text-decoration: underline;
+			}
 		}
 	}
 }

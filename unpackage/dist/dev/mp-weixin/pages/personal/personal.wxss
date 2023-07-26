@@ -66,6 +66,11 @@
   font-size: 48rpx;
   font-weight: 600;
   margin-bottom: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .top .personal_info .info .user_id {
   font-size: 28rpx;

@@ -161,6 +161,8 @@
   margin-right: 12rpx;
 }
 .releaseUser {
+  background-color: #fff;
+  margin-bottom: 20rpx;
   padding: 40rpx 32rpx;
 }
 .releaseUser .head {
@@ -196,6 +198,7 @@
   margin-top: 12rpx;
 }
 .comment_box {
+  background-color: #fff;
   padding: 40rpx 32rpx;
   font-size: 0;
 }
@@ -222,6 +225,7 @@
   border-radius: 36rpx;
 }
 .comment {
+  background-color: #fff;
   padding: 0 32rpx;
 }
 .comment .comment_item {
@@ -304,6 +308,7 @@
   margin-bottom: 32rpx;
 }
 .recommend .recommend_show .recommend_item {
+  background-color: #fff;
   width: 332rpx;
   box-sizing: border-box;
   padding: 18rpx 18rpx 20rpx 18rpx;

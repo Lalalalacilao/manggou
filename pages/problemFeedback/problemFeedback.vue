@@ -173,7 +173,7 @@
 					success: (res) => {
 						console.log(res);
 						uni.uploadFile({
-							url: 'http://192.168.18.78:8080/tos/uploadFile',
+							url: 'https://www.ydtloan.com/tos/uploadFile',
 							files: res.tempFiles,
 							filePath: res.tempFilePaths[0],
 							name: 'file',

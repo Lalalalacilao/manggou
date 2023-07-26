@@ -17,7 +17,8 @@
     "pages/AfterSales/AfterSales",
     "pages/productDetalisMine/productDetalisMine",
     "pages/logistics/logistics",
-    "pages/purchase/purchase"
+    "pages/purchase/purchase",
+    "pages/serveTrem/serveTrem"
   ],
   "subPackages": [],
   "window": {

@@ -40,9 +40,9 @@
 				<view class="intr">
 					{{productDetali.introduction}}
 				</view>
-				<view class="date">
+<!-- 				<view class="date">
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E5%88%86%E4%BA%AB%202.png" mode=""></image>{{productDetali.date}}发布
-				</view>
+				</view> -->
 			</view>
 			
 			<view class="releaseUser clear">
@@ -53,11 +53,11 @@
 					<view class="nickname" @click="personalIntr(productDetali.userId)">
 						{{productDetali.userName}}
 					</view>
-					<view class="releaseDate">
+<!-- 					<view class="releaseDate">
 						{{productDetali.release}}&nbsp;发布
-					</view>
+					</view> -->
 				</view>
-				<view class="consult float_right" @click="consult">
+				<view class="consult float_right" @click="goGuidance">
 					咨询
 				</view>
 			</view>
@@ -393,12 +393,6 @@ export default {
 			
 			
 		},
-		// 查找所回复的评论的信息
-		byIdGetCommentItem(id) {
-			if(this.comment != []) {
-				
-			}
-		},
 		// 推荐点击
 		recommend(id) {
 			var pages = getCurrentPages(); //获取所有页面的数组对象
@@ -478,6 +472,19 @@ export default {
 				this.consult(this.pageNum_, 10)
 			}
 		},
+		goGuidance() {
+			// uni.showModal({
+			// 	title: '联系方式',
+			// 	content: currentUser.Phone,
+			// 	success: function (res) {
+			// 		if (res.confirm) {
+			// 			console.log('用户点击确定');
+			// 		} else if (res.cancel) {
+			// 			console.log('用户点击取消');
+			// 		}
+			// 	}
+			// });
+		}
 	},
 	onLoad(option) {
 		// 请求商品详细信息
@@ -504,6 +511,7 @@ export default {
 	overflow: hidden;
 }
 .content {
+	// background-color: red;
 	background-color: #F9F9F9;
 }
 // 顶部
@@ -635,6 +643,8 @@ export default {
 }
 // 发布者
 .releaseUser {
+	background-color: #fff;
+	margin-bottom: 20rpx;
 	padding: 40rpx 32rpx;
 	.head {
 		margin-right: 24rpx;
@@ -671,6 +681,7 @@ export default {
 }
 // 评论发布框
 .comment_box {
+	background-color: #fff;
 	padding:40rpx 32rpx;
 	font-size: 0;
 	.comment_box_head {
@@ -699,6 +710,7 @@ export default {
 
 // 评论
 .comment {
+	background-color: #fff;
 	padding: 0 32rpx;
 	.comment_item {
 		padding-bottom: 58rpx;
@@ -788,6 +800,7 @@ export default {
 	}
 	.recommend_show {
 		.recommend_item {
+			background-color: #fff;
 			width: 332rpx;
 			// height: 480rpx;
 			box-sizing: border-box;

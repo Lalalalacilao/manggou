@@ -18,7 +18,9 @@
     "pages/productDetalisMine/productDetalisMine",
     "pages/logistics/logistics",
     "pages/purchase/purchase",
-    "pages/serveTrem/serveTrem"
+    "pages/serveTrem/serveTrem",
+    "pages/myPublish/myPublish",
+    "pages/editMyPublish/editMyPublish"
   ],
   "subPackages": [],
   "window": {

@@ -133,7 +133,7 @@
   margin-right: 32rpx;
 }
 .menu .bottom .bottom_item {
-  padding: 32rpx 0;
+  padding: 24rpx 0;
 }
 .menu .bottom .bottom_item image {
   width: 28rpx;

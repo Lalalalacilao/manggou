@@ -1,27 +1,27 @@
-import App from './App'
+import App from './App';
 
 // #ifndef VUE3
-import Vue from 'vue'
-import './uni.promisify.adaptor'
-import tabBar from "./components/tabBar.vue"
+import Vue from 'vue';
+import './uni.promisify.adaptor';
+import tabBar from './components/tabBar.vue';
+import share from './share.js';
+Vue.mixin(share);
+Vue.component('tab-bar', tabBar);
 
-
-Vue.component("tabBar",tabBar);
-
-Vue.config.productionTip = false
-App.mpType = 'app'
+Vue.config.productionTip = false;
+App.mpType = 'app';
 const app = new Vue({
-  ...App
-})
-app.$mount()
+  ...App,
+});
+app.$mount();
 // #endif
 
 // #ifdef VUE3
-import { createSSRApp } from 'vue'
+import { createSSRApp } from 'vue';
 export function createApp() {
-  const app = createSSRApp(App)
+  const app = createSSRApp(App);
   return {
-    app
-  }
+    app,
+  };
 }
 // #endif

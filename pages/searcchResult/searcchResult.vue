@@ -122,7 +122,7 @@
 			// 触底加载
 			bottomLoading() {
 				if(this.loading !== "没有了~" || this.loading !== "没有对应商品") {
-					this.consult(this.pageNum_, 10)
+					this.searchPage(this.pageNum_, 10)
 				}
 			},
 			// 返回上一页

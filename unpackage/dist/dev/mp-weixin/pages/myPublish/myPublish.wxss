@@ -1,0 +1,156 @@
+.float_left.data-v-0c16060e {
+  float: left;
+}
+.float_right.data-v-0c16060e {
+  float: right;
+}
+.clear.data-v-0c16060e {
+  clear: both;
+  content: "";
+  overflow: hidden;
+}
+.status_bar.data-v-0c16060e {
+  width: 100%;
+  height: 88rpx;
+}
+.fill.data-v-0c16060e {
+  height: 176rpx;
+}
+.content.data-v-0c16060e {
+  background-color: #F9F9F9;
+}
+.content .top.data-v-0c16060e {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+}
+.content .top .title.data-v-0c16060e {
+  height: 88rpx;
+  box-sizing: border-box;
+  padding: 24rpx 0 20rpx 32rpx;
+  font-size: 0;
+}
+.content .top .title .back image.data-v-0c16060e {
+  width: 44rpx;
+  height: 44rpx;
+}
+.content .top .title .title_text.data-v-0c16060e {
+  font-family: PingFang SC-Heavy, PingFang SC;
+  color: #333;
+  font-weight: 800;
+  font-size: 32rpx;
+  margin-left: 234rpx;
+}
+.content scroll-view .banner.data-v-0c16060e {
+  margin-top: 32rpx;
+}
+.content scroll-view .banner image.data-v-0c16060e {
+  width: 750rpx;
+}
+.content scroll-view .pdt_show.data-v-0c16060e {
+  padding: 0 32rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.content scroll-view .pdt_show .pdt_item.data-v-0c16060e {
+  border-radius: 16rpx;
+  box-shadow: 0rpx 0rpx 20rpx 2rpx rgba(153, 153, 153, 0.16);
+  width: 336rpx;
+  height: 600rpx;
+  background-color: #fff;
+  padding: 22rpx 20rpx 24rpx 20rpx;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+}
+.content scroll-view .pdt_show .pdt_top.data-v-0c16060e {
+  position: relative;
+  margin-bottom: 24rpx;
+}
+.content scroll-view .pdt_show .pdt_top image.data-v-0c16060e {
+  width: 296rpx;
+  height: 312rpx;
+  border-radius: 12rpx 12rpx 12rpx 12rpx;
+}
+.content scroll-view .pdt_show .pdt_top text.data-v-0c16060e {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 248rpx;
+  left: 24rpx;
+  padding: 8rpx 16rpx;
+  font-size: 22rpx;
+  color: #FFFFFF;
+  font-family: PingFang SC-Regular, PingFang SC;
+  border-radius: 60rpx;
+}
+.content scroll-view .pdt_show .pdt_middle.data-v-0c16060e {
+  font-family: PingFang SC-Medium, PingFang SC;
+  margin-bottom: 12rpx;
+}
+.content scroll-view .pdt_show .pdt_middle .intr.data-v-0c16060e {
+  width: 298rpx;
+  height: 80rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  color: #666666;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.content scroll-view .pdt_show .pdt_middle .price.data-v-0c16060e {
+  color: #0D0D26;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.content scroll-view .pdt_show .pdt_middle .price text.data-v-0c16060e {
+  font-size: 20rpx;
+}
+.content scroll-view .pdt_show .user.data-v-0c16060e {
+  font-size: 0;
+  display: flex;
+}
+.content scroll-view .pdt_show .user image.data-v-0c16060e {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+}
+.content scroll-view .pdt_show .user .nickname.data-v-0c16060e {
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #999999;
+  font-size: 24rpx;
+}
+.content scroll-view .pdt_show .opration.data-v-0c16060e {
+  width: 100%;
+  height: 60rpx;
+  line-height: 40rpx;
+  margin-top: 10rpx;
+  display: flex;
+}
+.content scroll-view .pdt_show .opration .edit.data-v-0c16060e {
+  width: 80rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #999999;
+  font-size: 30rpx;
+}
+.content scroll-view .pdt_show .opration .del.data-v-0c16060e {
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #999999;
+  font-size: 30rpx;
+}
+.content scroll-view .loading.data-v-0c16060e {
+  height: 156rpx;
+  text-align: center;
+  line-height: 156rpx;
+  font-size: 26rpx;
+  color: #333333;
+}
+

@@ -138,11 +138,23 @@
 			},
 			// 搜索
 			search() {
-				uni.showToast({
-					title: "暂未开放，敬请期待",
-					icon: "none"
-				})
+				// uni.showToast({
+				// 	title: "暂未开放，敬请期待",
+				// 	icon: "none"
+				// })
+				const index = this.keyWord.trim();
+				if(!index) {
+					uni.showToast({
+						title: "搜索数据不能为空",
+						icon: "error"
+					})
+					return
+				}
 				this.keyWord = "";
+				uni.navigateTo({
+					url: "/pages/searcchResult/searcchResult?keyword=" + index + "&curr=" + this.curr,
+				})
+				
 			},
 			
 			// 商品详情

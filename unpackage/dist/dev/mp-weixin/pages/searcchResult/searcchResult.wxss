@@ -43,6 +43,10 @@
   height: 76rpx;
 }
 .top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   margin-bottom: 16rpx;
 }
 .top .search {
@@ -76,6 +80,9 @@
   font-size: 26rpx;
   padding-left: 70rpx;
   border-radius: 40rpx;
+}
+.fill {
+  height: 176rpx;
 }
 .product_show {
   padding-left: 32rpx;
@@ -137,6 +144,7 @@
   z-index: 0;
 }
 .product_show .product_preview .pre_item {
+  background-color: #fff;
   margin-bottom: 48rpx;
   margin-right: 22rpx;
 }
@@ -192,5 +200,12 @@
   -webkit-transform: rotateX(180deg) !important;
           transform: rotateX(180deg) !important;
   transition: all 0.5s;
+}
+.loading {
+  height: 156rpx;
+  text-align: center;
+  line-height: 156rpx;
+  font-size: 26rpx;
+  color: #333333;
 }
 

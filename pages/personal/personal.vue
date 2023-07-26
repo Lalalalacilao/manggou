@@ -63,6 +63,15 @@
 			
 			<!-- 菜单 -->
 			<view class="bottom">
+				<view class="bottom_item clear" @click="myPublish">
+					<view class="left_icon float_left"></view>
+					<view class="text float_left">
+						我的发布
+					</view>
+					<view class="right_icon float_right">
+						<image src="https://mang-gou.tos-cn-beijing.volces.com/personal%2F%E5%90%91%E5%8F%B31%402x.png" mode=""></image>
+					</view>
+				</view>
 				<view class="bottom_item clear" @click="myAddress(userInfo.userId)">
 					<view class="left_icon float_left"></view>
 					<view class="text float_left">
@@ -261,6 +270,12 @@
 					})
 				}
 			},
+			// 我的发布
+			myPublish() {
+				uni.navigateTo({
+					url:'/pages/myPublish/myPublish'
+				})
+			}
 		},
 		onLoad() {
 			this.phone = uni.getStorageSync('token')
@@ -398,7 +413,7 @@
 	}
 	.bottom {
 		.bottom_item {
-			padding: 32rpx 0;
+			padding: 24rpx 0;
 			image {
 				width: 28rpx;
 				height: 28rpx;

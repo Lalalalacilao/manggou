@@ -440,23 +440,23 @@
 				
 				// 根据状态获取订单
 				// 节流控制
-				if(!timer){
+				if(!this.timer){
 					console.log("******************");
-					timer = setTimeout(function() {
+					this.timer = setTimeout(() => {
 						this.getSelectOrderr();
 						// 清除定时器后，以下次可以继续定时
-						timer = null;
+						this.timer = null;
 					},50);
 				}
 				
 				// 获取所有订单
 				if(this.curr === 0) {
 					// 节流控制
-					if(!timerAll){
-						timerAll = setTimeout(function() {
+					if(!this.timerAll){
+						this.timerAll = setTimeout(() => {
 							this.getAllOrder();
 							// 清除定时器后，以下次可以继续定时
-							timerAll = null;
+							this.timerAll = null;
 						},50);
 					}
 				}

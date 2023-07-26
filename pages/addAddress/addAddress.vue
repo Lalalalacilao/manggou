@@ -35,7 +35,7 @@
 				<text>详细地址</text>
 				<input type="text" placeholder="请填写详细地址" v-model="address.addDetail">
 			</view>
-			<view class="default from_item clear">
+			<view class="default from_item clear" v-if="addressindex == '' ">
 				<view class="text float_left">
 					设为默认地址
 				</view>
@@ -46,7 +46,8 @@
 			</view>
 		</form>
 		<view class="btn from_item" @click="submit">
-			提交
+			<text v-if="addressindex == ''">提交</text>
+			<text v-else>确认修改</text>
 		</view>
 	</view>
 </template>
@@ -66,16 +67,45 @@
 				// 设为默认
 				isDefault: false,
 				// 用户信息
-				userInfo: {}
+				userInfo: {},
+				addressindex:''
 			};
 		},
 		methods: {
 			switchBtn() {
 				this.isDefault = !this.isDefault;
 			},
+			// 地址请求
+			getAddress(id) {
+				app.globalData.getUserAddress({
+					userId: this.userInfo.id
+				}).then(res => {
+					if(res.data !== undefined) {
+						this.myAddress = res.data[this.addressindex]
+						this.userName = res.data[this.addressindex].name
+						this.userPhone = res.data[this.addressindex].phone
+						const [province, district, street] = res.data[this.addressindex].addressDetail.trim().split(/\s+/);
+						this.address.addCity = province
+						this.address.addStreet = district
+						this.address.addDetail = street
+						this.id = res.data[this.addressindex].id
+					} else {
+						uni.showToast({
+							title: "您还没有地址，快添加吧！",
+							icon: "none"
+						})
+					}
+				}).catch(err => {
+					uni.showToast({
+						title: err.message,
+						icon: "error"
+					})
+				})
+			},
+			
 			// 添加地址
 			submit() {
-				const addressString = this.address.addCity.trim() + this.address.addStreet.trim() + this.address.addDetail.trim();
+				this.addressString = this.address.addCity.trim()+ ' ' + this.address.addStreet.trim()+ ' ' + this.address.addDetail.trim();
 				// 为空校验
 				if(this.userName.trim() === "") {
 					uni.showToast({
@@ -90,36 +120,63 @@
 						icon: "error"
 					})
 					return
-				} else if(addressString.trim() === "") {
+				} else if(this.addressString.trim() === "") {
 					uni.showToast({
 						title: "地址不能为空",
 						icon: "error"
 					})
 					return
 				}
+				if(this.addressindex == undefined){
+					// 提交新增
+					app.globalData.addUserAddress({
+						address: this.addressString,
+						name: this.userName,
+						phone: this.userPhone,
+						userId: this.userInfo.id,
+						isDefault: +(this.isDefault ? 1 : 0)
+						
+					}).then(res => {
+						console.log(this.addressString,this.userName);
+						uni.showToast({
+							title: "添加成功",
+							icon: "none"
+						})
+						uni.navigateBack({
+							delta: 1
+						})
+					}).catch(err => {
+						uni.showToast({
+							title: "添加失败",
+							icon: "error"
+						})
+					})
+				}else{
+					//修改
+					app.globalData.updateAddress({
+						address: this.addressString,
+						name: this.userName,
+						phone: this.userPhone,
+						userId: this.userInfo.id,
+						locId: this.id
+						
+					}).then(res => {
+						console.log(res);
+						uni.showToast({
+							title: "添加成功",
+							icon: "none"
+						})
+						uni.navigateBack({
+							delta: 1
+						})
+					}).catch(err => {
+						uni.showToast({
+							title: "添加失败",
+							icon: "error"
+						})
+					})
+				}
 				
-				// 提交新增
-				app.globalData.addUserAddress({
-					address: addressString,
-					name: this.userName,
-					phone: this.userPhone,
-					userId: this.userInfo.id,
-					isDefault: +(this.isDefault ? 1 : 0)
-					
-				}).then(res => {
-					uni.showToast({
-						title: "添加成功",
-						icon: "none"
-					})
-					uni.navigateBack({
-						delta: 1
-					})
-				}).catch(err => {
-					uni.showToast({
-						title: "添加失败",
-						icon: "error"
-					})
-				})
 				
 			},
 			// 返回
@@ -129,8 +186,13 @@
 				})
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			this.userInfo = uni.getStorageSync("userInfo");
+			this.addressindex = options.index
+			console.log(this.addressindex);
+			if(this.addressindex != undefined){
+				this.getAddress()
+			}
 		}
 	}
 </script>

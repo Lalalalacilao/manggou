@@ -39,7 +39,7 @@
 								设置为默认寄件地址
 							</view>
 							<!-- 开关按钮 -->
-							<view class="switch float_left" :class="item.isDefault ? 'open_switch_bacc' : 'close_switch_bacc' " @click="switchBtn(index)">
+							<view class="switch float_left" :class="item.isDefault ? 'open_switch_bacc' : 'close_switch_bacc' " @click="switchBtn(index,item.userId)">
 								<view class="view" :class="item.isDefault ? 'open_btn' : 'close_btn'">
 								
 								</view>
@@ -49,7 +49,7 @@
 							<view class="edit fun_btn float_left" @click="editThis(index)">
 								<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E7%BC%96%E8%BE%91%402x.png" mode=""></image>
 							</view>
-							<view class="delete fun_btn float_left" @click="deleteThis(index)">
+							<view class="delete fun_btn float_left" @click="deleteThis(index,item.id)">
 								<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E5%88%A0%E9%99%A4%402x.png" mode=""></image>
 							</view>
 						</view>
@@ -94,18 +94,20 @@
 		},
 		methods: {
 			// 开关按钮
-			switchBtn (index) {
+			switchBtn (index,userId) {
 				if(this.myAddress[index].isDefault === true) {
 					this.myAddress[index].isDefault = !this.myAddress[index].isDefault;
 				} else {
 					this.myAddress.forEach(item => {
 						item.isDefault = false;
 					})
+					console.log(userId,this.myAddress[index].id);
 					app.globalData.setDefault({
-						userId: "" + this.user.userId,
+						userId: "" + userId,
 						locId: "" + this.myAddress[index].id
 					}).then(res => {
 						this.myAddress[index].isDefault = true;
+						console.log(this.myAddress[index].isDefault);
 					}).catch(err => {
 						uni.showToast({
 							title: "默认地址设置失败",
@@ -115,12 +117,15 @@
 				}
 			},
 			// 选择按钮
-			chooseThis(index) {
+			chooseThis(index,userId) {
+				this.userId = userId
 				this.myAddress[index].isChoose = !this.myAddress[index].isChoose;
 			},
 			// item内编辑按钮
 			editThis(index) {
-				console.log("编辑" + index);
+				uni.navigateTo({
+					url: "/pages/addAddress/addAddress?index=" + index 
+				})
 			},
 			
 			
@@ -140,12 +145,15 @@
 			},
 			
 			// item内删除按钮
-			deleteThis(index,userId = this.user.userId) {
+			deleteThis(index,id) {
+				// console.log(this.userInfo.id,'99999999');
 				app.globalData.deleteAddress({
 					locId: this.myAddress[index].id,
-					userId
+					userId:this.userInfo.id
 				}).then(res => {
-					this.myAddress.splice(index,1);
+					console.log(res,'res---------');
+					// this.myAddress.splice(index,1);
+					this.getAddress(id)
 					uni.showToast({
 						title: "删除成功",
 						icon: "none"
@@ -160,12 +168,17 @@
 			},
 			// 底部删除按钮
 			deleteAll() {
-				for(let i = 0; i < this.myAddress.length; i++) {
-					if(this.myAddress[i].isChoose) {
-						this.deleteThis(i);
-						i = 0;
+				let selectedAddresses = [];
+					for (let i = 0; i < this.myAddress.length; i++) {
+						if (this.myAddress[i].isChoose) {
+						selectedAddresses.push(i);
+						console.log(selectedAddresses);
 					}
 				}
+				selectedAddresses.forEach(index => {
+					this.deleteThis(index);
+					// console.log(index,this.userInfo.id);
+				});
 			},
 			// 新增地址
 			addAddress() {
@@ -181,6 +194,7 @@
 				}).then(res => {
 					if(res.data !== undefined) {
 						this.myAddress = res.data;
+						console.log(this.myAddress);
 						this.dataHandle();
 					} else {
 						uni.showToast({

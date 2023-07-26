@@ -125,5 +125,9 @@ export default {
 	// 编辑资料
 	editUserInfo(params) {
 		return request("/user/updateUserInfo","POST", params);
+	},
+	// 修改地址
+	updateAddress(params) {
+		return request("/user_address/updateAddress","POST", params);
 	}
 }

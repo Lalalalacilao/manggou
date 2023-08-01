@@ -111,6 +111,7 @@ export default {
 	getWxPaymentSignature(params) {
 		return request('/wechatPay/getCachePaySign', 'POST', params);
 	},
+	// 确认收货
 	confirmReceipt(params) {
 		return request('/order/receipt', 'POST', params);
 	},
@@ -154,4 +155,24 @@ export default {
 	delGood(params) {
 		return request('/goods/deleteGoods', 'POST', params);
 	},
+	// 根据订单id获取订单信息
+	getOneOrder(params) {
+		return request("/order/getOneOrder","GET",params);
+	},
+	// 申请退款
+	applyRefund(params) {
+		return request("/order/applyRefund","POST",params);
+	},
+	// 获取全部退款订单
+	getAllRefundOredr(params) {
+		return request("/order/getRefundOrder","GET",params);
+	},
+	// 根据地址id获取地址信息
+	 getOneAddressInfo(params) {
+		 return request("/user_address/getOneById","GET",params);
+	 },
+	 // 获取订单物流信息
+	 getOrderLogisticsInfo(params) {
+		 return request("/orderExpress/getExpressInfo","POST",params);
+	 }
 };

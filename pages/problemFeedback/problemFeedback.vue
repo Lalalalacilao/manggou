@@ -82,7 +82,7 @@
 				</view>
 			</view>
 			
-			<view class="contact">
+<!-- 			<view class="contact">
 				<view class="top clear">
 					<view class="title float_left">
 						联系方式
@@ -94,7 +94,7 @@
 				<view class="contact_input">
 					<input type="text" placeholder-class="tips" placeholder="请留下任意一个联系方式" v-model="phone">
 				</view>
-			</view>
+			</view> -->
 			
 			<!-- <input class="submit" type="" > -->
 			<button class="submit" @click="submit">提交</button>
@@ -120,9 +120,7 @@
 				uploadPre: [],
 				detail: "",
 				phone: "",
-				user: {
-					userId: 111
-				}
+				userInfo: ""
 			};
 		},
 		computed: {
@@ -201,15 +199,14 @@
 				app.globalData.addProblemFeedback({
 					detail: this.detail,
 					imgUrl: JSON.stringify(this.uploadPre),
-					phone: this.phone,
 					problemType: this.problemType,
-					userId: this.user.userId
+					userId: this.userInfo.id
 				}).then(res => {
 					this.detail = "",
 					this.phone = "",
 					this.uploadPre = [],
 					uni.showToast({
-						title: "上传成功",
+						title: "反馈成功",
 						icon: "none"
 					})
 				}).catch(err => {
@@ -220,6 +217,9 @@
 				})
 				
 			}
+		},
+		onLoad() {
+			this.userInfo = uni.getStorageSync("userInfo");
 		}
 	}
 </script>
@@ -300,6 +300,7 @@
 	margin-top: 32rpx;
 	padding: 0 32rpx;
 	font-size: 0;
+	margin-bottom: 82rpx;
 	.title {
 		margin-bottom: 24rpx;
 		font-size: 32rpx;

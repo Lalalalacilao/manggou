@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "helang-waterfall-list": "/uni_modules/helang-waterfall/components/waterfall/waterfall-list"
+  }
+}

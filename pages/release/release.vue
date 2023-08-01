@@ -25,7 +25,7 @@
 		</form>
 		<view class="upload_image flex">
 			<view class="pre_image_item" v-for="(item,index) in uploadPreviewImage" :key="index">
-				<image :src="item" mode=""></image>
+				<image :src="item" mode="aspectFills" @click="deteleThisImg(index)"></image>
 			</view>
 			<view class="upload_btn" @click="uploadImage">
 				<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E7%BB%84%E4%BB%B6%2016%20%E2%80%93%202%402x.png" mode=""></image>
@@ -71,14 +71,15 @@
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/release%2F%E5%90%91%E5%8F%B31%402x(1).png" mode=""></image>
 				</view>
 				<view class="postage text_right float_right">
-					邮费(运费未填)
+					<text v-if="flag" @click="flag = false">邮费(运费未填)</text>
+					<input focus="true" v-else type="text" v-model="freight">
 				</view>
 			</view>
 		</view>
 		<view class="btn flex">
-			<view class="draft">
+<!-- 			<view class="draft">
 				存草稿
-			</view>
+			</view> -->
 			<view class="release" @click="add">
 				发布
 			</view>
@@ -97,7 +98,9 @@
 				uploadPreviewImage: [],
 				intr: "",
 				title:"",
-				price: "0.00"
+				price: "0.00",
+				freight: "0.00",
+				flag: true
 			};
 		},
 		methods: {
@@ -129,7 +132,7 @@
 						return 
 					}
 					app.globalData.addCommunity({
-						introduction : this.intr,
+						introduction : intrThis,
 						imgs: JSON.stringify(this.uploadPreviewImage),
 						userId : userInfo.id,
 						userName: userInfo.userName,
@@ -146,6 +149,7 @@
 					})
 				} else {
 					const priceThis = +this.price;
+					const freightThis = parseFloat(this.freight);
 					// 表单校验
 					if(!titleThis) {
 						uni.showToast({
@@ -175,6 +179,15 @@
 						})
 						return
 					}
+					if(freightThis < 0) {
+						uni.showToast({
+							title: "请输入正确的运费",
+							icon: "none"
+						})
+						return
+					} 
+					
+					
 					
 					// 发布商品
 					app.globalData.addGoods({
@@ -184,7 +197,8 @@
 						price: parseInt(this.price*100),
 						userId: userInfo.id,
 						userAvatar : userInfo.userAvatar,
-						userName: userInfo.userName
+						userName: userInfo.userName,
+						transportPrice: freightThis
 					}).then(res => {
 						uni.showToast({
 							title: "发布成功",
@@ -203,39 +217,79 @@
 			},
 			// 上传图片
 			uploadImage() {
+				uni.showLoading({
+					title: "上传中"
+				});
 				uni.chooseImage({
 					count: 6, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'], //从相册选择
 					success: (res) => {
-						console.log(res);
-						uni.uploadFile({
-							url: 'https://www.ydtloan.com/tos/uploadFile',
-							files: res.tempFiles,
-							filePath: res.tempFilePaths[0],
-							name: 'file',
-							header: {
-								token: uni.getStorageSync("token"),
-							},
-							success: (res) => {
-								console.log(res);
-								this.uploadPreviewImage.push(JSON.parse(res.data).url);
-							},
-							fail: (err) => {
-								uni.showToast({
-									title: err.message,
-									icon: "error"
-								})
-							}
-						})
-						
+						console.log("选择成功",res);
+						this.imageUpload(res);
 					},
 					fail: (err) => {
+						uni.hideLoading();
 						console.log(err);
+						uni.showToast({
+							title:"图片选择失败",
+							icon: "error"
+						})
 					}
 				});
 			},
-		},
+			// 图片上传接口封装
+			imageUpload(data) {
+				let count = 0;
+				data.tempFiles.forEach(item => {
+					uni.uploadFile({
+						url: 'https://www.ydtloan.com/tos/uploadFiles',
+						files: item,
+						filePath: item.path,
+						name: 'files',
+						header: {
+							token: uni.getStorageSync("token"),
+							"content-type": "multipart/form-data",
+						},
+						success: (res) => {
+							if(res.statusCode === 200) {
+								uni.showToast({
+									title: "上传成功",
+								})
+								this.uploadPreviewImage.push(JSON.parse(res.data).urls);
+								count++;
+							} else {
+								uni.showToast({
+									title: JSON.parse(res.data).error,
+									icon: "error"
+								})
+							}
+						},
+						fail: (err) => {
+							uni.showToast({
+								title: err.message,
+								icon: "error"
+							})
+							return
+						}
+					})
+				})
+				if(data.tempFiles.length === count) {
+					uni.hideLoading();
+				}
+ 			},
+			deteleThisImg(index) {
+				uni.showModal({
+					title: "提示",
+					content: "确定删除此图片？",
+					success: () => {
+						console.log("确定删除");
+						this.uploadPreviewImage.splice(index,1,);
+						console.log(this.uploadPreviewImage);
+					}
+				})
+			}
+ 		},
 		onLoad(option) {
 			this.type = option.type;
 		}
@@ -419,6 +473,9 @@ form {
 		font-family: PingFang HK-Regular, PingFang HK;
 		font-size: 30rpx;
 		color: #999999;
+		input {
+			width: 100rpx;
+		}
 	}
 	
 }
@@ -444,6 +501,7 @@ form {
 		margin-right: 24rpx;
 	}
 	.release {
+		width: 686rpx;
 		background-color: #f2d86d;
 		box-shadow: 0rpx 16rpx 55rpx -20rpx #f2d86d;
 	}

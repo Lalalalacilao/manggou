@@ -7,7 +7,7 @@
 				<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2FMangGou%403x.png"></image>
 			</view>
 			<view class="search">
-				<input class="input" type="text" placeholder="搜索你感兴趣的内容" v-model="keyWord">
+				<input class="input" type="text" placeholder="搜索你感兴趣的内容" v-model="keyWord" @confirm="search">
 				<view class="btn" @click="search">
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2F%E7%BB%84%E4%BB%B6%2029%20%E2%80%93%206%403x.png" mode="" ></image>
 				</view>
@@ -37,11 +37,11 @@
 					<view class="pdt_show" >
 						<view class="pdt_item" v-for="item in specialColumn" :key="item.id" @click="specialColumnProductDetails(item)">
 							<view class="pdt_top">
-								<image :src="item.imgUrl" mode=""></image>
+								<image :src="item.imgUrl" mode="aspectFill"></image>
 								<text>{{item.release}}发布</text>
 							</view>
 							<view class="pdt_middle">
-								<text class="intr">{{item.introduction}}</text>
+								<text class="intr">{{item.goodsName}}</text>
 								<text class="price"><text>¥</text?>{{(item.price / 100).toFixed(2)}}</text>
 							</view>
 							<view class="user">
@@ -73,11 +73,11 @@
 						
 						<view class="pdt_item" v-for="item in productList" :key="item.id" @click="productDetails(item)">
 							<view class="pdt_top">
-								<image :src="item.imgUrl" mode=""></image>
+								<image :src="item.imgUrl" mode="aspectFill"></image>
 								<text>{{item.release}}发布</text>
 							</view>
 							<view class="pdt_middle">
-								<text class="intr">{{item.introduction}}</text>
+								<text class="intr">{{item.goodsName}}</text>
 								<text class="price"><text>¥</text?>{{(item.price / 100).toFixed(2)}}</text>
 							</view>
 							<view class="user">
@@ -230,6 +230,7 @@
 					if(obtain !== 0) {
 						this.specialColumnDataHandle(obtain);
 					}
+					console.log(this.specialColumn);
 				}).catch(err => {
 					this.specialColumnLoading = err.message;
 				})
@@ -410,7 +411,7 @@
 				image {
 					width: 296rpx;
 					height: 312rpx;
-					border-radius: 12rpx  12rpx  12rpx  12rpx;
+					border-radius: 16rpx;
 				}
 				text {
 					// width: 248rpx;

@@ -62,8 +62,8 @@
 		},
 		onLoad() {
 			this.userInfo = uni.getStorageSync("userInfo");
-			console.log(this.userInfo);
 			this.avater = this.userInfo.userAvatar;
+			this.nickName = this.userInfo.userName;
 		},
 		methods: {
 			// 添加头像
@@ -127,14 +127,14 @@
 					return
 				}
 				// 手机号码正确
-				if(this.phone !== "") {
-					if(!(/^1[3456789]\d{9}$/.test(this.phone))) {
-						uni.showToast({
-							title: "手机号码格式错误",
-							icon: "error"
-						})
-					}
-				}
+				// if(this.phone !== "") {
+				// 	if(!(/^1[3456789]\d{9}$/.test(this.phone))) {
+				// 		uni.showToast({
+				// 			title: "手机号码格式错误",
+				// 			icon: "error"
+				// 		})
+				// 	}
+				// }
 				
 				app.globalData.editUserInfo({
 					userAvatar: this.avater,

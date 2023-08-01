@@ -42,23 +42,42 @@
 
 <script>
 	import md5 from 'md5';
+	const app = getApp();
 	export default {
 		data() {
 			return {
 				key:'vloUeRZk7197',//授权key
 				customer:'DFCD2FDE91E2857A061A05D30206722C',//授权
-				param:'{"com":"jtexpress","num":"JT5203235106664","phone":"13821703972","from":"","to":"","resultv2":"0","show":"0","order":"desc"}',//快递信息
+				param: {
+					com: "",
+					num: "",
+					phone: "",
+					resultv2: "4",
+					show: "0",
+					order: "desc"
+					
+				},
+				// param:'{"com":"jtexpress","num":"JT5203235106664","phone":"13821703972","from":"","to":"","resultv2":"0","show":"0","order":"desc"}',//快递信息
 				sign:'B4E8AFFA863FCCEA749B982156E576A2',
 				num:'',
 				flag:false,
 				flow:[]
 			}
 		},
-		onLoad() {
-			this.button()
+		onLoad(option) {
+			console.log(option);
+			if(!option.adminOrderId) {
+				uni.showToast({
+					title: "数据错误",
+					icon: "error"
+				})
+				return
+			}
+			this.button(option.adminOrderId);
 		},
 		methods: {
-			button(){
+			
+			async button(adminOrderId){
 				// this.flag = true
 				// var param = '{"com":"jtexpress","num":"JT5203235106664","phone":"13821703972","from":"","to":"","resultv2":"0","show":"0","order":"desc"}';
 				// var newNum = '"num":"78351848667035'; // 将要替换成的单号
@@ -68,6 +87,51 @@
 				// // 78351848667035
 				// console.log(param);
 
+				console.log("***************");
+				const res = await this.getLogisticsInfo(adminOrderId);
+				console.log(res);
+
+
+
+
+				// app.globalData.getOrderLogisticsInfo({
+				// 	adminOrderId,
+				// }).then(res => {
+				// 	this.param.com = res.data.company;
+				// 	this.param.num = res.data.expressCode;
+				// 	this.param.phone = res.data.phone;
+				// 	this.sign = this.param + this.key + this.customer;
+				// }).catch(err => {
+				// 	console.log(err);
+				// })
+				
+			
+				
+			},
+			getLogisticsInfo() {
+				return new Promise((resolve,reject) => {
+					app.globalData.getOrderLogisticsInfo({
+						adminOrderId,
+					}).then(res => {
+						// this.param.com = res.data.company;
+						// this.param.num = res.data.expressCode;
+						// this.param.phone = res.data.phone;
+						// this.sign = this.param + this.key + this.customer;
+						resolve(res);
+					}).catch(err => {
+						reject(err);
+						// console.log(err);
+					})
+				})
+				
+				
+				
+				
+				
+				
+			},
+			
+			kuaidi100() {
 				uni.request({
 					url:'https://poll.kuaidi100.com/poll/query.do' ,
 					header: {
@@ -76,15 +140,19 @@
 					method: "POST",
 					data:{
 						customer:this.customer,
-						param:this.param,
 						sign:this.sign,
+						param:this.param,
 					},
 					success: res => {
+						console.log("$$$$$$$$$$$");
 						this.flow = res.data.data
 						console.log(this.flow,res);
 					}
 				})
 			},
+			
+			
+			
 			toBack(){
 				uni.navigateBack()
 			}

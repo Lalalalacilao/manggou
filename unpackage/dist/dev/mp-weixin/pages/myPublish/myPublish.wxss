@@ -131,20 +131,35 @@
   line-height: 40rpx;
   margin-top: 10rpx;
   display: flex;
+  position: relative;
 }
-.content scroll-view .pdt_show .opration .edit.data-v-0c16060e {
-  width: 80rpx;
+.content scroll-view .pdt_show .opration .show.data-v-0c16060e {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  position: absolute;
+  left: -7rpx;
+  top: 38rpx;
+  border-radius: 18rpx;
+  border: #666;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+  font-size: 28rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666666;
+  text-align: center;
+}
+.content scroll-view .pdt_show .opration .show view.data-v-0c16060e {
+  width: 176rpx;
   height: 60rpx;
   line-height: 60rpx;
-  color: #999999;
-  font-size: 30rpx;
 }
-.content scroll-view .pdt_show .opration .del.data-v-0c16060e {
-  width: 60rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  color: #999999;
-  font-size: 30rpx;
+.content scroll-view .pdt_show .opration .show .edit.data-v-0c16060e {
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
+}
+.content scroll-view .more image.data-v-0c16060e {
+  width: 36rpx;
+  height: 8rpx;
 }
 .content scroll-view .loading.data-v-0c16060e {
   height: 156rpx;

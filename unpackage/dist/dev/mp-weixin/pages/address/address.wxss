@@ -37,6 +37,7 @@
 }
 .content {
   background-color: #F9F9F9;
+  height: 100vh;
 }
 .status_bar {
   width: 100%;

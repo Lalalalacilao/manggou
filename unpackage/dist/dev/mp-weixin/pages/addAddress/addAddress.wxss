@@ -81,7 +81,6 @@
 .from .from_item text {
   font-size: 32rpx;
   font-weight: 800;
-  letter-spacing: 3rpx;
 }
 .from .from_item input {
   width: 520rpx;
@@ -125,8 +124,22 @@
           transform: translateX(0rpx) !important;
   transition: all 0.4s !important;
 }
-.from .from_item:nth-child(1) text {
-  letter-spacing: 19rpx;
+.from .notes {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  font-size: 0;
+}
+.from .notes .title {
+  font-size: 32rpx;
+  font-weight: 800;
+}
+.from .notes textarea {
+  width: 100%;
+  margin-top: 10rpx;
+  height: 150rpx;
+  font-size: 32rpx;
+  line-height: 34rpx;
 }
 .btn {
   margin: 0 32rpx;
@@ -144,5 +157,8 @@
   font-family: PingFang HK-Medium, PingFang HK;
   font-weight: 500;
   box-shadow: 0rpx 16rpx 55rpx -20rpx #f2d86d;
+}
+.place {
+  color: #ccc;
 }
 

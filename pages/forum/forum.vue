@@ -4,10 +4,10 @@
 			<view class="status_bar"></view>
 			<view class="top_title clear">
 				<view class="title float">论坛</view>
-				<view class="top_release float" @click="topRelease">
+				<!-- <view class="top_release float" @click="topRelease">
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E6%B8%85%E9%99%A4%402x.png" mode=""></image>
 					<text>发布</text>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="fill">
@@ -22,7 +22,7 @@
 				<!-- 上方用户信息 -->
 				<view class="info clear">
 					<view class="head float">
-						<image :src="item.userAvatar" mode=""></image>
+						<image :src="item.userAvatar" mode="aspectFill"></image>
 					</view>
 					<view class="date_nick float">
 						<view class="nickname">
@@ -44,7 +44,7 @@
 				<view class="preview clear">
 					<image v-if="item.imgs != null" class="float" v-for="(img,index) in item.imgs" :key="index"
 						:style=" index > 5 ? `display: ${item.previewImg}`  : 'display: block'" :src="img"
-						@click="clickImg(item)" :data-img="img">
+						@click="clickImg(item.imgs,index)" :data-img="img" mode="aspectFill">
 					</image>
 					<view v-if="item.moreImg" class="moreImg" :style="isIphoneX ? 'right: 3rpx;' : ''"
 						@click="moreImg(item)">+{{item.imgs.length - 6}}
@@ -61,7 +61,7 @@
 							<image v-else src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2053%20%E2%80%93%201%402x.png" alt="未点赞" @click="toggleLike(item,item.id,item.userId,item.likeCount)"></image>
 							<text class="operate_num">{{item.likeCount}}</text>
 						</view>
-						<view class="comment float">
+						<!-- <view class="comment float">
 							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2055%20%E2%80%93%201%402x.png" mode=""></image>
 							<text class="operate_num">42</text>
 						</view>
@@ -71,7 +71,7 @@
 						</view>
 						<view class="more">
 							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2056%20%E2%80%93%201%402x.png" mode=""></image>
-						</view>
+						</view> -->
 					</view>
 				</view>
 				
@@ -163,10 +163,10 @@
 				item.switch = !item.switch;
 			},
 			// 点击图片放大预览
-			clickImg(item) {
+			clickImg(imgs,index) {
 				wx.previewImage({
-					urls: item.imgs, //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
-					current: '', // 当前显示图片的http链接，默认是第一个
+					urls: imgs, //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
+					current: imgs[index], // 当前显示图片的http链接，默认是第一个
 					success: function(res) {},
 					fail: function(res) {},
 					complete: function(res) {},
@@ -184,10 +184,11 @@
 				app.globalData.getCommunity({pageNum,pageSize,userId}).then(res => {
 					console.log(res,'-----');
 					const nextLenght = this.prcductList.length;
+					const obtain = res.data.records.length;
 					this.prcductList = this.prcductList.concat(res.data.records);
 					this.pageNum_++;
 					if(this.prcductList.length != nextLenght) {
-						this.showHide();
+						this.showHide(obtain);
 					} else {
 						this.loading = "没有了~";
 					}
@@ -196,8 +197,9 @@
 				})
 			},
 			// 数据处理
-			showHide() {
-				for (let i = this.prcductList.length - 10 || 0; i < this.prcductList.length; i++) {
+			showHide(obtain) {
+				console.log(this.prcductList);
+				for (let i = this.prcductList.length - obtain; i < this.prcductList.length; i++) {
 					// 文字展开配置
 					if (this.prcductList[i].introduction != null && (((/[\u4e00-\u9fa5]/.test(this.prcductList[i].introduction) && this.prcductList[i].introduction.length > 85) || this.prcductList[i].introduction.length > 170))) {
 						this.$set(this.prcductList[i], "showHide", true);
@@ -334,6 +336,7 @@
 			padding: 40rpx 30rpx 26rpx 32rpx;
 			margin-bottom: 20rpx;
 			font-family: PingFang HK-Regular, PingFang HK;
+			background-color: #fff;
 			font-size: 0;
 			position: relative;
 			.info {

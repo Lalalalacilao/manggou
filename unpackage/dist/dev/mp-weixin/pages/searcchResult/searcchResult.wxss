@@ -139,12 +139,11 @@
   margin-top: -10rpx;
 }
 .product_show .product_preview {
-  padding-top: 8rpx;
+  padding-top: 28rpx;
   position: relative;
   z-index: 0;
 }
 .product_show .product_preview .pre_item {
-  background-color: #fff;
   margin-bottom: 48rpx;
   margin-right: 22rpx;
 }
@@ -154,6 +153,7 @@
   margin-bottom: 20rpx;
 }
 .product_show .product_preview .pre_item .image image {
+  border-radius: 16rpx;
   width: 332rpx;
 }
 .product_show .product_preview .pre_item .text {
@@ -173,6 +173,7 @@
 }
 .product_show .product_preview .pre_item .text .price {
   font-size: 20rpx;
+  margin-bottom: 20rpx;
 }
 .product_show .product_preview .pre_item .text .price text {
   font-size: 32rpx;

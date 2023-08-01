@@ -5,7 +5,7 @@
 			<view class="status_bar"></view>
 			<view class="personal_info clear" @click="login">
 				<view class="head float_left" @click="head(userInfo.userId)">
-					<image :src="userInfo.userAvatar === null ? '' : userInfo.userAvatar" mode=""></image>
+					<image :src="userInfo.userAvatar === null ? '' : userInfo.userAvatar" mode="aspectFill"></image>
 				</view>
 				<view class="info float_left">
 					<view class="nickname">
@@ -252,14 +252,14 @@
 			},
 			// 售后
 			afterSales(id) {
-				console.log("售后");
-				uni.showToast({
-					title: "暂未开放，敬请期待",
-					icon: "none"
-				})
-				// uni.navigateTo({
-				// 	url:'/pages/AfterSales/AfterSales'
+				// console.log("售后");
+				// uni.showToast({
+				// 	title: "暂未开放，敬请期待",
+				// 	icon: "none"
 				// })
+				uni.navigateTo({
+					url:'/pages/AfterSales/AfterSales'
+				})
 				
 			},
 			// 点击登录
@@ -342,11 +342,9 @@
 				font-size: 48rpx;
 				font-weight: 600;
 				margin-bottom: 8rpx;
+				white-space: nowrap;
 				overflow:hidden;
 				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 1;
-				-webkit-box-orient: vertical;
 			}
 			.user_id {
 				font-size: 28rpx;

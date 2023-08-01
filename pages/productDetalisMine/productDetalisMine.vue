@@ -7,6 +7,7 @@
 				<view class="back" @click="goBack">
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E8%BF%94%E5%9B%9E%403x%402x.png" mode=""></image>
 					<text>返回</text>
+					<!-- <image @click="goIndex" src="https://mang-gou.tos-cn-beijing.volces.com/release%2F1%402x.png" mode=""></image> -->
 				</view>
 			</view>
 		</view>
@@ -15,14 +16,14 @@
 			<uni-swiper-dot :dots-styles="dotsStyles" :info="productDetali.imgUrl" :current="current" :mode="mode">
 				<swiper class="swiper-box" @change="change">
 					<swiper-item v-for="(item ,index) in productDetali.imgUrl" :key="index">
-						<image :src="item" mode=""></image>
+						<image :src="item" @click="viewImg(productDetali.imgUrl,index)" mode="aspectFit"></image>
 					</swiper-item>
 				</swiper>
 			</uni-swiper-dot>
 
 			<view class="product_intr">
 				<view class="title">
-					{{productDetali.goodsName}}{{isLimit ? "..." : ""}}
+					{{productDetali.goodsName}}
 				</view>
 				<view class="releateIntr clear">
 					<view class="price float_left">
@@ -60,14 +61,14 @@
 						{{productDetali.release}}&nbsp;发布
 					</view>
 				</view>
-				<view class="consult float_right" @click="consult">
+<!-- 				<view class="consult float_right" @click="contactMe">
 					咨询
-				</view>
+				</view> -->
 			</view>
 			
 			<view class="comment_box clear">
 				<view class="comment_box_head float_left">
-					<image :src="currentUser.userAvatar" mode=""></image>
+					<image :src="currentUser.userAvatar" mode="aspectFill"></image>
 				</view>
 				<input 
 					class="float_left" 
@@ -131,7 +132,7 @@
 									<view class="first_text float_left">
 										{{replyItem.userName}}
 									</view>
-									<view v-if="replyItem.replyUserName !== ''" class="reply_reply float_left">
+									<view v-if="replyItem.replyUserName !== null" class="reply_reply float_left">
 										▶{{replyItem.replyUserName}}
 									</view>
 									<view class="mark float_left" v-if="replyItem.userId == productDetali.userId">
@@ -162,7 +163,7 @@
 				>
 			</view>
 			
-			
+			<!-- <waterfall></waterfall> -->
 			
 			<!-- 推荐 -->
 			<view class="recommend">
@@ -172,7 +173,7 @@
 				<view class="recommend_show clear">
 					<view class="recommend_item float_left" v-for="(item,index) in recommendPro" :key="item.id" @click="recommend(item.id)">
 						<view class="preview">
-							<image :src="item.imgUrl" mode="widthFix"></image>
+							<image :src="item.imgUrl" mode="aspectFill"></image>
 						</view>
 						<view class="recommend_intr">
 							{{item.introduction}}
@@ -200,9 +201,9 @@
 		
 		<!-- 底部功能区 -->
 		<view class="bottom_funciton">
-			<view class="bottom_left">
+<!-- 			<view class="bottom_left">
 				<image src="https://mang-gou.tos-cn-beijing.volces.com/productDetail%2F%E7%BB%84%E4%BB%B6%20173%20%E2%80%93%201%402x.png" mode=""></image>
-			</view>
+			</view> -->
 			<view class="bottom_right" @click="purchase">
 				点击购买
 			</view>
@@ -223,7 +224,11 @@
 
 <script>
 const app = getApp();
+import waterfall from "../../uni_modules/helang-waterfall/pages/waterfall/waterfall.vue"
 export default {
+	components: {
+		waterfall
+	},
 	data() {
 		return {
 			// 产品信息
@@ -269,13 +274,23 @@ export default {
 	methods: {
 		// 返回
 		goBack() {
-			uni.navigateBack({
-				delta: 1
-			});
+			const pages = getCurrentPages();
+			console.log(pages.length);
+			if(pages.length <= 1) {
+				uni.switchTab({
+					url: "/pages/index/index"
+				})
+			} else {
+				uni.navigateBack({
+					delta: 1
+				});
+			}
+		
+			
 		},
 		// 分享
 		onShareAppMessage() {
-			const url="/pages/productDetalis/productDetalis?id=" + this.productDetali.id;//你的转发页面路径拼接参数
+			const url="/pages/productDetalisMine/productDetalisMine?id=" + this.productDetali.id;//你的转发页面路径拼接参数
 			return {
 				title: this.productDetali.title,
 				path: url,
@@ -292,7 +307,16 @@ export default {
 		change(e) {
 			this.current = e.detail.current;
 		},
-		
+		// 点击图片预览
+		viewImg(imgs,index) {
+			wx.previewImage({
+				urls: imgs, //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
+				current: imgs[index], // 当前显示图片的http链接，默认是第一个
+				success: function(res) {},
+				fail: function(res) {},
+				complete: function(res) {},
+			})
+		},
 		// 评论拉取
 		getCommentList() {
 			app.globalData.specialColumnGoosComment({
@@ -333,9 +357,7 @@ export default {
 			const userInfo = uni.getStorageSync("userInfo");
 			app.globalData.specialColumnAddParentComment({
 				detail: comment,
-				userAvatar: userInfo.userAvatar,
 				userId: userInfo.id,
-				userName : userInfo.userName,
 				backendGoodsId : this.productDetali.id,
 			}).then(res => {
 				uni.showToast({
@@ -386,14 +408,13 @@ export default {
 				return
 			}
 
+
 			app.globalData.specialColumnAddReply({
 				detail: inputReplyCommentThis,
 				parentId: this.commented.id,
-				replyUserName: this.subComment === "" ? '' : this.subComment.userName,
-				userAvatar: this.currentUser.userAvatar,
+				replyUserId: !this.subComment ? -1 : this.subComment.userId,
 				backendGoodsId : this.productDetali.id,
 				userId: this.currentUser.id,
-				userName: this.currentUser.userName
 			}).then(res => {
 				uni.showToast({
 					title: "评论成功",
@@ -441,10 +462,10 @@ export default {
 			// 时间处理
 			this.$set(this.productDetali,"release",this.productDetali.createTime.substr(0,16));
 			// 标题字数处理
-			if(this.productDetali.goodsName.length > 25) {
-				this.isLimit = true;
-				this.productDetali.goodsName = this.productDetali.goodsName.slice(0,24);
-			}
+			// if(this.productDetali.goodsName.length > 25) {
+			// 	this.isLimit = true;
+			// 	this.productDetali.goodsName = this.productDetali.goodsName.slice(0,24);
+			// }
 			// 图片url处理
 			if(this.productDetali.imgUrl !== null) {
 				this.productDetali.imgUrl = JSON.parse(this.productDetali.imgUrl);
@@ -542,15 +563,17 @@ export default {
 			width: 156rpx;
 			height: 64rpx;
 			background-color: rgba(255, 255, 255, 0.6);
-			padding: 8rpx 28rpx  8rpx 22rpx;
+			padding: 0rpx 28rpx  0rpx 22rpx;
 			box-sizing: border-box;
 			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
 			border-radius: 32rpx;
 			image {
 				width: 32rpx;
 				height: 32rpx;
 				margin-right: 10rpx;
-				margin-top: 8rpx;
+				// margin-top: 8rpx;
 			}
 			text {
 				font-family: PingFang SC-Regular, PingFang SC;
@@ -582,6 +605,7 @@ export default {
 	border-radius: 36rpx;
 	font-size: 0;
 	margin-bottom: 20rpx;
+	word-break: break-all;
 	.title {
 		font-size: 44rpx;
 		// font-weight: bold;
@@ -759,6 +783,7 @@ export default {
 			margin-top: 4rpx;
 			margin-right: 24rpx;
 			image {
+				border-radius: 50%;
 				width: 68rpx;
 				height: 68rpx;
 			}
@@ -833,7 +858,7 @@ export default {
 		.recommend_item {
 			background-color: #fff;
 			width: 332rpx;
-			// height: 480rpx;
+			height: 480rpx;
 			box-sizing: border-box;
 			padding: 18rpx 18rpx 20rpx 18rpx;
 			margin-bottom: 24rpx;
@@ -844,7 +869,7 @@ export default {
 				image {
 					border-radius: 24rpx;
 					width: 296rpx;
-					// height: 296rpx;
+					height: 296rpx;
 				}
 			}
 			.recommend_intr {
@@ -902,6 +927,7 @@ export default {
 // 联系我
 .bottom_funciton {
 	position: fixed;
+	z-index: 1;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -922,7 +948,8 @@ export default {
 		color: #0D0D26;
 		font-family: PingFang SC-Bold, PingFang SC;
 		font-weight: bold;
-		width: 430rpx;
+		// width: 430rpx;
+		width: 100%;
 		background-color: #F2D86D;
 	}
 }

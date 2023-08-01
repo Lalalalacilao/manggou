@@ -230,9 +230,7 @@
 					index: this.keyWord,
 					tag: this.searchType
 				}).then(res => {
-					uni.showToast({
-						title: res.msg,
-					})
+					
 					const nextLenght = this.productList.length;
 					this.productList = this.productList.concat(res.data.records);
 					const obtain = res.data.records.length;
@@ -412,11 +410,11 @@
 	}
 	
 	.product_preview {
-		padding-top: 8rpx;
+		padding-top: 28rpx;
 		position: relative;
 		z-index: 0;
 		.pre_item {
-			background-color: #fff;
+			// background-color: red;
 			margin-bottom: 48rpx;
 			margin-right: 22rpx;
 			.image {
@@ -424,6 +422,7 @@
 				z-index: 0;
 				margin-bottom: 20rpx;
 				image {
+					border-radius: 16rpx;
 					width: 332rpx;
 				}
 			}
@@ -443,6 +442,7 @@
 				}
 				.price {
 					font-size: 20rpx;
+					margin-bottom: 20rpx;
 					text {
 						font-size: 32rpx;
 						font-weight: 800;

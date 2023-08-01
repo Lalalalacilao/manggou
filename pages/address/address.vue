@@ -30,7 +30,7 @@
 							</view>
 						</view>
 						<view class="position">
-							{{item.addressDetail}}
+							{{item.province + item.city + item.zone + item.addressDetail}}
 						</view>
 					</view>
 					<view class="function clear">
@@ -46,7 +46,7 @@
 							</view>
 						</view>
 						<view class="fun_right">
-							<view class="edit fun_btn float_left" @click="editThis(index)">
+							<view class="edit fun_btn float_left" @click="editThis(item.id)">
 								<image src="https://mang-gou.tos-cn-beijing.volces.com/address%2F%E7%BC%96%E8%BE%91%402x.png" mode=""></image>
 							</view>
 							<view class="delete fun_btn float_left" @click="deleteThis(index,item.id)">
@@ -62,7 +62,10 @@
 			
 			
 			<view class="bottom">
-				<view class="delete" @click="deleteAll">
+				<view v-if="select" class="delete" @click="submit">
+					选择
+				</view>
+				<view v-else class="delete" @click="deleteAll">
 					删除
 				</view>
 				<view class="add" @click="addAddress">
@@ -130,15 +133,6 @@
 			
 			
 			back() {
-				if(this.select) {
-					for(let i = 0; i < this.myAddress.length; i++) {
-						if(this.myAddress[i].isChoose) {
-							console.log(this.myAddress[i]);
-							uni.setStorageSync("newAddress",JSON.stringify(this.myAddress[i]));
-							break;
-						}
-					}
-				}
 				uni.navigateBack({
 					delta: 1
 				})
@@ -169,8 +163,8 @@
 			// 底部删除按钮
 			deleteAll() {
 				let selectedAddresses = [];
-					for (let i = 0; i < this.myAddress.length; i++) {
-						if (this.myAddress[i].isChoose) {
+				for (let i = 0; i < this.myAddress.length; i++) {
+					if (this.myAddress[i].isChoose) {
 						selectedAddresses.push(i);
 						console.log(selectedAddresses);
 					}
@@ -179,6 +173,19 @@
 					this.deleteThis(index);
 					// console.log(index,this.userInfo.id);
 				});
+			},
+			// 选择该地址
+			submit() {
+				let choosedAddress = null;
+				choosedAddress = this.myAddress.filter(item => {
+					if(item.isChoose === true) {
+						return item;
+					}
+				})[0];
+				uni.setStorageSync("newAddress",choosedAddress);
+				uni.navigateBack({
+					delta: 1
+				})
 			},
 			// 新增地址
 			addAddress() {
@@ -253,6 +260,7 @@
 // 顶部
 .content {
 	background-color: #F9F9F9;
+	height: 100vh;
 }
 .status_bar {
 	width: 100%;
@@ -287,6 +295,7 @@
 		}
 	}
 }
+
 .address {
 	padding: 32rpx;
 	.address_item {

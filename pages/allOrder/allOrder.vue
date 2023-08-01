@@ -61,6 +61,8 @@
 									<view class="mg-dealState-pay" v-if="item.status == 1">待收货</view>
 									<view class="mg-dealState-pay" v-if="item.status == 2">待评价</view>
 									<view class="mg-dealState-pay" v-if="item.status == 3">交易完成</view>
+									<view class="mg-dealState-pay" v-if="item.status == 4">退款中</view>
+									<view class="mg-dealState-pay" v-if="item.status == 5">已退款-</view>
 								</view>
 								<!-- 订单详情 -->
 								<view class="mg-goodsIntroduction">
@@ -80,8 +82,8 @@
 									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
-										<view class="used-2" v-if="item.status == 0">待付款</view>
-										<view class="used-2" v-if="item.status == 1">确认收货</view>
+										<view class="used-2" @click="buy(item)" v-if="item.status == 0">待付款</view>
+										<view class="used-2" @click="confirmReceipt(item.id)" v-if="item.status == 1">确认收货</view>
 										<view class="used-2" v-if="item.status == 2">去评价</view>
 										<view class="used-4" v-if="item.status == 3">已评价</view>
 										<view class="used-3" @click="OrderDetails(item.id)" v-if="item.status == 1 || item.status == 2 || item.status == 3">查看物流</view>
@@ -180,11 +182,11 @@
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="refund(item.id)">退款</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-2" @click="confirmReceipt(item.id)">确认收货</view>
-										<view class="used-3" @click="OrderDetails(item.id)">查看物流</view>
+										<view class="used-3" @click="OrderDetails(item.adminOrderId)">查看物流</view>
 									</view>
 								</view>
 							</view>
@@ -229,7 +231,7 @@
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="refund(item.id)">退款</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-2">去评价</view>
@@ -278,7 +280,7 @@
 								<!-- 更多和支付 -->
 								<view class="mg-more">
 									<text @click="deletedeal(index)">更多</text>
-									<view class="deleteDeal" v-if="flag == index" @click="deleteOrder(item.id)">删除订单</view>
+									<view class="deleteDeal" v-if="flag == index" @click="refund(item.id)">退款</view>
 									<view class="used">
 										<view class="used-1">联系卖家</view>
 										<view class="used-4">已评价</view>
@@ -338,13 +340,13 @@
 		},
 		methods: {
 			// 查看物流
-			OrderDetails(id){
+			OrderDetails(adminOrderId){
 				uni.showToast({
 					title: "暂未开放，敬请期待",
 					icon: "none"
 				})
 				// uni.navigateTo({
-				// 	url:'/pages/logistics/logistics?id=' + id
+				// 	url:'/pages/logistics/logistics?adminOrderId=' + adminOrderId
 				// })
 			},
 			// 查询全部订单信息
@@ -427,12 +429,6 @@
 					}
 				});
 			},
-			// 节流
-			// throttle(fun,t) {
-			//     let timer = null;
-			//     return function() 
-			// }, 
-
 			//swiper-item
 			setCurr(e) {
 				this.curr = e.detail.current || e.currentTarget.dataset.index || 0;
@@ -441,7 +437,6 @@
 				// 根据状态获取订单
 				// 节流控制
 				if(!this.timer){
-					console.log("******************");
 					this.timer = setTimeout(() => {
 						this.getSelectOrderr();
 						// 清除定时器后，以下次可以继续定时
@@ -467,7 +462,7 @@
 					delta: 1
 				})
 			},
-			//订单
+			// 根据状态获取订单
 			getSelectOrderr() {
 				this.currs = this.curr - 1
 				app.globalData.selectOrderByStatus({
@@ -480,9 +475,6 @@
 						const newLenght = res.data.records.length;
 						this.pageNum++;
 						this.selectOrdedel = this.selectOrdedel.concat(this.dataHandle(res.data.records,newLenght));
-						console.log("__________________________");
-						console.log(res.data.records);
-						console.log(this.selectOrdedel);
 					}
 				}).catch(err => {
 					uni.showToast({
@@ -495,6 +487,7 @@
 			dataHandle(arr,newLenght) {
  				for(let i = arr.length - newLenght; i < arr.length; i++) {
 					arr[i].goodsImg = JSON.parse(arr[i].goodsImg)[0];
+					// 过期时间处理逻辑
 					if(arr[i].expireTime) {
 						arr[i].expireTime = arr[i].expireTime.split(" ")[1];
 					}
@@ -550,20 +543,39 @@
 			},
 			// 确认收货
 			confirmReceipt(orderId) {
-				app.globalData.confirmReceipt({
-					orderId,
-				}).then(res => {
-					this.curr = 4; 
-				}).catch(err => {
-					uni.showToast({
-						title: err.message,
-						icon: "error"
-					})
+				uni.showModal({
+					title: "提示",
+					content: '确认收货吗？',
+					success: (res) => {
+						if (res.confirm) {
+							app.globalData.confirmReceipt({
+								orderId,
+							}).then(res => {
+								this.curr = 4; 
+							}).catch(err => {
+								uni.showToast({
+									title: err.message,
+									icon: "error"
+								})
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+				
+				
+			},
+			// 退款
+			refund(id) {
+				uni.navigateTo({
+					url: "/pages/refund/refund?id=" + id
 				})
 			}
 		},
 		onLoad(option) {
 			this.userInfo = uni.getStorageSync("userInfo");
+			
 			
 			if(option.curr) {
 				this.curr = option.curr

@@ -92,6 +92,7 @@
   padding: 40rpx 30rpx 26rpx 32rpx;
   margin-bottom: 20rpx;
   font-family: PingFang HK-Regular, PingFang HK;
+  background-color: #fff;
   font-size: 0;
   position: relative;
 }

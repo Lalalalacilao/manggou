@@ -1,5 +1,8 @@
 <template>
 	<view class="content">
+		<view class="logo">
+			<image src="https://mang-gou.tos-cn-beijing.volces.com/index%2FMangGou%403x.png" mode="aspectFit"></image>
+		</view>
 		<view class="login">
 			<view class="btn">
 				<button :open-type="isCheck ? 'getPhoneNumber' : ''" @getphonenumber="getPhoneNumber" @click="checkPlease">点击登录</button>
@@ -230,6 +233,14 @@
 			margin-left: 254rpx;
 		}
 	}
+}
+
+.logo {
+	margin: 0 auto;
+	position: absolute;
+	left: 50%; 
+	top: 20%;
+	transform: translateX(-50%);
 }
 
 .login {

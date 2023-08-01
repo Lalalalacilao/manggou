@@ -18,17 +18,17 @@
 		</view>
 		
 		<view class="address">
-			<view class="title clear">
+			<view class="title clear" @click="goAddAddress">
 				<view class="title_text float_left">
 					服务地址
 				</view>
-				<view class="title_icon float_right" @click="goAddAddress">
+				<view class="title_icon float_right" >
 					<image src="https://mang-gou.tos-cn-beijing.volces.com/current%2F%E5%90%91%E5%8F%B31%402x(1).png" mode=""></image>
 				</view>
 			</view>
 			<view class="address_info">
 				<view class="detail">
-					{{address.addressDetail}}
+					{{address.province + address.city + address.zone + address.addressDetail}}
 				</view>
 				<view class="personal_info clear">
 					<view class="name float_left">
@@ -43,7 +43,7 @@
 		
 		<view class="order clear">
 			<view class="preview float_left">
-				<image :src="productiDetail.imgUrl" mode="widthFix"></image>
+				<image :src="productiDetail.imgUrl" mode="aspectFill"></image>
 			</view>
 			<view class="order_info float_left">
 				<view class="pro_title">
@@ -69,7 +69,7 @@
 			<view class="title">
 				备注
 			</view>
-			<textarea v-module="remark" maxlength="-1" placeholder="请输入备注"></textarea>
+			<textarea v-model="remark" maxlength="-1" placeholder="请输入备注"></textarea>
 		</view>
 		
 		<view class="price clear">
@@ -99,6 +99,7 @@
 	export default {
 		data() {
 			return {
+				test: false,
 				// 产品信息
 				productiDetail: {},
 				// 用户地址
@@ -113,7 +114,8 @@
 				number: 1,
 				// 备注
 				remark: "",
-				// 
+				
+				
 				timer: null
 			}
 		},
@@ -215,13 +217,20 @@
 			},
 			// 订单生成封装
 			orderGenerated() {
+				if(!this.address.id) {
+					uni.showToast({
+						title: "请选择地址",
+						icon: "error"
+					})
+					return
+				}
+				
 				app.globalData.orderForGoods({
 					goodsId: this.productiDetail.id,
 					num: this.number,
 					userId: this.userInfo.id,
 					addressId: this.address.id
 				}).then(res => {
-					console.log(res);
 					this.wxPayment(res.data)
 				}).catch(err => {
 					uni.showToast({
@@ -255,10 +264,9 @@
 					signType: data.signType,
 					paySign: data.paySign,
 					success: (res) => {
-						console.log(res);
 						uni.showToast({
-							title:'支付成功',
-							icon:'success'
+							title: "加载中",
+							icon: "loading"
 						})
 						uni.navigateTo({
 							url:'/pages/allOrder/allOrder?curr=' + 2 + '&userId=' + this.userInfo.id
@@ -266,30 +274,33 @@
 					},
 					fail: (err) => {
 						uni.showToast({
-							title:'支付失败',
-							icon:'error'
+							title: "加载中",
+							icon: "loading"
 						})
 						uni.navigateTo({
 							url:'/pages/allOrder/allOrder?curr=' + 1 + '&userId=' + this.userInfo.id
 						})
 					}
 				})
+			},
+			// 地址改变方法
+			changeAddress(newAddress) {
+				if(newAddress) {
+					this.address = newAddress;
+				}
 			}
 		},
 		onLoad(option) {
 			this.userInfo = uni.getStorageSync("userInfo");
 			this.getProductDetail(option.proId);
+			this.getDefaltAddress();
 		},
 		onShow() {
-			// let newAddress = uni.getStorageSync("newAddress");
-			// if(newAddress) {
-			// 	newAddress = JSON.parse(newAddress);
-			// 	this.myAddress = newAddress;
-			// 	this.$set(this.myAddress,"null",null);
-			// 	console.log(this.myAddress);
-			// 	uni.removeStorageSync("newAddress");
-			// }
-			this.getDefaltAddress();
+			let newAddress = uni.getStorageSync("newAddress");
+			if(newAddress) {
+				this.changeAddress(newAddress);
+				uni.removeStorageSync("newAddress");
+			}
 		},
 	}
 </script>
@@ -461,6 +472,7 @@
 .price {
 	border-radius: 20rpx;
 	padding: 20rpx 10rpx 20rpx 10rpx;
+	margin-bottom: 20rpx;
 	
 	background-color: #fff;
 	font-size: 28rpx;

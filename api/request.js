@@ -9,7 +9,7 @@ export default (url, method, params) => {
 
 	return new Promise((resolve, reject) => {
 		uni.request({
-				url: "http://192.168.18.78:8080" + url,
+				url: "https://www.ydtloan.com" + url,
 				method: method,
 				header: {
 					token:token,

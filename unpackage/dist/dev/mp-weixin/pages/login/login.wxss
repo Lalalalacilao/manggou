@@ -62,6 +62,14 @@
   font-family: PingFang SC-Heavy, PingFang SC;
   margin-left: 254rpx;
 }
+.logo {
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
 .login {
   position: absolute;
   bottom: 300rpx;

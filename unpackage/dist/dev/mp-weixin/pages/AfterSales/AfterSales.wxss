@@ -274,4 +274,11 @@
   width: 200rpx;
   height: 200rpx;
 }
+.loading {
+  height: 156rpx;
+  text-align: center;
+  line-height: 156rpx;
+  font-size: 26rpx;
+  color: #333333;
+}
 

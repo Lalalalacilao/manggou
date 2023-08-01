@@ -20,7 +20,8 @@
     "pages/purchase/purchase",
     "pages/serveTrem/serveTrem",
     "pages/myPublish/myPublish",
-    "pages/editMyPublish/editMyPublish"
+    "pages/editMyPublish/editMyPublish",
+    "pages/refund/refund"
   ],
   "subPackages": [],
   "window": {

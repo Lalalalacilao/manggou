@@ -17,25 +17,30 @@
 		<form class="from clear">
 			<view class="name from_item">
 				<text>收货人</text>
-				<input type="text" placeholder="请填写收货人姓名" :maxlength="10" v-model="userName">
+				<input type="text" placeholder-class="place" placeholder="请填写收货人姓名" :maxlength="10" v-model="userName">
 			</view>
 			<view class="phoneNum from_item">
 				<text>联系电话</text>
-				<input type="number" placeholder="请填写收货人手机号码" v-model="userPhone">
+				<input type="number" placeholder-class="place" placeholder="请填写收货人手机号码" v-model="userPhone">
 			</view>
-			<view class="area from_item">
-				<text>所在地区</text>
-				<input type="text" placeholder="请省市区、乡镇等" v-model="address.addCity">
+			
+			<u-form :labelStyle="labelStyle">
+				<u-form-item label="地址" prop="address" @click="addressShow = true;">
+					<u--input placeholderStyle="color: #ccc" fontSize="32rpx" v-model="address" disabled disabledColor="#ffffff" border="none"
+						placeholder='请输入家庭地址'></u--input>
+				</u-form-item>
+			</u-form>
+			<address-picker :show="addressShow" closeOnClickOverlay @confirm='confirmAddress' @cancel='addressShow=false'
+				@close='addressShow = false' :address-data="addressData" :indexs="indexs" :areaId="areaId" :type="type"></address-picker>
+			
+			<view class="notes">
+				<view class="title">
+					详细地址
+				</view>
+				<textarea v-model="detailAddress" maxlength="-1" placeholder="请输入详细地址" placeholder-class="place"></textarea>
 			</view>
-			<view class="street from_item">
-				<text>所在街道</text>
-				<input type="text" placeholder="请填写街道" v-model="address.addStreet">
-			</view>
-			<view class="detail from_item">
-				<text>详细地址</text>
-				<input type="text" placeholder="请填写详细地址" v-model="address.addDetail">
-			</view>
-			<view class="default from_item clear" v-if="addressindex == '' ">
+			
+			<view class="default from_item clear">
 				<view class="text float_left">
 					设为默认地址
 				</view>
@@ -46,98 +51,140 @@
 			</view>
 		</form>
 		<view class="btn from_item" @click="submit">
-			<text v-if="addressindex == ''">提交</text>
+			<text v-if="!editOrSubmit">提交</text>
 			<text v-else>确认修改</text>
 		</view>
 	</view>
 </template>
 
 <script>
+	// import addressPicker from "../../uni_modules/address-picker/components/address-picker/address-picker.vue"
 	const app = getApp();
 	export default {
+		// components: {
+		// 	"address-picker":addressPicker,
+		// },
 		data() {
 			return {
 				userName: "",
 				userPhone: "",
-				address: {
-					addCity: "",
-					addStreet: "",
-					addDetail: ""
-				},
+				province: "",
+				city: "",
+				zone: "",
+				addressDetail: "",
 				// 设为默认
 				isDefault: false,
+				
+				
+				
 				// 用户信息
 				userInfo: {},
-				addressindex:''
+				
+				id: 0,
+				editOrSubmit: false,
+				
+				
+				address: '',
+				addressShow: false,
+				title: 'Hello',
+				indexs: [0, 0, 0],
+				areaId: [1, 110000, 110101],
+				addressData: ['北京市', '北京市', '东城区'],
+				type: 3, //1-省，2-省市，3-省市区
+				detailAddress: "",
+				
+				
+				labelStyle: {
+					"font-size": "32rpx",
+					"font-weight": 800,
+					"padding": "20rpx 0",
+					"background-color": "#fff"
+				},
 			};
 		},
 		methods: {
+			// 省市区选择确认
+			confirmAddress(val) {
+				console.log(val);
+				
+				this.address = val.value.join('');
+				this.province = val.value[0];
+				this.city = val.value[1];
+				this.zone = val.value[2];
+				
+				this.addressShow = false
+			},
+			
 			switchBtn() {
 				this.isDefault = !this.isDefault;
 			},
+			
 			// 地址请求
 			getAddress(id) {
-				app.globalData.getUserAddress({
-					userId: this.userInfo.id
+				app.globalData.getOneAddressInfo({
+					id,
 				}).then(res => {
-					if(res.data !== undefined) {
-						this.myAddress = res.data[this.addressindex]
-						this.userName = res.data[this.addressindex].name
-						this.userPhone = res.data[this.addressindex].phone
-						const [province, district, street] = res.data[this.addressindex].addressDetail.trim().split(/\s+/);
-						this.address.addCity = province
-						this.address.addStreet = district
-						this.address.addDetail = street
-						this.id = res.data[this.addressindex].id
-					} else {
-						uni.showToast({
-							title: "您还没有地址，快添加吧！",
-							icon: "none"
-						})
-					}
+					this.userName = res.data.name;
+					this.userPhone = res.data.phone;
+					
+					this.province = this.addressData[0] = res.data.province;
+					this.city = this.addressData[1] = res.data.city;
+					this.zone = this.addressData[2] = res.data.zone;
+					this.address = this.province + this.city + this.zone;
+					this.detailAddress = res.data.addressDetail;
+					
+					this.isDefault = res.data.isDefault === 0 ? false : true;
+					this.id = id;
+					
 				}).catch(err => {
-					uni.showToast({
-						title: err.message,
-						icon: "error"
-					})
+					console.log(err);
 				})
 			},
 			
 			// 添加地址
 			submit() {
-				this.addressString = this.address.addCity.trim()+ ' ' + this.address.addStreet.trim()+ ' ' + this.address.addDetail.trim();
+				const userNameThis = this.userName.trim();
+				const userPhoneThis = this.userPhone.trim();
+				const detailAddressThis = this.detailAddress.trim();
+				
 				// 为空校验
-				if(this.userName.trim() === "") {
+				if(userNameThis === "") {
 					uni.showToast({
 						title: "收货人不能为空",
 						icon: "error"
 					})
 					return
-				} else if(this.userPhone.trim() === "" || !(/^1[3456789]\d{9}$/.test(this.userPhone))) {
-					console.log("11111");
+				} else if(userPhoneThis === "" || !(/^1[3456789]\d{9}$/.test(userPhoneThis))) {
 					uni.showToast({
 						title: "手机号错误",
 						icon: "error"
 					})
 					return
-				} else if(this.addressString.trim() === "") {
+				} else if(this.address === "") {
 					uni.showToast({
-						title: "地址不能为空",
+						title: "请选择地区",
+						icon: "error"
+					})
+				} else if(detailAddressThis === "") {
+					uni.showToast({
+						title: "请填写详细地址",
 						icon: "error"
 					})
 					return
 				}
-				if(this.addressindex == undefined){
+				
+				if(!this.editOrSubmit){
 					// 提交新增
 					app.globalData.addUserAddress({
-						address: this.addressString,
-						name: this.userName,
-						phone: this.userPhone,
 						userId: this.userInfo.id,
+						name: userNameThis,
+						phone: userPhoneThis,
+						province: this.province,
+						city: this.city,
+						zone: this.zone,
+						addressDetail: detailAddressThis,
 						isDefault: +(this.isDefault ? 1 : 0)
-						
 					}).then(res => {
-						console.log(this.addressString,this.userName);
 						uni.showToast({
 							title: "添加成功",
 							icon: "none"
@@ -154,14 +201,15 @@
 				}else{
 					//修改
 					app.globalData.updateAddress({
-						address: this.addressString,
-						name: this.userName,
-						phone: this.userPhone,
+						province: this.province,
+						city: this.city,
+						zone: this.zone,
+						address: detailAddressThis,
+						name: userNameThis,
+						phone: userPhoneThis,
 						userId: this.userInfo.id,
 						locId: this.id
-						
 					}).then(res => {
-						console.log(res);
 						uni.showToast({
 							title: "添加成功",
 							icon: "none"
@@ -188,10 +236,9 @@
 		},
 		onLoad(options) {
 			this.userInfo = uni.getStorageSync("userInfo");
-			this.addressindex = options.index
-			console.log(this.addressindex);
-			if(this.addressindex != undefined){
-				this.getAddress()
+			if(options.index != undefined){
+				this.editOrSubmit = true;
+				this.getAddress(options.index);
 			}
 		}
 	}
@@ -261,13 +308,11 @@
 		text {
 			font-size: 32rpx;
 			font-weight: 800;
-			letter-spacing: 3rpx;
 		}
 		input {
 			width: 520rpx;
 			height: 50rpx;
 		}
-
 	}
 	.default {
 		margin-top: 10rpx;
@@ -307,9 +352,22 @@
 			transition: all 0.4s !important;
 		}
 	}
-	.from_item:nth-child(1) {
-		text {
-			letter-spacing: 19rpx;
+	.notes {
+		margin-bottom: 20rpx;
+		background-color: #fff;
+		border-radius: 20rpx;
+		// padding: 20rpx 10rpx 20rpx 10rpx;
+		font-size: 0;
+		.title {
+			font-size: 32rpx;
+			font-weight: 800;
+		}
+		textarea {
+			width: 100%;
+			margin-top: 10rpx;
+			height: 150rpx;
+			font-size: 32rpx;
+			line-height: 34rpx;
 		}
 	}
 }
@@ -331,7 +389,9 @@
 	box-shadow: 0rpx 16rpx 55rpx -20rpx #f2d86d;
 }
 
-
+.place {
+	color: #ccc
+}
 
 
 </style>

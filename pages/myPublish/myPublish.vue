@@ -19,7 +19,7 @@
 			@scrolltolower="specialColumnBottomLoading()">
 			<!-- 展示列表 -->
 			<view class="pdt_show">
-				<view class="pdt_item" v-for="item in specialColumn" :key="item.id">
+				<view class="pdt_item" v-for="(item,index) in specialColumn" :key="item.id">
 					<view class="pdt_top" @click="specialColumnProductDetails(item)">
 						<image :src="item.imgUrl" mode="aspectFill"></image>
 						<text>{{item.release}}发布</text>
@@ -34,8 +34,13 @@
 						
 					</view>
 					<view class="opration">
-						<view class="edit" @click="edit(item)">修改</view>
-						<view class="del" @click="del(item)">删除</view>
+						<view class="more" @click="more(index)">
+							<image src="https://mang-gou.tos-cn-beijing.volces.com/forum%2F%E7%BB%84%E4%BB%B6%2056%20%E2%80%93%201%402x.png" mode=""></image>
+						</view>
+						<view class="show" v-if="flag === index">
+							<view class="edit" @click="edit(item)">修改</view>
+							<view class="del" @click="del(item)">删除</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -55,7 +60,8 @@
 				specialColumn: [],
 				specialColumnLoading: "",
 				userInfo: '',
-				specialColumnPageNum_: 1
+				specialColumnPageNum_: 1,
+				flag: null
 			}
 		},
 		methods: {
@@ -89,7 +95,7 @@
 					this.specialColumn = this.specialColumn.concat(res.data.records);
 					const obtain = res.data.records.length;
 					this.specialColumnPageNum_++;
-					if (this.specialColumn.length === nextLenght) {
+					if (this.specialColumn.length === res.data.records) {
 						this.specialColumnLoading = "没有了~";
 					}
 					// 数据处理逻辑
@@ -118,17 +124,38 @@
 				})
 			},
 			del(item) {
-				app.globalData.delGood({id:item.id}).then(res => {
-					if(res.status === 0) {
-						// 刷新热卖
-						this.specialColumn = [];
-						this.specialColumnLoading = "";
-						this.specialColumnPageNum_ = 1;
-						this.specialColumnProConsult();
+				uni.showModal({
+					title: "提示",
+					content: "确认删除吗？",
+					success: (res) => {
+						if(res.confirm) {
+							app.globalData.delGood({id:item.id}).then(res => {
+								if(res.status === 0) {
+									// 刷新热卖
+									this.specialColumn = [];
+									this.specialColumnLoading = "";
+									this.specialColumnPageNum_ = 1;
+									this.specialColumnProConsult();
+								}
+							}).catch(err => {
+								console.log(err);
+							})
+						} else if(res.cancel) {
+							return
+						}
 					}
-				}).catch(err => {
-					console.log(err);
 				})
+				
+				
+				
+			},
+			more(index) {
+					console.log("##########",index);
+				if (this.flag == index) {
+					this.flag = null
+				} else {
+					this.flag = index
+				}
 			}
 		},
 		onLoad() {
@@ -317,24 +344,41 @@
 					line-height: 40rpx;
 					margin-top: 10rpx;
 					display: flex;
-					.edit {
-						width: 80rpx;
-						height: 60rpx;
-						line-height: 60rpx;
-						color: #999999;
-						font-size: 30rpx;
+					position: relative;
+					.show {
+						padding: 0 30rpx;
+						box-sizing: border-box;
+						background-color: #fff;
+						position: absolute;
+						left: -7rpx;
+						top: 38rpx;
+						border-radius: 18rpx;
+						border: #666;
+						box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+						font-size: 28rpx;
+						font-family: PingFang SC-Regular, PingFang SC;
+						font-weight: 400;
+						color: #666666;
+						text-align: center;
+						view {
+							width: 176rpx;
+							height: 60rpx;
+							line-height: 60rpx;
+						}
+						.edit {
+							border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
+						}
 					}
-					.del {
-						width: 60rpx;
-						height: 60rpx;
-						line-height: 60rpx;
-						color: #999999;
-						font-size: 30rpx;
-					}
+					
 				}
 
 			}
-
+			.more {
+				image {
+					width: 36rpx;
+					height: 8rpx;
+				}
+			}
 			.loading {
 				height: 156rpx;
 				text-align: center;

@@ -189,6 +189,9 @@ form .describe textarea {
   font-size: 30rpx;
   color: #999999;
 }
+.choose .postage input {
+  width: 100rpx;
+}
 .btn {
   justify-content: center;
   font-size: 0;
@@ -210,6 +213,7 @@ form .describe textarea {
   margin-right: 24rpx;
 }
 .btn .release {
+  width: 686rpx;
   background-color: #f2d86d;
   box-shadow: 0rpx 16rpx 55rpx -20rpx #f2d86d;
 }
